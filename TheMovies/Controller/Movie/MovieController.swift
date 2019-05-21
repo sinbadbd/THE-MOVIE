@@ -20,13 +20,18 @@ class MovieController : UIViewController {
     let nowPlayViewButton: UIButton = UIButton(type: .system)
     
     
-    let collectionViewNowPlaying : UICollectionView = {
+    let collectionViewMain : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
+    
+    
+    
+    
     
     
     override func viewDidLoad() {
@@ -35,15 +40,19 @@ class MovieController : UIViewController {
         setupScrollView()
         setUpView()
         
-        collectionViewNowPlaying.delegate = self
-        collectionViewNowPlaying.dataSource = self
-        collectionViewNowPlaying.register(NowPlayingCell.self, forCellWithReuseIdentifier: "NOW_CELL")
+        collectionViewMain.delegate = self
+        collectionViewMain.dataSource = self
+        collectionViewMain.register(NowPlayingCell.self, forCellWithReuseIdentifier: "NOW_CELL")
+        collectionViewMain.alwaysBounceHorizontal = true
     }
     
     func setupScrollView(){
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.backgroundColor = .white
+        
+        
+        
         
         self.view.addSubview(scrollView)
         self.view.addConstraints([
@@ -55,7 +64,7 @@ class MovieController : UIViewController {
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
             ])
-       // self.scrollView.contentInsetAdjustmentBehavior = .never
+        // self.scrollView.contentInsetAdjustmentBehavior = .never
         
         self.scrollView.addSubview(contentView)
         self.scrollView.addConstraints([
@@ -69,15 +78,10 @@ class MovieController : UIViewController {
         self.view.addConstraints([
             self.contentView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
             ])
-    }
-    
-    
-    
-    
-    func setUpView(){
+        
         
         contentView.addSubview(nowPlayingTitle)
-        nowPlayingTitle.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 0, right: 0), size: CGSize(width: 100, height: nowPlayingTitle.frame.height))
+        nowPlayingTitle.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 0, right: 0))
         nowPlayingTitle.text = nowPlayingTitle.text?.uppercased()
         nowPlayingTitle.numberOfLines = 0
         nowPlayingTitle.sizeToFit()
@@ -94,27 +98,46 @@ class MovieController : UIViewController {
         nowPlayViewButton.backgroundColor = .white
         
         
-        contentView.addSubview(collectionViewNowPlaying)
-        collectionViewNowPlaying.translatesAutoresizingMaskIntoConstraints = false
-        collectionViewNowPlaying.anchor(top: nowPlayViewButton.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 5, bottom: 0, right: 0), size: CGSize(width: collectionViewNowPlaying.frame.width, height: 220))
+        contentView.addSubview(collectionViewMain)
+        contentView.backgroundColor = .white
+        collectionViewMain.translatesAutoresizingMaskIntoConstraints = false
+        collectionViewMain.anchor(top: nowPlayViewButton.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: CGSize(width: collectionViewMain.frame.width, height: 900))
+        
+    }
+    
+    
+    
+    
+    func setUpView(){
+        
+        
+        
+        // collectionViewNowPlaying.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     
 }
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 4
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+         return 1
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionViewNowPlaying.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! NowPlayingCell
+         
+        let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! NowPlayingCell
         cell.backgroundColor = .red
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 140, height: 210)
+        return CGSize(width: collectionViewMain.frame.width, height: 210)
     }
     
 }
