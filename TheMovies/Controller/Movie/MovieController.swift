@@ -15,11 +15,6 @@ class MovieController : UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     
-    
-    let nowPlayingTitle = UILabel(title: "Now Playing", color: .black, textAlign: .left)
-    let nowPlayViewButton: UIButton = UIButton(type: .system)
-    
-    
     let collectionViewMain : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -29,16 +24,10 @@ class MovieController : UIViewController {
     }()
     
     
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupScrollView()
-        setUpView()
+        setupScrollView() 
         
         collectionViewMain.delegate = self
         collectionViewMain.dataSource = self
@@ -78,41 +67,12 @@ class MovieController : UIViewController {
         self.view.addConstraints([
             self.contentView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
             ])
-        
-        
-        contentView.addSubview(nowPlayingTitle)
-        nowPlayingTitle.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 0, right: 0))
-        nowPlayingTitle.text = nowPlayingTitle.text?.uppercased()
-        nowPlayingTitle.numberOfLines = 0
-        nowPlayingTitle.sizeToFit()
-        nowPlayingTitle.font = UIFont.systemFont(ofSize: 24)
-        
-        contentView.addSubview(nowPlayViewButton)
-        nowPlayViewButton.translatesAutoresizingMaskIntoConstraints = false
-        nowPlayViewButton.anchor(top: contentView.topAnchor, leading: nil, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 0, right: 20), size: CGSize(width: 100, height: nowPlayViewButton.frame.height))
-        nowPlayViewButton.setTitle("View All", for: .normal)
-        nowPlayViewButton.layer.borderColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1).cgColor
-        nowPlayViewButton.setTitleColor(#colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), for: .normal)
-        nowPlayViewButton.layer.borderWidth = 1
-        nowPlayViewButton.layer.cornerRadius = 4
-        nowPlayViewButton.backgroundColor = .white
-        
-        
+         
         contentView.addSubview(collectionViewMain)
         contentView.backgroundColor = .white
         collectionViewMain.translatesAutoresizingMaskIntoConstraints = false
-        collectionViewMain.anchor(top: nowPlayViewButton.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0), size: CGSize(width: collectionViewMain.frame.width, height: 900))
+        collectionViewMain.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0), size: CGSize(width: collectionViewMain.frame.width, height: 900))
         
-    }
-    
-    
-    
-    
-    func setUpView(){
-        
-        
-        
-        // collectionViewNowPlaying.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     
@@ -131,13 +91,13 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          
         let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! NowPlayingCell
-        cell.backgroundColor = .red
+//        cell.backgroundColor = .red
         return cell
         
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionViewMain.frame.width, height: 210)
+        return CGSize(width: collectionViewMain.frame.width, height: 300)
     }
     
 }

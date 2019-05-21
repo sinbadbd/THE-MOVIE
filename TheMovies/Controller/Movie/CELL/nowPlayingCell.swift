@@ -20,7 +20,9 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
-    
+    let nowPlayingTitle = UILabel(title: "Now Playing", color: .black, textAlign: .left)
+    let nowPlayViewButton: UIButton = UIButton(type: .system)
+    let topView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,6 +40,32 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
         colletionView.backgroundColor = .white
         colletionView.register(NowPlayCell.self, forCellWithReuseIdentifier: CELL)
         
+        
+        addSubview(topView)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        topView.backgroundColor = .red
+        topView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 10, bottom: 40, right: 0))
+        
+        
+        topView.addSubview(nowPlayingTitle)
+        nowPlayingTitle.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
+        nowPlayingTitle.text = nowPlayingTitle.text?.uppercased()
+        nowPlayingTitle.numberOfLines = 0
+        nowPlayingTitle.sizeToFit()
+        nowPlayingTitle.font = UIFont.systemFont(ofSize: 24)
+        
+        topView.addSubview(nowPlayViewButton)
+        nowPlayViewButton.translatesAutoresizingMaskIntoConstraints = false
+        nowPlayViewButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 10), size: CGSize(width: 100, height: nowPlayViewButton.frame.height))
+        nowPlayViewButton.setTitle("View All", for: .normal)
+        nowPlayViewButton.layer.borderColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1).cgColor
+        nowPlayViewButton.setTitleColor(#colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1), for: .normal)
+        nowPlayViewButton.layer.borderWidth = 1
+        nowPlayViewButton.layer.cornerRadius = 4
+        nowPlayViewButton.backgroundColor = .white
+        
+        
+        
     }
     
     
@@ -49,28 +77,32 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL, for: indexPath) as! NowPlayCell
      
-        cell.backgroundColor = .red
+//        cell.backgroundColor = .red
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 140, height: 240)
+        return CGSize(width: 140, height: 260)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 40, left: 0, bottom: 20, right: 0)
+    }
 
     
     class NowPlayCell : UICollectionViewCell {
         
         let imageView : UIImageView = {
             let image = UIImageView()
-            image.layer.cornerRadius = 12
+            image.layer.cornerRadius = 8
             image.contentMode = .scaleAspectFill
             image.clipsToBounds = true
             return image
         }()
         
         let titleNowPlaying = UILabel(title: "Avenger", color: UIColor.black, textAlign: .center)
+       
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -78,7 +110,11 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
             addSubview(imageView)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.backgroundColor = .yellow
-            imageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, size: CGSize(width: 140, height: 200))
+            imageView.layer.shadowColor = UIColor.black.cgColor
+            imageView.layer.shadowOffset = CGSize(width: 3, height: 3)
+            imageView.layer.shadowOpacity = 0.7
+            imageView.layer.shadowRadius = 5.0
+            imageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: CGSize(width: 140, height: 210))
             
             addSubview(titleNowPlaying)
             titleNowPlaying.anchor(top: imageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
