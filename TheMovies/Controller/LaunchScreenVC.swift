@@ -13,7 +13,7 @@ class LaunchScreenVC : UIViewController {
     let copyright = UILabel(title: "Copyright ©", size: 18, textAlign: .center)
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLaunchScreen()
+        setupLaunchScreen() 
     }
     func setupLaunchScreen(){
         view.addSubview(bgView)
