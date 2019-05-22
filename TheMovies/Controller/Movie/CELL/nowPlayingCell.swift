@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import Kingfisher
+import SDWebImage
+
 class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
     
+     var nowPlaing : NowPlaying?
+    var nowPlayArray = [NowPlaying]()
     
     
     let CELL = "CELL"
@@ -27,10 +32,26 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .green
-        
         setUpView()
+        fetchData()
     }
     
+    var res = [Result]()
+    
+    func fetchData (){
+        APIClient.getNowPlayingList { (response, error) in
+            
+            if let response = response {
+              
+              print("now\(response)")
+                DispatchQueue.main.async {
+                   self.nowPlayArray = response
+                    self.res = response[0].results
+                    self.colletionView.reloadData()
+                }
+            } 
+        }
+    }
     
     func setUpView(){
         colletionView.dataSource = self
@@ -39,7 +60,7 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
         colletionView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
         colletionView.backgroundColor = .white
         colletionView.register(NowPlayCell.self, forCellWithReuseIdentifier: CELL)
-        
+    
         
         addSubview(topView)
         topView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,22 +84,25 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
         nowPlayViewButton.layer.borderWidth = 1
         nowPlayViewButton.layer.cornerRadius = 4
         nowPlayViewButton.backgroundColor = .white
-        
-        
-        
     }
     
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        let result = res.count
+        
+        return result
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL, for: indexPath) as! NowPlayCell
-     
-//        cell.backgroundColor = .red
+        let apiData = res[indexPath.item]
         
+        let imageBase = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
+        let imgUrl = URL(string: "\(imageBase + apiData.posterPath)")
+        print(imgUrl)
+        cell.imageView.sd_setImage(with: imgUrl, completed: nil)
+        cell.titleNowPlaying.text = apiData.title
         return cell
     }
     
@@ -118,6 +142,7 @@ class NowPlayingCell : UICollectionViewCell , UICollectionViewDataSource, UIColl
             
             addSubview(titleNowPlaying)
             titleNowPlaying.anchor(top: imageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+            titleNowPlaying.numberOfLines = 3
             
         }
         

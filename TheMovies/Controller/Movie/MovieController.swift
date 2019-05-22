@@ -33,6 +33,10 @@ class MovieController : UIViewController {
         collectionViewMain.dataSource = self
         collectionViewMain.register(NowPlayingCell.self, forCellWithReuseIdentifier: "NOW_CELL")
         collectionViewMain.alwaysBounceHorizontal = true
+        
+        DispatchQueue.main.async {
+            self.collectionViewMain.reloadData()
+        }
     }
     
     func setupScrollView(){
@@ -71,7 +75,7 @@ class MovieController : UIViewController {
         contentView.addSubview(collectionViewMain)
         contentView.backgroundColor = .white
         collectionViewMain.translatesAutoresizingMaskIntoConstraints = false
-        collectionViewMain.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0), size: CGSize(width: collectionViewMain.frame.width, height: 900))
+        collectionViewMain.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 15, left: 10, bottom: 0, right: 0), size: CGSize(width: collectionViewMain.frame.width, height: 900))
         
     }
     
@@ -79,9 +83,9 @@ class MovieController : UIViewController {
 }
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
-    }
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return 1
+//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          return 1
