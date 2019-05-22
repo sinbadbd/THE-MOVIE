@@ -1,8 +1,8 @@
 //
-//  MovieResultCell.swift
+//  PopularMoviesCell.swift
 //  TheMovies
 //
-//  Created by sinbad on 5/21/19.
+//  Created by sinbad on 5/22/19.
 //  Copyright © 2019 sinbad. All rights reserved.
 //
 
@@ -10,11 +10,11 @@ import UIKit
 import Kingfisher
 import SDWebImage
 
-class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
+class PopularMoviesCell : UICollectionViewCell , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
     
-    private var nowPlaing : MovieResult?
-    private var nowPlayArray = [MovieResult]()
+    private var nowPlaing : Movie?
+    private var nowPlayArray = [Movie]()
     
     
     let CELL = "CELL"
@@ -25,7 +25,7 @@ class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICol
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
-    let MovieResultTitle = UILabel(title: "Now Playing", color: .black, textAlign: .left)
+    let MovieResultTitle = UILabel(title: "Popular Movies", color: .black, textAlign: .left)
     let nowPlayViewButton: UIButton = UIButton(type: .system)
     let topView = UIView()
     
@@ -36,20 +36,19 @@ class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICol
         fetchData()
     }
     
-    private var res = [Result]()
+    private var res = [ResultMovie]()
     
     private func fetchData (){
-        APIClient.getMovieResultList { (response, error) in
+        APIClient.getPopularMovieList { (response, error) in
             
             if let response = response {
-                
-               // print("now\(response)")
+               print("Movie\(response)")
                 DispatchQueue.main.async {
                     self.nowPlayArray = response
                     self.res = response[0].results
                     self.colletionView.reloadData()
                 }
-            } 
+            }
         }
     }
     
@@ -59,13 +58,13 @@ class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICol
         addSubview(colletionView)
         colletionView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
         colletionView.backgroundColor = .white
-        colletionView.register(NowPlayCell.self, forCellWithReuseIdentifier: CELL)
+        colletionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: CELL)
         
         
         addSubview(topView)
         topView.translatesAutoresizingMaskIntoConstraints = false
         topView.backgroundColor = .red
-        topView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 10, bottom: 40, right: 0))
+        topView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
         
         
         topView.addSubview(MovieResultTitle)
@@ -94,12 +93,11 @@ class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL, for: indexPath) as! NowPlayCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL, for: indexPath) as! PopularMovieCell
         let apiData = res[indexPath.item]
         let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
         cell.titleMovieResult.text = apiData.title
-      //  cell.backgroundColor = .green
         return cell
     }
     
@@ -108,11 +106,11 @@ class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 70, left: 0, bottom: 20, right: 0)
     }
     
     
-    class NowPlayCell : UICollectionViewCell {
+    class PopularMovieCell : UICollectionViewCell {
         
         let imageView : UIImageView = {
             let image = UIImageView()
@@ -153,4 +151,3 @@ class MovieResultCell : UICollectionViewCell , UICollectionViewDataSource, UICol
         fatalError("init(coder:) has not been implemented")
     }
 }
-

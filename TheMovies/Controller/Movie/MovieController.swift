@@ -10,7 +10,7 @@ import UIKit
 class MovieController : UIViewController {
     
     let NOW_CELL  = "NOW_CELL"
-    
+    let PopularCell = "PopularCell"
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -31,8 +31,10 @@ class MovieController : UIViewController {
         
         collectionViewMain.delegate = self
         collectionViewMain.dataSource = self
-        collectionViewMain.register(NowPlayingCell.self, forCellWithReuseIdentifier: "NOW_CELL")
+        collectionViewMain.register(MovieResultCell.self, forCellWithReuseIdentifier: "NOW_CELL")
+        collectionViewMain.register(PopularMoviesCell.self, forCellWithReuseIdentifier: "PopularCell")
         collectionViewMain.alwaysBounceHorizontal = true
+        collectionViewMain.backgroundColor  = .white
         
         DispatchQueue.main.async {
             self.collectionViewMain.reloadData()
@@ -83,25 +85,42 @@ class MovieController : UIViewController {
 }
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
-//    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         return 1
+        
+        if section == 0 {
+            return 1
+        }  else {
+            return 1
+        }
+        
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         
-        let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! NowPlayingCell
-//        cell.backgroundColor = .red
-        return cell
         
+        if indexPath.section == 0 {
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! MovieResultCell
+            return cell
+        } else  {
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: PopularCell, for: indexPath) as! PopularMoviesCell
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionViewMain.frame.width, height: 300)
+        return CGSize(width: collectionViewMain.frame.width, height: 320)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+        } else {
+            return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+        }
     }
     
 }

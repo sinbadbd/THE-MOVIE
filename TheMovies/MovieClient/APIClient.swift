@@ -11,14 +11,15 @@ class APIClient {
     static let key = "?api_key=de05a59a85ef1e7797de8d4a6d343d0e"
     enum EndPoints {
         static let BASE_URL = "https://api.themoviedb.org/3/"
+        static let POSTER_URL = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
         static let apiKeyParam = key
         
-        case getNowPlaying
-        
+        case getMovieResult
+        case getPopularMovies
         var stringValue : String {
             switch self {
-            case .getNowPlaying: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
-                
+            case .getMovieResult: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
+            case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -48,20 +49,30 @@ class APIClient {
         task.resume()
     }
     
-    class func getNowPlayingList(completion: @escaping([NowPlaying]?, Error?)-> Void) {
-        print(EndPoints.getNowPlaying.url)
-        taskForGETRequest(url: EndPoints.getNowPlaying.url, response: NowPlaying.self) { (response, error) in
+    //@GET NOW PLAYING MOVIE LIST
+    class func getMovieResultList(completion: @escaping([MovieResult]?, Error?)-> Void) {
+        print(EndPoints.getMovieResult.url)
+        taskForGETRequest(url: EndPoints.getMovieResult.url, response: MovieResult.self) { (response, error) in
             if let response = response {
-//print([response.results])
-  //              print([response.results.count])
-              //  completion([response], nil)
-              //  print("co\(completion([response], nil))")
-                //print(response.results)
-//                print("result: \( completion([response.results], nil))")
                  completion([response], nil)
             } else {
-                //completion([], error)
+                completion([], error)
                 print(error.debugDescription)
+            }
+        }
+    }
+    
+    //@GET NOW PLAYING MOVIE LIST
+    class func getPopularMovieList(completion: @escaping([Movie]?, Error?)-> Void) {
+        print(EndPoints.getPopularMovies.url)
+        taskForGETRequest(url: EndPoints.getPopularMovies.url, response: Movie.self) { (response, error) in
+            if let response = response {
+                print([response.results])
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
             }
         }
     }
