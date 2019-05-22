@@ -36,7 +36,7 @@ class PopularMoviesCell : UICollectionViewCell , UICollectionViewDataSource, UIC
         fetchData()
     }
     
-    private var res = [ResultMovie]()
+    private var res = [Result]()
     
     private func fetchData (){
         APIClient.getPopularMovieList { (response, error) in
