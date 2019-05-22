@@ -12,8 +12,8 @@ import SDWebImage
 class TopRatedMovieCell : UICollectionViewCell , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
     
-    private var nowPlaing : Movie?
-    private var nowPlayArray = [Movie]()
+    private var nowPlaing : TopRated?
+    private var nowPlayArray = [TopRated]()
     
     
     let CELL = "CELL"
@@ -41,7 +41,7 @@ class TopRatedMovieCell : UICollectionViewCell , UICollectionViewDataSource, UIC
         APIClient.getTopRatedMovieList { (response, error) in
             
             if let response = response {
-                print("Movie\(response)")
+                print("toprated\(response)")
                 DispatchQueue.main.async {
                     self.nowPlayArray = response
                     self.res = response[0].results
@@ -57,7 +57,7 @@ class TopRatedMovieCell : UICollectionViewCell , UICollectionViewDataSource, UIC
         addSubview(colletionView)
         colletionView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
         colletionView.backgroundColor = .white
-        colletionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: CELL)
+        colletionView.register(TopMovieCell.self, forCellWithReuseIdentifier: CELL)
         
         
         addSubview(topView)
@@ -92,7 +92,7 @@ class TopRatedMovieCell : UICollectionViewCell , UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL, for: indexPath) as! PopularMovieCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL, for: indexPath) as! TopMovieCell
         let apiData = res[indexPath.item]
         let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
@@ -109,7 +109,7 @@ class TopRatedMovieCell : UICollectionViewCell , UICollectionViewDataSource, UIC
     }
     
     
-    class PopularMovieCell : UICollectionViewCell {
+    class TopMovieCell : UICollectionViewCell {
         
         let imageView : UIImageView = {
             let image = UIImageView()

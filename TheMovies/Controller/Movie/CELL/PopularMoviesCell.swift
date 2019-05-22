@@ -42,7 +42,7 @@ class PopularMoviesCell : UICollectionViewCell , UICollectionViewDataSource, UIC
         APIClient.getPopularMovieList { (response, error) in
             
             if let response = response {
-               print("Movie\(response)")
+             //  print("Movie\(response)")
                 DispatchQueue.main.async {
                     self.nowPlayArray = response
                     self.res = response[0].results
