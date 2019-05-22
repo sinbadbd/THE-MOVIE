@@ -11,6 +11,7 @@ class MovieController : UIViewController {
     
     let NOW_CELL  = "NOW_CELL"
     let PopularCell = "PopularCell"
+    let TopRated = "TopRatedMovieCell"
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -31,10 +32,13 @@ class MovieController : UIViewController {
         
         collectionViewMain.delegate = self
         collectionViewMain.dataSource = self
-        collectionViewMain.register(MovieResultCell.self, forCellWithReuseIdentifier: "NOW_CELL")
-        collectionViewMain.register(PopularMoviesCell.self, forCellWithReuseIdentifier: "PopularCell")
+        collectionViewMain.register(MovieResultCell.self, forCellWithReuseIdentifier: NOW_CELL)
+        collectionViewMain.register(PopularMoviesCell.self, forCellWithReuseIdentifier: PopularCell)
+        collectionViewMain.register(TopRatedMovieCell.self, forCellWithReuseIdentifier: TopRated)
+        
         collectionViewMain.alwaysBounceHorizontal = true
         collectionViewMain.backgroundColor  = .white
+        
         
         DispatchQueue.main.async {
             self.collectionViewMain.reloadData()
@@ -86,14 +90,16 @@ class MovieController : UIViewController {
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
             return 1
-        }  else {
+        }  else if section == 1{
+            return 1
+        } else {
             return 1
         }
         
@@ -105,8 +111,11 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
         if indexPath.section == 0 {
             let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! MovieResultCell
             return cell
-        } else  {
+        } else if indexPath.section == 1 {
             let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: PopularCell, for: indexPath) as! PopularMoviesCell
+            return cell
+        } else {
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: TopRated, for: indexPath) as! TopRatedMovieCell
             return cell
         }
     }
@@ -117,6 +126,8 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
+            return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+        } else if section == 1 {
             return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
         } else {
             return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)

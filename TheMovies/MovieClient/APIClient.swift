@@ -16,10 +16,12 @@ class APIClient {
         
         case getMovieResult
         case getPopularMovies
+        case getTopRatedMovies
         var stringValue : String {
             switch self {
-            case .getMovieResult: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
-            case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
+                case .getMovieResult: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
+                case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
+                case .getTopRatedMovies: return EndPoints.BASE_URL + "/movie/top_rated" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -62,10 +64,25 @@ class APIClient {
         }
     }
     
-    //@GET NOW PLAYING MOVIE LIST
+    //@GET POPULAR MOVIE
     class func getPopularMovieList(completion: @escaping([Movie]?, Error?)-> Void) {
         print(EndPoints.getPopularMovies.url)
         taskForGETRequest(url: EndPoints.getPopularMovies.url, response: Movie.self) { (response, error) in
+            if let response = response {
+                print([response.results])
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET TOP RATED MOVIE
+    class func getTopRatedMovieList(completion: @escaping([Movie]?, Error?)-> Void) {
+        print(EndPoints.getPopularMovies.url)
+        taskForGETRequest(url: EndPoints.getTopRatedMovies.url, response: Movie.self) { (response, error) in
             if let response = response {
                 print([response.results])
                 completion([response], nil)
