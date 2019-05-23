@@ -46,7 +46,9 @@ class MovieController : UIViewController {
             self.collectionViewMain.reloadData()
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     func setupScrollView(){
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -89,6 +91,9 @@ class MovieController : UIViewController {
     
     
 }
+private var nowPlaing : MovieResult?
+private var array = [MovieResult]()
+
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -106,6 +111,18 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
         } else {
             return 1
         }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("--")
+//        if indexPath.section == 1 {
+//            let cell = array[indexPath.item]
+//            print(cell)
+//        } else {
+//            return 0
+//        }
+//
         
     }
     

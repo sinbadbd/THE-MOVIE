@@ -19,9 +19,7 @@ class BaseTabController : UITabBarController {
         viewControllers = [
             createNavController(viewController: MovieController(), title: "Movie", imageView: "movie")
         ]
-    }
-    
-    
+    } 
 }
 
 func createNavController (viewController : UIViewController, title: String, imageView: String) -> UIViewController {

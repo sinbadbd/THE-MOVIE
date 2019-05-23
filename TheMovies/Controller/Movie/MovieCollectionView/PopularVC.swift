@@ -12,7 +12,7 @@ class PopularVC : UIViewController {
     
     private var nowPlaing : Movie?
     private var nowPlayArray = [Movie]()
- 
+    
     
     let POPULAR_CELL = "POPULAR_CELL"
     
@@ -30,7 +30,7 @@ class PopularVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         colletionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: POPULAR_CELL)
-
+        
         setUpView()
         fetchData()
     }
@@ -63,7 +63,7 @@ class PopularVC : UIViewController {
         
         view.addSubview(topView)
         topView.translatesAutoresizingMaskIntoConstraints = false
-       // topView.backgroundColor = .red
+        // topView.backgroundColor = .red
         topView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 0), size: CGSize(width: 300, height: 40))
         
         
@@ -88,13 +88,13 @@ class PopularVC : UIViewController {
     @objc func hand(){
         print("hi")
         let vc =  PopularPagesVC()
-      //  self.present(vc, animated: true, completion: nil)
+        //  self.present(vc, animated: true, completion: nil)
     }
     
 }
 
 extension PopularVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-   
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return res.count
     }

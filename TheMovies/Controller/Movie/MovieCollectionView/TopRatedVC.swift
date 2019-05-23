@@ -100,6 +100,15 @@ extension TopRatedVC : UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return res.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("now playing")
+        let selectId = res[indexPath.item]
+        let id = selectId.id
+        
+        
+        print(id)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colletionView.dequeueReusableCell(withReuseIdentifier: TOPRATED_CELL, for: indexPath) as!  TopMovieCell
         let apiData = res[indexPath.item]

@@ -96,6 +96,15 @@ extension DiscoverVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
         return res.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("now playing")
+        let selectId = res[indexPath.item]
+        let id = selectId.id
+        
+        
+        print(id)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colletionView.dequeueReusableCell(withReuseIdentifier: DISCOVER_CELL, for: indexPath) as!  DiscoverCell
         let apiData = res[indexPath.item]

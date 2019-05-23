@@ -49,6 +49,7 @@
 		A189D2202296980800C01209 /* NowPlayingPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D21F2296980800C01209 /* NowPlayingPageVC.swift */; };
 		A189D2222296982600C01209 /* PopularPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D2212296982600C01209 /* PopularPagesVC.swift */; };
 		A189D2242296983800C01209 /* TopRatedPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D2232296983800C01209 /* TopRatedPagesVC.swift */; };
+		A189D2272296ACAA00C01209 /* MovieDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D2262296ACAA00C01209 /* MovieDetailsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +98,7 @@
 		A189D21F2296980800C01209 /* NowPlayingPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingPageVC.swift; sourceTree = "<group>"; };
 		A189D2212296982600C01209 /* PopularPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularPagesVC.swift; sourceTree = "<group>"; };
 		A189D2232296983800C01209 /* TopRatedPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedPagesVC.swift; sourceTree = "<group>"; };
+		A189D2262296ACAA00C01209 /* MovieDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsVC.swift; sourceTree = "<group>"; };
 		D90B778D04B2FCA2EF332B67 /* Pods-TheMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovies.debug.xcconfig"; path = "Target Support Files/Pods-TheMovies/Pods-TheMovies.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -248,6 +250,7 @@
 		A16AA7002293EDA9008B644C /* Movie */ = {
 			isa = PBXGroup;
 			children = (
+				A189D2252296AC8400C01209 /* DetailsVC */,
 				A1802FC72296708100212DEA /* PagesVC */,
 				A1802FC4229665EE00212DEA /* MovieCollectionView */,
 				A16AA70322940090008B644C /* CELL */,
@@ -306,6 +309,14 @@
 				A189D2232296983800C01209 /* TopRatedPagesVC.swift */,
 			);
 			path = PagesVC;
+			sourceTree = "<group>";
+		};
+		A189D2252296AC8400C01209 /* DetailsVC */ = {
+			isa = PBXGroup;
+			children = (
+				A189D2262296ACAA00C01209 /* MovieDetailsVC.swift */,
+			);
+			path = DetailsVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,6 +475,7 @@
 				A1802FC3229665A100212DEA /* DiscoverMovieCell.swift in Sources */,
 				A16AA6FF2293ED72008B644C /* BaseTabController.swift in Sources */,
 				A1802FB6229661AF00212DEA /* TopRated.swift in Sources */,
+				A189D2272296ACAA00C01209 /* MovieDetailsVC.swift in Sources */,
 				A16AA6FB2293CE60008B644C /* LaunchScreenVC.swift in Sources */,
 				A16AA6F22293CA07008B644C /* APIClient.swift in Sources */,
 				A1802FB8229661AF00212DEA /* MovieResult.swift in Sources */,
