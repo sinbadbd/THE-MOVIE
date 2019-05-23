@@ -86,7 +86,7 @@ class DiscoverVC: UIViewController {
     @objc func hand(){
         print("hi")
         let vc =  DiscoverPageVC()
-        self.present(vc, animated: true, completion: nil)
+       // self.present(vc, animated: true, completion: nil)
     }
 }
 

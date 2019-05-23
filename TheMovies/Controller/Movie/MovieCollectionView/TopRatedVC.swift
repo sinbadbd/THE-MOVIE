@@ -14,7 +14,7 @@ class TopRatedVC : UIViewController {
     
     private var nowPlaing : TopRated?
     private var nowPlayArray = [TopRated]()
-     
+    
     let TOPRATED_CELL = "TOPRATED_CELL"
     
     private let colletionView : UICollectionView = {
@@ -23,7 +23,7 @@ class TopRatedVC : UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
-    let MovieResultTitle = UILabel(title: "Popular Movies", color: .black, textAlign: .left)
+    let MovieResultTitle = UILabel(title: "Top Rated Movie", color: .black, textAlign: .left)
     let nowPlayViewButton: UIButton = UIButton(type: .system)
     let topView = UIView()
     
@@ -88,8 +88,8 @@ class TopRatedVC : UIViewController {
     }
     @objc func hand(){
         print("hi")
-        let vc =  DiscoverPageVC()
-        self.present(vc, animated: true, completion: nil)
+        let vc =  TopRatedPagesVC()
+      //  self.present(vc, animated: true, completion: nil)
     }
     
 }

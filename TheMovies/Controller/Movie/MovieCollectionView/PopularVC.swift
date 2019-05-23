@@ -87,8 +87,8 @@ class PopularVC : UIViewController {
     }
     @objc func hand(){
         print("hi")
-        let vc =  DiscoverPageVC()
-        self.present(vc, animated: true, completion: nil)
+        let vc =  PopularPagesVC()
+      //  self.present(vc, animated: true, completion: nil)
     }
     
 }

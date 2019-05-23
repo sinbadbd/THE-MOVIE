@@ -15,7 +15,7 @@ class NowPlayingVC : UIViewController {
     private var nowPlayArray = [MovieResult]()
     
     
-    let POPULAR_CELL = "POPULAR_CELL"
+    let NOWPLAY_CELL = "NOWPLAY_CELL"
     
     private let colletionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,19 +23,18 @@ class NowPlayingVC : UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
-    let MovieResultTitle = UILabel(title: "Popular Movies", color: .black, textAlign: .left)
+    let MovieResultTitle = UILabel(title: "Now Playing Movies", color: .black, textAlign: .left)
     let nowPlayViewButton: UIButton = UIButton(type: .system)
     let topView = UIView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        colletionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: POPULAR_CELL)
+        colletionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: NOWPLAY_CELL)
         
         setUpView()
         fetchData()
     }
-    
     
     
     private var res = [Result]()
@@ -86,10 +85,12 @@ class NowPlayingVC : UIViewController {
         nowPlayViewButton.backgroundColor = .white
         nowPlayViewButton.addTarget(self, action: #selector(hand), for: .touchUpInside)
     }
+    
     @objc func hand(){
         print("hi")
-        let vc =  DiscoverPageVC()
-        self.present(vc, animated: true, completion: nil)
+        let vc =  NowPlayingPageVC()
+       // self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -101,7 +102,7 @@ extension NowPlayingVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = colletionView.dequeueReusableCell(withReuseIdentifier: POPULAR_CELL, for: indexPath) as!  PopularMovieCell
+        let cell = colletionView.dequeueReusableCell(withReuseIdentifier: NOWPLAY_CELL, for: indexPath) as!  PopularMovieCell
         let apiData = res[indexPath.item]
         let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
@@ -116,8 +117,6 @@ extension NowPlayingVC : UICollectionViewDataSource, UICollectionViewDelegate, U
         return UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
     }
 }
-
-
 
 class NowPlayCell : UICollectionViewCell {
     
