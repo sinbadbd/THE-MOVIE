@@ -1,19 +1,21 @@
 //
-//  DiscoverVC.swift
+//  TopRatedVC.swift
 //  TheMovies
 //
-//  Created by sinbad on 5/22/19.
+//  Created by sinbad on 5/23/19.
 //  Copyright © 2019 sinbad. All rights reserved.
 //
 
+
 import UIKit
-class DiscoverVC: UIViewController {
+
+class TopRatedVC : UIViewController {
     
-    let DISCOVER_CELL = "DISCOVER_CELL"
     
-    
-    private var nowPlaing : Discover?
-    private var nowPlayArray = [Discover]()
+    private var nowPlaing : TopRated?
+    private var nowPlayArray = [TopRated]()
+     
+    let TOPRATED_CELL = "TOPRATED_CELL"
     
     private let colletionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -21,23 +23,25 @@ class DiscoverVC: UIViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
-    
-    let MovieResultTitle = UILabel(title: "Discover Movie", color: .black, textAlign: .left)
+    let MovieResultTitle = UILabel(title: "Popular Movies", color: .black, textAlign: .left)
     let nowPlayViewButton: UIButton = UIButton(type: .system)
     let topView = UIView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        colletionView.register(DiscoverCell.self, forCellWithReuseIdentifier: DISCOVER_CELL)
+        colletionView.register(TopMovieCell.self, forCellWithReuseIdentifier: TOPRATED_CELL)
         
         setUpView()
         fetchData()
     }
+    
+    
+    
     private var res = [Result]()
     
     private func fetchData (){
-        APIClient.getDiscoverMovieList{ (response, error) in
+        APIClient.getTopRatedMovieList { (response, error) in
             
             if let response = response {
                 //  print("Movie\(response)")
@@ -54,13 +58,13 @@ class DiscoverVC: UIViewController {
         colletionView.dataSource = self
         colletionView.delegate = self
         view.addSubview(colletionView)
-        colletionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 30, left: 0, bottom: 0, right: 0))
+        colletionView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 30, left: 0, bottom: 0, right: 0), size: CGSize(width: colletionView.frame.width, height: colletionView.frame.height))
         colletionView.backgroundColor = .white
         
         
         view.addSubview(topView)
         topView.translatesAutoresizingMaskIntoConstraints = false
-       // topView.backgroundColor = .red
+        // topView.backgroundColor = .red
         topView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 0), size: CGSize(width: 300, height: 40))
         
         
@@ -82,22 +86,22 @@ class DiscoverVC: UIViewController {
         nowPlayViewButton.backgroundColor = .white
         nowPlayViewButton.addTarget(self, action: #selector(hand), for: .touchUpInside)
     }
-    
     @objc func hand(){
         print("hi")
         let vc =  DiscoverPageVC()
         self.present(vc, animated: true, completion: nil)
     }
+    
 }
 
-
-extension DiscoverVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension TopRatedVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return res.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = colletionView.dequeueReusableCell(withReuseIdentifier: DISCOVER_CELL, for: indexPath) as!  DiscoverCell
+        let cell = colletionView.dequeueReusableCell(withReuseIdentifier: TOPRATED_CELL, for: indexPath) as!  TopMovieCell
         let apiData = res[indexPath.item]
         let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
@@ -105,14 +109,17 @@ extension DiscoverVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 320, height: 300)
+        return CGSize(width: 140, height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
     }
 }
-class DiscoverCell : UICollectionViewCell {
+
+
+
+class TopMovieCell : UICollectionViewCell {
     
     let imageView : UIImageView = {
         let image = UIImageView()
@@ -122,7 +129,7 @@ class DiscoverCell : UICollectionViewCell {
         return image
     }()
     
-    let titleMovieResult = UILabel(title: "Dicover", color: UIColor.black, textAlign: .center)
+    let titleMovieResult = UILabel(title: "Avenger", color: UIColor.black, textAlign: .center)
     
     
     override init(frame: CGRect) {

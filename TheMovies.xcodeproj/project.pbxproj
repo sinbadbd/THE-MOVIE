@@ -43,6 +43,9 @@
 		A1802FC3229665A100212DEA /* DiscoverMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1802FC2229665A100212DEA /* DiscoverMovieCell.swift */; };
 		A1802FC62296665800212DEA /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1802FC52296665800212DEA /* DiscoverVC.swift */; };
 		A1802FC9229670A600212DEA /* DiscoverPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1802FC8229670A600212DEA /* DiscoverPageVC.swift */; };
+		A1802FCB229677E900212DEA /* PopularVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1802FCA229677E900212DEA /* PopularVC.swift */; };
+		A189D21C22968F0A00C01209 /* NowPlayingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D21B22968F0A00C01209 /* NowPlayingVC.swift */; };
+		A189D21E22968F1D00C01209 /* TopRatedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D21D22968F1D00C01209 /* TopRatedVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +88,9 @@
 		A1802FC2229665A100212DEA /* DiscoverMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverMovieCell.swift; sourceTree = "<group>"; };
 		A1802FC52296665800212DEA /* DiscoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
 		A1802FC8229670A600212DEA /* DiscoverPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverPageVC.swift; sourceTree = "<group>"; };
+		A1802FCA229677E900212DEA /* PopularVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularVC.swift; sourceTree = "<group>"; };
+		A189D21B22968F0A00C01209 /* NowPlayingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingVC.swift; sourceTree = "<group>"; };
+		A189D21D22968F1D00C01209 /* TopRatedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedVC.swift; sourceTree = "<group>"; };
 		D90B778D04B2FCA2EF332B67 /* Pods-TheMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovies.debug.xcconfig"; path = "Target Support Files/Pods-TheMovies/Pods-TheMovies.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +284,9 @@
 			isa = PBXGroup;
 			children = (
 				A1802FC52296665800212DEA /* DiscoverVC.swift */,
+				A1802FCA229677E900212DEA /* PopularVC.swift */,
+				A189D21B22968F0A00C01209 /* NowPlayingVC.swift */,
+				A189D21D22968F1D00C01209 /* TopRatedVC.swift */,
 			);
 			path = MovieCollectionView;
 			sourceTree = "<group>";
@@ -428,11 +437,14 @@
 				A1802FBC229661CB00212DEA /* PopularMoviesCell.swift in Sources */,
 				A16AA6D82293C88C008B644C /* Colors.swift in Sources */,
 				A16AA7022293EDB6008B644C /* MovieController.swift in Sources */,
+				A189D21C22968F0A00C01209 /* NowPlayingVC.swift in Sources */,
 				A1802FBD229661CB00212DEA /* TopRatedMovieCell.swift in Sources */,
 				A16AA6BC2293BF55008B644C /* AppDelegate.swift in Sources */,
 				A1802FC62296665800212DEA /* DiscoverVC.swift in Sources */,
 				A16AA6F52293CA6B008B644C /* TMButton.swift in Sources */,
 				A1802FC9229670A600212DEA /* DiscoverPageVC.swift in Sources */,
+				A1802FCB229677E900212DEA /* PopularVC.swift in Sources */,
+				A189D21E22968F1D00C01209 /* TopRatedVC.swift in Sources */,
 				A1802FB9229661AF00212DEA /* Result.swift in Sources */,
 				A16AA6D42293C858008B644C /* UIView+Layout.swift in Sources */,
 				A16AA6D62293C877008B644C /* Extensions.swift in Sources */,

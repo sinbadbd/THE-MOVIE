@@ -100,7 +100,7 @@ class APIClient {
     //@GET DISCOVER MOVIE
     class func getDiscoverMovieList(completion: @escaping([Discover]?, Error?)-> Void) {
         print(EndPoints.getTopRatedMovies.url)
-        taskForGETRequest(url: EndPoints.getTopRatedMovies.url, response: Discover.self) { (response, error) in
+        taskForGETRequest(url: EndPoints.getDiscoverMovies.url, response: Discover.self) { (response, error) in
             if let response = response {
                 print("topMovi\([response.results])")
                 completion([response], nil)
