@@ -17,11 +17,14 @@ class APIClient {
         case getMovieResult
         case getPopularMovies
         case getTopRatedMovies
+        case getDiscoverMovies
+        
         var stringValue : String {
             switch self {
                 case .getMovieResult: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
                 case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
                 case .getTopRatedMovies: return EndPoints.BASE_URL + "movie/top_rated" + EndPoints.apiKeyParam
+                case .getDiscoverMovies: return EndPoints.BASE_URL + "discover/movie" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -94,4 +97,18 @@ class APIClient {
         }
     }
     
+    //@GET DISCOVER MOVIE
+    class func getDiscoverMovieList(completion: @escaping([Discover]?, Error?)-> Void) {
+        print(EndPoints.getTopRatedMovies.url)
+        taskForGETRequest(url: EndPoints.getTopRatedMovies.url, response: Discover.self) { (response, error) in
+            if let response = response {
+                print("topMovi\([response.results])")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    } 
 }

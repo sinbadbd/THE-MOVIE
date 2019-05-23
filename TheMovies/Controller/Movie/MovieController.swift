@@ -9,9 +9,10 @@
 import UIKit
 class MovieController : UIViewController {
     
-    let NOW_CELL  = "NOW_CELL"
-    let PopularCell = "PopularCell"
-    let TopRated = "TopRatedMovieCell"
+    let NOWPLAY_CELL  = "NOWPLAY_CELL"
+    let POPULAR_CELL  = "POPULAR_CELL"
+    let TOPRATED_CELL = "TOPRATED_CELL"
+    let DISCOVER_CELL = "DISCOVER_CELL"
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -32,9 +33,10 @@ class MovieController : UIViewController {
         
         collectionViewMain.delegate = self
         collectionViewMain.dataSource = self
-        collectionViewMain.register(MovieResultCell.self, forCellWithReuseIdentifier: NOW_CELL)
-        collectionViewMain.register(PopularMoviesCell.self, forCellWithReuseIdentifier: PopularCell)
-        collectionViewMain.register(TopRatedMovieCell.self, forCellWithReuseIdentifier: TopRated)
+        collectionViewMain.register(DiscoverMovieCell.self, forCellWithReuseIdentifier: DISCOVER_CELL)
+        collectionViewMain.register(MovieResultCell.self, forCellWithReuseIdentifier: NOWPLAY_CELL)
+        collectionViewMain.register(PopularMoviesCell.self, forCellWithReuseIdentifier: POPULAR_CELL)
+        collectionViewMain.register(TopRatedMovieCell.self, forCellWithReuseIdentifier: TOPRATED_CELL)
         
         collectionViewMain.alwaysBounceHorizontal = true
         collectionViewMain.backgroundColor  = .white
@@ -90,7 +92,7 @@ class MovieController : UIViewController {
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -98,6 +100,8 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
         if section == 0 {
             return 1
         }  else if section == 1{
+            return 1
+        } else if section == 2{
             return 1
         } else {
             return 1
@@ -109,13 +113,16 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.section == 0 {
-            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOW_CELL, for: indexPath) as! MovieResultCell
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: DISCOVER_CELL, for: indexPath) as! DiscoverMovieCell
             return cell
         } else if indexPath.section == 1 {
-            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: PopularCell, for: indexPath) as! PopularMoviesCell
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOWPLAY_CELL, for: indexPath) as! MovieResultCell
+            return cell
+        } else if indexPath.section == 2 {
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: POPULAR_CELL, for: indexPath) as! PopularMoviesCell
             return cell
         } else {
-            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: TopRated, for: indexPath) as! TopRatedMovieCell
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: TOPRATED_CELL, for: indexPath) as! TopRatedMovieCell
             return cell
         }
     }
@@ -126,7 +133,7 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
-            return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: 15, left: 10, bottom: 10, right: 10)
         } else if section == 1 {
             return UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
         } else {
