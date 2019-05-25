@@ -34,7 +34,7 @@ class MovieController : UIViewController {
         collectionViewMain.delegate = self
         collectionViewMain.dataSource = self
         collectionViewMain.register(DiscoverMovieCell.self, forCellWithReuseIdentifier: DISCOVER_CELL)
-        collectionViewMain.register(MovieResultCell.self, forCellWithReuseIdentifier: NOWPLAY_CELL)
+        collectionViewMain.register(NowPlayingMovieCell.self, forCellWithReuseIdentifier: NOWPLAY_CELL)
         collectionViewMain.register(PopularMoviesCell.self, forCellWithReuseIdentifier: POPULAR_CELL)
         collectionViewMain.register(TopRatedMovieCell.self, forCellWithReuseIdentifier: TOPRATED_CELL)
         
@@ -47,7 +47,7 @@ class MovieController : UIViewController {
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+      //  navigationController?.setNavigationBarHidden(false, animated: true)
     }
     func setupScrollView(){
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,8 +91,8 @@ class MovieController : UIViewController {
     
     
 }
-private var nowPlaing : MovieResult?
-private var array = [MovieResult]()
+private var nowPlaing : NowPlayingMovie?
+private var array = [NowPlayingMovie]()
 
 // Now Playing
 extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -133,7 +133,7 @@ extension MovieController: UICollectionViewDelegate, UICollectionViewDataSource,
             let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: DISCOVER_CELL, for: indexPath) as! DiscoverMovieCell
             return cell
         } else if indexPath.section == 1 {
-            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOWPLAY_CELL, for: indexPath) as! MovieResultCell
+            let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: NOWPLAY_CELL, for: indexPath) as! NowPlayingMovieCell
             return cell
         } else if indexPath.section == 2 {
             let cell = collectionViewMain.dequeueReusableCell(withReuseIdentifier: POPULAR_CELL, for: indexPath) as! PopularMoviesCell

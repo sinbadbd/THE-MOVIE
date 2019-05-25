@@ -6,25 +6,33 @@
 //  Copyright © 2019 sinbad. All rights reserved.
 //
 
+// Vedio link API
+//http://api.themoviedb.org/3/movie/420817?api_key=de05a59a85ef1e7797de8d4a6d343d0e&append_to_response=videos
+
 import Foundation
 class APIClient {
     static let key = "?api_key=de05a59a85ef1e7797de8d4a6d343d0e"
     enum EndPoints {
         static let BASE_URL = "https://api.themoviedb.org/3/"
         static let POSTER_URL = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
-        static let apiKeyParam = key
+        static let apiKeyParam = key 
+        static let PAGE = "&page"
         
-        case getMovieResult
+        case getNowPlayingMovie
         case getPopularMovies
         case getTopRatedMovies
         case getDiscoverMovies
         
         var stringValue : String {
             switch self {
-                case .getMovieResult: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
+                case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
                 case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
                 case .getTopRatedMovies: return EndPoints.BASE_URL + "movie/top_rated" + EndPoints.apiKeyParam
                 case .getDiscoverMovies: return EndPoints.BASE_URL + "discover/movie" + EndPoints.apiKeyParam
+                
+                
+                
+                
             }
         }
         var url : URL {
@@ -55,9 +63,9 @@ class APIClient {
     }
     
     //@GET NOW PLAYING MOVIE LIST
-    class func getMovieResultList(completion: @escaping([MovieResult]?, Error?)-> Void) {
-        print(EndPoints.getMovieResult.url)
-        taskForGETRequest(url: EndPoints.getMovieResult.url, response: MovieResult.self) { (response, error) in
+    class func getNowPlayingMovieList(completion: @escaping([NowPlayingMovie]?, Error?)-> Void) {
+        print(EndPoints.getNowPlayingMovie.url)
+        taskForGETRequest(url: EndPoints.getNowPlayingMovie.url, response: NowPlayingMovie.self) { (response, error) in
             if let response = response {
                  completion([response], nil)
             } else {

@@ -1,5 +1,5 @@
 //
-//  MovieResultCell.swift
+//  NowPlayingMovieCell.swift
 //  TheMovies
 //
 //  Created by sinbad on 5/21/19.
@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class MovieResultCell : UICollectionViewCell   {
+class NowPlayingMovieCell : UICollectionViewCell   {
     
     var nowPlaying = NowPlayingVC()
     

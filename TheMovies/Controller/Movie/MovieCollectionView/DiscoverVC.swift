@@ -22,7 +22,7 @@ class DiscoverVC: UIViewController {
         return collection
     }()
     
-    let MovieResultTitle = UILabel(title: "Discover Movie", color: .black, textAlign: .left)
+    let NowPlayingMovieTitle = UILabel(title: "Discover Movie", color: .black, textAlign: .left)
     let nowPlayViewButton: UIButton = UIButton(type: .system)
     let topView = UIView()
     
@@ -64,12 +64,12 @@ class DiscoverVC: UIViewController {
         topView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 0), size: CGSize(width: 300, height: 40))
         
         
-        topView.addSubview(MovieResultTitle)
-        MovieResultTitle.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
-        MovieResultTitle.text = MovieResultTitle.text?.uppercased()
-        MovieResultTitle.numberOfLines = 0
-        MovieResultTitle.sizeToFit()
-        MovieResultTitle.font = UIFont.systemFont(ofSize: 24)
+        topView.addSubview(NowPlayingMovieTitle)
+        NowPlayingMovieTitle.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 0))
+        NowPlayingMovieTitle.text = NowPlayingMovieTitle.text?.uppercased()
+        NowPlayingMovieTitle.numberOfLines = 0
+        NowPlayingMovieTitle.sizeToFit()
+        NowPlayingMovieTitle.font = UIFont.systemFont(ofSize: 24)
         
         topView.addSubview(nowPlayViewButton)
         nowPlayViewButton.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +110,7 @@ extension DiscoverVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let apiData = res[indexPath.item]
         let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
-        cell.titleMovieResult.text = apiData.title
+        cell.titleNowPlayingMovie.text = apiData.title
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -131,7 +131,7 @@ class DiscoverCell : UICollectionViewCell {
         return image
     }()
     
-    let titleMovieResult = UILabel(title: "Dicover", color: UIColor.black, textAlign: .center)
+    let titleNowPlayingMovie = UILabel(title: "Dicover", color: UIColor.black, textAlign: .center)
     
     
     override init(frame: CGRect) {
@@ -146,9 +146,9 @@ class DiscoverCell : UICollectionViewCell {
         imageView.layer.shadowRadius = 5.0
         imageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0),size: CGSize(width: 140, height: 210))
         
-        addSubview(titleMovieResult)
-        titleMovieResult.anchor(top: imageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
-        titleMovieResult.numberOfLines = 3
+        addSubview(titleNowPlayingMovie)
+        titleNowPlayingMovie.anchor(top: imageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+        titleNowPlayingMovie.numberOfLines = 3
         
     }
     
