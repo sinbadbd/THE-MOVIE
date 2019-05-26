@@ -20,7 +20,7 @@ class MovieDetailsVC: UIViewController {
     let posterThumImage:UIImageView = UIImageView()
     
     let shapeLayer: CAShapeLayer = CAShapeLayer()
-    
+    let movieRatingLabel : UILabel  = UILabel()
     var id : Int? {
         didSet {
             print("id", id)
@@ -121,16 +121,34 @@ class MovieDetailsVC: UIViewController {
         let movieOverView = UIView()
         contentView.addSubview(movieOverView)
         movieOverView.translatesAutoresizingMaskIntoConstraints = false
-        movieOverView.backgroundColor = .blue
+        //movieOverView.backgroundColor = .blue
         movieOverView.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 250))
         movieOverView.layer.addSublayer(shapeLayer)
         shapeLayer.frame =  CGRect(x: 50, y: 40, width: 0, height: 0)
-        let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 30, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
-        shapeLayer.lineWidth = 5
+        shapeLayer.lineWidth = 7
+        //shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeEnd = 0
+        shapeLayer.lineCap = .round
         
+        let basickAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        basickAnimation.toValue = 1
+        basickAnimation.duration = 5
+        basickAnimation.fillMode = .forwards
+        basickAnimation.isRemovedOnCompletion = false
+        shapeLayer.add(basickAnimation, forKey: "Basic")
         
+        //shapeLayer.layer.addSublayer(movieRatingLabel)
+        shapeLayer.insertSublayer(movieRatingLabel.layer, at: 0)
+        movieRatingLabel.text = "8.5"
+        movieRatingLabel.textColor = UIColor.yellow
+        movieRatingLabel.frame = CGRect(x: movieRatingLabel.frame.origin.x , y: movieRatingLabel.frame.origin.y, width: movieRatingLabel.bounds.width, height: movieRatingLabel.bounds.height)
+
+        movieRatingLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        movieRatingLabel.translatesAutoresizingMaskIntoConstraints = false
+//        movieRatingLabel.centerInSuperview()
     }
     
     
