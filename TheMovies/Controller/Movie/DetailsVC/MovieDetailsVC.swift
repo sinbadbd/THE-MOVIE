@@ -19,9 +19,18 @@ class MovieDetailsVC: UIViewController {
     let playVedioButton: UIButton = UIButton()
     let posterThumImage:UIImageView = UIImageView()
     
+    let ratingMainView : UIView = UIView()
     let shapeLayer: CAShapeLayer = CAShapeLayer()
     let trackLayer: CAShapeLayer = CAShapeLayer()
-    let movieOverView = UIView()
+    let movieOverViewContainer = UIView()
+    let userScoreLabel: UILabel =  UILabel()
+    
+    //
+    let favoriteButton : UIButton = UIButton()
+    let wishlistButon : UIButton = UIButton()
+    let ratedButton : UIButton = UIButton()
+    
+    
     
     var id : Int? {
         didSet {
@@ -36,10 +45,11 @@ class MovieDetailsVC: UIViewController {
         // Do any additional setup after loading the view.
         // setNavigationBar()
         setupScrollView()
-        roundRatingAnimation()
+      //  roundRatingAnimation()
        // setupVedio()
         
       //  let shapeLayer = CAShapeLayer()
+        
         
     }
     
@@ -122,27 +132,39 @@ class MovieDetailsVC: UIViewController {
         posterThumImage.anchor(top: nil, leading: topSliderImage.leadingAnchor, bottom: topSliderImage.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: -120, right: 0), size: CGSize(width: 120, height: 180))
         posterThumImage.layer.cornerRadius = 4
       
-       
-    }
-    
-    func roundRatingAnimation(){
-        contentView.addSubview(movieOverView)
-        movieOverView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(movieOverViewContainer)
+        movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
         //movieOverView.backgroundColor = .blue
-        movieOverView.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 250))
+        movieOverViewContainer.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 250))
         
-        movieOverView.layer.addSublayer(trackLayer)
-        trackLayer.frame =  CGRect(x: 50, y: 40, width: 0, height: 0)
-        let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        movieOverViewContainer.addSubview(ratingMainView)
+        ratingMainView.translatesAutoresizingMaskIntoConstraints = false
+       // ratingMainView.backgroundColor = .blue
+        ratingMainView.anchor(top: movieOverViewContainer.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 10, bottom: 0, right: 5), size: CGSize(width: 70, height: 70))
+        
+        
+        movieOverViewContainer.addSubview(userScoreLabel)
+        userScoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        userScoreLabel.text = "User Score"
+        userScoreLabel.font = UIFont.systemFont(ofSize: 12)
+        userScoreLabel.textColor = .black
+        userScoreLabel.textAlignment = .center
+        userScoreLabel.anchor(top: ratingMainView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: CGSize(width: 70, height: userScoreLabel.frame.height))
+        
+        
+        ratingMainView.layer.addSublayer(trackLayer)
+        trackLayer.frame =  CGRect(x: 35, y: 35, width: 0, height: 0)
+        let circularPath = UIBezierPath(arcCenter:  movieOverViewContainer.center , radius: 25, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         trackLayer.path = circularPath.cgPath
         trackLayer.strokeColor = UIColor.lightGray.cgColor
         trackLayer.lineWidth = 7
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = .round
-        
-        
-        movieOverView.layer.addSublayer(shapeLayer)
-        shapeLayer.frame =  CGRect(x: 50, y: 40, width: 0, height: 0)
+
+
+        ratingMainView.layer.addSublayer(shapeLayer)
+        shapeLayer.frame =  CGRect(x: 35, y: 35, width: 0, height: 0)
         // let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
@@ -150,16 +172,16 @@ class MovieDetailsVC: UIViewController {
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = .round
-        
-        
+
+
         let basickAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basickAnimation.toValue = 0.7
         basickAnimation.duration = 5
         basickAnimation.fillMode = .forwards
         basickAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basickAnimation, forKey: "Basic")
-        
-        
+
+
         let textlayer = CATextLayer()
         textlayer.frame = CGRect(x: -20, y: -12, width: 40, height: 22)
         textlayer.fontSize = 20
@@ -168,6 +190,37 @@ class MovieDetailsVC: UIViewController {
         textlayer.isWrapped = true
         textlayer.foregroundColor = UIColor.black.cgColor
         shapeLayer.addSublayer(textlayer) // caLayer is and instance of parent CALayer
+        
+        
+        //
+        // let favoriteButton : UIButton = UIButton()
+        //  let wishlistButon : UIButton = UIButton()
+        // let ratedButton : UIButton = UIButton()
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        // favoriteButton.layer.borderColor = (UIColor.red as! CGColor)
+        favoriteButton.layer.borderWidth = 5
+        favoriteButton.layer.cornerRadius = 22
+        favoriteButton.backgroundColor = .green
+        
+        wishlistButon.translatesAutoresizingMaskIntoConstraints = false
+        //   wishlistButon.layer.borderColor = (UIColor.red as! CGColor)
+        wishlistButon.layer.borderWidth = 5
+        wishlistButon.layer.cornerRadius = 22
+        wishlistButon.backgroundColor = .green
+        ratedButton.translatesAutoresizingMaskIntoConstraints = false
+        //   ratedButton.layer.borderColor = (UIColor.red as! CGColor)
+        ratedButton.layer.borderWidth = 5
+        ratedButton.layer.cornerRadius = 22
+        ratedButton.backgroundColor = .green
+        
+        let statckView = UIStackView(arrangedSubviews: [favoriteButton, wishlistButon,ratedButton])
+        statckView.translatesAutoresizingMaskIntoConstraints = false
+        statckView.distribution = .fillEqually
+        statckView.spacing = 10
+        movieOverViewContainer.addSubview(statckView)
+        statckView.anchor(top: movieOverViewContainer.topAnchor, leading: ratingMainView.trailingAnchor, bottom: nil, trailing: movieOverViewContainer.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size : CGSize(width: 170, height: 50))
+        statckView.backgroundColor = .red
+        // Rating UI
     }
     
 }
