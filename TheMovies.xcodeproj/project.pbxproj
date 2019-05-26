@@ -10,6 +10,7 @@
 		0E06799B79CFF3378BA936DC /* Pods_TheMovies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9037ED320F959D2D8318F646 /* Pods_TheMovies.framework */; };
 		A1699AE02297C72600693C4B /* FooterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699ADF2297C72600693C4B /* FooterLoading.swift */; };
 		A1699AE22297C84A00693C4B /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699AE12297C84A00693C4B /* VerticalStackView.swift */; };
+		A1699AE42299507800693C4B /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699AE32299507700693C4B /* GradientButton.swift */; };
 		A16AA6BC2293BF55008B644C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AA6BB2293BF55008B644C /* AppDelegate.swift */; };
 		A16AA6C32293BF61008B644C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A16AA6C22293BF61008B644C /* Assets.xcassets */; };
 		A16AA6D42293C858008B644C /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AA6D32293C858008B644C /* UIView+Layout.swift */; };
@@ -59,6 +60,7 @@
 		9037ED320F959D2D8318F646 /* Pods_TheMovies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMovies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1699ADF2297C72600693C4B /* FooterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterLoading.swift; sourceTree = "<group>"; };
 		A1699AE12297C84A00693C4B /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
+		A1699AE32299507700693C4B /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		A16AA6B82293BF55008B644C /* TheMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A16AA6BB2293BF55008B644C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A16AA6C22293BF61008B644C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				A16AA6D52293C877008B644C /* Extensions.swift */,
 				A16AA6D72293C88C008B644C /* Colors.swift */,
 				A1699AE12297C84A00693C4B /* VerticalStackView.swift */,
+				A1699AE32299507700693C4B /* GradientButton.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				A189D2242296983800C01209 /* TopRatedPagesVC.swift in Sources */,
 				A1802FC3229665A100212DEA /* DiscoverMovieCell.swift in Sources */,
 				A16AA6FF2293ED72008B644C /* BaseTabController.swift in Sources */,
+				A1699AE42299507800693C4B /* GradientButton.swift in Sources */,
 				A1802FB6229661AF00212DEA /* TopRated.swift in Sources */,
 				A189D2272296ACAA00C01209 /* MovieDetailsVC.swift in Sources */,
 				A16AA6FB2293CE60008B644C /* LaunchScreenVC.swift in Sources */,
