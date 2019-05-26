@@ -53,7 +53,7 @@ class MovieController : UIViewController {
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.backgroundColor = .white
-        
+        self.scrollView.alwaysBounceVertical = true
         
         
         

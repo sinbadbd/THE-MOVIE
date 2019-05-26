@@ -7,133 +7,7 @@
 //
 
 import UIKit
-import AVKit
-
-
-
-class VedioPlayerView : UIView {
-    
-    let activityIndicatorView : UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(style: .whiteLarge)
-        aiv.translatesAutoresizingMaskIntoConstraints = false
-        aiv.startAnimating()
-        return aiv
-    }()
-    
-   lazy var pauseButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    let controllerContainer: UIView = {
-        let view = UIView ()
-        view.backgroundColor = UIColor(white: 0, alpha: 1)
-        return view
-    }()
-    let vidioLengthLabel : UILabel = {
-        let label = UILabel()
-        label.text = "00.00"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        return label
-    }()
-    
-    let videoSlider : UISlider = {
-        let slider = UISlider()
-        slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.minimumTrackTintColor = .red
-        slider.maximumTrackTintColor = .white
-        return slider
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupPlayerView()
-        controllerContainer.frame = frame
-        addSubview(controllerContainer)
-        
-        controllerContainer.addSubview(activityIndicatorView)
-        activityIndicatorView.centerInSuperview()
-        controllerContainer.addSubview(pauseButton)
-        pauseButton.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: CGSize(width: 60, height: 60) )
-        pauseButton.setImage(UIImage(named: "pause"), for: .normal)
-        pauseButton.centerInSuperview()
-        pauseButton.tintColor = .white
-        pauseButton.addTarget(self, action: #selector(handlePauseBtn), for: .touchUpInside)
-        pauseButton.isHidden = true
-        
-        let stackview = UIStackView(arrangedSubviews: [videoSlider,vidioLengthLabel])
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        stackview.axis = .horizontal
-        stackview.alignment = .center
-        stackview.distribution = .fillEqually
-        controllerContainer.addSubview(stackview)
-        stackview.anchor(top: nil, leading: controllerContainer.leadingAnchor, bottom: controllerContainer.bottomAnchor, trailing: controllerContainer.trailingAnchor, padding: .init(top: 0, left: 5, bottom: 5, right: 5))
-    }
-    var isPlaying = false
-    
-    @objc func handlePauseBtn(){
-        if isPlaying {
-            player?.pause()
-            pauseButton.setImage(UIImage(named: "play-button"), for: .normal)
-        } else {
-            player?.play()
-            pauseButton.setImage(UIImage(named: "pause"), for: .normal)
-        }
-       isPlaying = !isPlaying
-    }
-
-   var player : AVPlayer?
-   func setupPlayerView(){
-        let urlString = "https://firebasestorage.googleapis.com/v0/b/gameofchats-762ca.appspot.com/o/message_movies%2F12323439-9729-4941-BA07-2BAE970967C7.mov?alt=media&token=3e37a093-3bc8-410f-84d3-38332af9c726"
-        if let url = NSURL(string: urlString) {
-            player = AVPlayer(url: url as URL)
-            let playerLayer = AVPlayerLayer(player: player)
-            self.layer.addSublayer(playerLayer)
-            playerLayer.frame =  self.frame
-            player?.play()
  
-            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (_) in
-                if self.player != nil && self.player?.rate != 0 {
-                    print("playing")
-                    self.activityIndicatorView.stopAnimating()
-                    self.controllerContainer.backgroundColor = .clear
-                    self.pauseButton.isHidden = false
-                    self.isPlaying = true
- 
-                    if let duration = self.player?.currentItem?.asset.duration { //.asset.duration ###
-                        let seconds = CMTimeGetSeconds(duration)
-                        
-                        if seconds.isFinite{
-                            let second = Int(seconds)
-                            let secondsText = second % 60
-                            var secondString = "00"
-                            if secondsText < 10{
-                                secondString = "0\(secondsText)"
-                            }
-                            else{
-                                secondString = "\(secondsText)"
-                            }
-                            let minutesText = String(format: "%02d", Int(seconds) / 60)
-                            self.vidioLengthLabel.text =  "\(minutesText):\(secondString)"
-                            print(self.vidioLengthLabel)
-                            
-                        }
-                    }
-                }
-            }
-        }
-    }
- 
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
 class MovieDetailsVC: UIViewController {
     
     var result = [Result]()
@@ -162,7 +36,7 @@ class MovieDetailsVC: UIViewController {
         let keyWindow = UIApplication.shared.keyWindow
         let height = (keyWindow?.frame.width)! * 9 / 16
         let vedioPlayerView = CGRect(x: 0, y: 0, width: (keyWindow?.frame.width)!, height: height)
-        let vedioPlayer = VedioPlayerView(frame: vedioPlayerView)
+        let vedioPlayer = VideoPlayerView(frame: vedioPlayerView)
         view.addSubview(vedioPlayer)
     }
     

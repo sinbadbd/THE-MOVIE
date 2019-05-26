@@ -53,6 +53,7 @@
 		A189D2222296982600C01209 /* PopularPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D2212296982600C01209 /* PopularPagesVC.swift */; };
 		A189D2242296983800C01209 /* TopRatedPagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D2232296983800C01209 /* TopRatedPagesVC.swift */; };
 		A189D2272296ACAA00C01209 /* MovieDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A189D2262296ACAA00C01209 /* MovieDetailsVC.swift */; };
+		A1F54BD1229A7128003DF20F /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BD0229A7128003DF20F /* VideoPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,7 @@
 		A189D2212296982600C01209 /* PopularPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularPagesVC.swift; sourceTree = "<group>"; };
 		A189D2232296983800C01209 /* TopRatedPagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedPagesVC.swift; sourceTree = "<group>"; };
 		A189D2262296ACAA00C01209 /* MovieDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsVC.swift; sourceTree = "<group>"; };
+		A1F54BD0229A7128003DF20F /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		D90B778D04B2FCA2EF332B67 /* Pods-TheMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovies.debug.xcconfig"; path = "Target Support Files/Pods-TheMovies/Pods-TheMovies.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,6 +201,7 @@
 		A16AA6CF2293C733008B644C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A1F54BCF229A70E5003DF20F /* Player */,
 				A16AA7002293EDA9008B644C /* Movie */,
 				A16AA6FD2293ED3A008B644C /* Main */,
 				A16AA6FA2293CE60008B644C /* LaunchScreenVC.swift */,
@@ -334,6 +337,14 @@
 				A189D2262296ACAA00C01209 /* MovieDetailsVC.swift */,
 			);
 			path = DetailsVC;
+			sourceTree = "<group>";
+		};
+		A1F54BCF229A70E5003DF20F /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				A1F54BD0229A7128003DF20F /* VideoPlayerView.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -482,6 +493,7 @@
 				A16AA6BC2293BF55008B644C /* AppDelegate.swift in Sources */,
 				A1802FC62296665800212DEA /* DiscoverVC.swift in Sources */,
 				A1699AE22297C84A00693C4B /* VerticalStackView.swift in Sources */,
+				A1F54BD1229A7128003DF20F /* VideoPlayerView.swift in Sources */,
 				A16AA6F52293CA6B008B644C /* TMButton.swift in Sources */,
 				A1802FC9229670A600212DEA /* DiscoverPageVC.swift in Sources */,
 				A1802FCB229677E900212DEA /* PopularVC.swift in Sources */,
