@@ -21,7 +21,8 @@ class MovieDetailsVC: UIViewController {
     
     let shapeLayer: CAShapeLayer = CAShapeLayer()
     let trackLayer: CAShapeLayer = CAShapeLayer()
-    let movieRatingLabel : UILabel  = UILabel()
+    let movieOverView = UIView()
+    
     var id : Int? {
         didSet {
             print("id", id)
@@ -35,6 +36,7 @@ class MovieDetailsVC: UIViewController {
         // Do any additional setup after loading the view.
         // setNavigationBar()
         setupScrollView()
+        roundRatingAnimation()
        // setupVedio()
         
       //  let shapeLayer = CAShapeLayer()
@@ -119,12 +121,15 @@ class MovieDetailsVC: UIViewController {
         posterThumImage.backgroundColor = .green
         posterThumImage.anchor(top: nil, leading: topSliderImage.leadingAnchor, bottom: topSliderImage.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: -120, right: 0), size: CGSize(width: 120, height: 180))
         posterThumImage.layer.cornerRadius = 4
-        let movieOverView = UIView()
+      
+       
+    }
+    
+    func roundRatingAnimation(){
         contentView.addSubview(movieOverView)
         movieOverView.translatesAutoresizingMaskIntoConstraints = false
         //movieOverView.backgroundColor = .blue
         movieOverView.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 250))
-      
         
         movieOverView.layer.addSublayer(trackLayer)
         trackLayer.frame =  CGRect(x: 50, y: 40, width: 0, height: 0)
@@ -133,20 +138,18 @@ class MovieDetailsVC: UIViewController {
         trackLayer.strokeColor = UIColor.lightGray.cgColor
         trackLayer.lineWidth = 7
         trackLayer.fillColor = UIColor.clear.cgColor
-         trackLayer.lineCap = .round
+        trackLayer.lineCap = .round
         
         
         movieOverView.layer.addSublayer(shapeLayer)
         shapeLayer.frame =  CGRect(x: 50, y: 40, width: 0, height: 0)
-       // let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        // let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
         shapeLayer.lineWidth = 7
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = .round
-        
-        
         
         
         let basickAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -156,7 +159,7 @@ class MovieDetailsVC: UIViewController {
         basickAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basickAnimation, forKey: "Basic")
         
-  
+        
         let textlayer = CATextLayer()
         textlayer.frame = CGRect(x: -20, y: -12, width: 40, height: 22)
         textlayer.fontSize = 20
@@ -167,5 +170,5 @@ class MovieDetailsVC: UIViewController {
         shapeLayer.addSublayer(textlayer) // caLayer is and instance of parent CALayer
     }
     
-    
 }
+
