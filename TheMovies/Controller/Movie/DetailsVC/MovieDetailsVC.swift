@@ -14,7 +14,12 @@ class MovieDetailsVC: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     
+    let topSliderImage: UIImageView = UIImageView()
+    let movieTitleLabel :UILabel = UILabel()
+    let playVedioButton: UIButton = UIButton()
+    let posterThumImage:UIImageView = UIImageView()
     
+    let shapeLayer: CAShapeLayer = CAShapeLayer()
     
     var id : Int? {
         didSet {
@@ -29,7 +34,10 @@ class MovieDetailsVC: UIViewController {
         // Do any additional setup after loading the view.
         // setNavigationBar()
         setupScrollView()
-        setupVedio()
+       // setupVedio()
+        
+      //  let shapeLayer = CAShapeLayer()
+        
     }
     
     func setupVedio(){
@@ -88,13 +96,42 @@ class MovieDetailsVC: UIViewController {
         self.view.addConstraints([
             self.contentView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
             ])
+       
         //
+        topSliderImage.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(topSliderImage)
+        topSliderImage.backgroundColor = .red
+        topSliderImage.contentMode = .scaleAspectFit
+        topSliderImage.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(), size: CGSize(width: topSliderImage.frame.width, height: 280))
+       //
+        topSliderImage.addSubview(movieTitleLabel)
+        movieTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieTitleLabel.text = "AVENGER"
+        movieTitleLabel.textColor = .white
+        movieTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        movieTitleLabel.numberOfLines = 5
+        movieTitleLabel.anchor(top: nil, leading: movieTitleLabel.leadingAnchor, bottom: topSliderImage.bottomAnchor, trailing: topSliderImage.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 10, right: 10), size: CGSize(width: 250, height: movieTitleLabel.frame.height))
+        
         //
-        //
-        //
-        //        contentView.addSubview(vedioPlayerView)
-        //        vedioPlayerView.translatesAutoresizingMaskIntoConstraints = false
-        //        vedioPlayerView.anchor(top: contentView.topAnchor, leading: contentView.trailingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, size: CGSize(width: vedioPlayerView.frame.width, height: 280))
-        //        print(vedioPlayerView)
+        topSliderImage.addSubview(posterThumImage)
+        posterThumImage.translatesAutoresizingMaskIntoConstraints  = false
+        posterThumImage.backgroundColor = .green
+        posterThumImage.anchor(top: nil, leading: topSliderImage.leadingAnchor, bottom: topSliderImage.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: -120, right: 0), size: CGSize(width: 120, height: 180))
+        
+        let movieOverView = UIView()
+        contentView.addSubview(movieOverView)
+        movieOverView.translatesAutoresizingMaskIntoConstraints = false
+        movieOverView.backgroundColor = .blue
+        movieOverView.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 250))
+        movieOverView.layer.addSublayer(shapeLayer)
+        shapeLayer.frame =  CGRect(x: 50, y: 40, width: 0, height: 0)
+        let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 30, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.lineWidth = 5
+        
+        
     }
+    
+    
 }
