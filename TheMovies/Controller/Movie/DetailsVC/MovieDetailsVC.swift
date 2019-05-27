@@ -45,12 +45,9 @@ class MovieDetailsVC: UIViewController {
         // Do any additional setup after loading the view.
         // setNavigationBar()
         setupScrollView()
-      //  roundRatingAnimation()
-       // setupVedio()
-        
-      //  let shapeLayer = CAShapeLayer()
-        
-        
+        userButton()
+        ratingView()
+
     }
     
     func setupVedio(){
@@ -119,7 +116,7 @@ class MovieDetailsVC: UIViewController {
        //
         topSliderImage.addSubview(movieTitleLabel)
         movieTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieTitleLabel.text = "AVENGER"
+        movieTitleLabel.text = "--"
         movieTitleLabel.textColor = .white
         movieTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
         movieTitleLabel.numberOfLines = 5
@@ -134,8 +131,8 @@ class MovieDetailsVC: UIViewController {
       
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
-        //movieOverView.backgroundColor = .blue
-        movieOverViewContainer.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 250))
+     //   movieOverViewContainer.backgroundColor = .blue
+        movieOverViewContainer.anchor(top: topSliderImage.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 10, left: 140, bottom: 0, right: 10), size: CGSize(width: 250, height: 100))
         
         
         movieOverViewContainer.addSubview(ratingMainView)
@@ -151,8 +148,26 @@ class MovieDetailsVC: UIViewController {
         userScoreLabel.textColor = .black
         userScoreLabel.textAlignment = .center
         userScoreLabel.anchor(top: ratingMainView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: CGSize(width: 70, height: userScoreLabel.frame.height))
-        
-        
+ 
+        let overviewTextLabel = UILabel()
+        contentView.addSubview(overviewTextLabel)
+        overviewTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        overviewTextLabel.text = "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store."
+       // overviewTextLabel.backgroundColor = .red
+        overviewTextLabel.numberOfLines = 0
+        overviewTextLabel.font = UIFont.systemFont(ofSize: 20)
+        overviewTextLabel.anchor(top: ratingMainView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 60, left: 10, bottom: 0, right: 15), size: CGSize(width: overviewTextLabel.frame.width, height: overviewTextLabel.frame.height))
+       
+        let fullCastCrewLabel = UILabel()
+        contentView.addSubview(fullCastCrewLabel)
+        fullCastCrewLabel.translatesAutoresizingMaskIntoConstraints = false
+        fullCastCrewLabel.text = "Full Cast & Crew"
+        //fullCastCrewLabel.backgroundColor = .blue
+        fullCastCrewLabel.numberOfLines = 0
+        fullCastCrewLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        fullCastCrewLabel.anchor(top: overviewTextLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 0, right: 15), size: CGSize(width: fullCastCrewLabel.frame.width, height: fullCastCrewLabel.frame.height))
+    }
+    func ratingView(){
         ratingMainView.layer.addSublayer(trackLayer)
         trackLayer.frame =  CGRect(x: 35, y: 35, width: 0, height: 0)
         let circularPath = UIBezierPath(arcCenter:  movieOverViewContainer.center , radius: 25, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
@@ -161,8 +176,8 @@ class MovieDetailsVC: UIViewController {
         trackLayer.lineWidth = 7
         trackLayer.fillColor = UIColor.clear.cgColor
         trackLayer.lineCap = .round
-
-
+        
+        
         ratingMainView.layer.addSublayer(shapeLayer)
         shapeLayer.frame =  CGRect(x: 35, y: 35, width: 0, height: 0)
         // let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
@@ -172,16 +187,16 @@ class MovieDetailsVC: UIViewController {
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = .round
-
-
+        
+        
         let basickAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basickAnimation.toValue = 0.7
         basickAnimation.duration = 5
         basickAnimation.fillMode = .forwards
         basickAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basickAnimation, forKey: "Basic")
-
-
+        
+        
         let textlayer = CATextLayer()
         textlayer.frame = CGRect(x: -20, y: -12, width: 40, height: 22)
         textlayer.fontSize = 20
@@ -190,38 +205,38 @@ class MovieDetailsVC: UIViewController {
         textlayer.isWrapped = true
         textlayer.foregroundColor = UIColor.black.cgColor
         shapeLayer.addSublayer(textlayer) // caLayer is and instance of parent CALayer
-        
-        
-        //
-        // let favoriteButton : UIButton = UIButton()
-        //  let wishlistButon : UIButton = UIButton()
-        // let ratedButton : UIButton = UIButton()
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        // favoriteButton.layer.borderColor = (UIColor.red as! CGColor)
-        favoriteButton.layer.borderWidth = 5
-        favoriteButton.layer.cornerRadius = 22
-        favoriteButton.backgroundColor = .green
-        
-        wishlistButon.translatesAutoresizingMaskIntoConstraints = false
-        //   wishlistButon.layer.borderColor = (UIColor.red as! CGColor)
-        wishlistButon.layer.borderWidth = 5
-        wishlistButon.layer.cornerRadius = 22
-        wishlistButon.backgroundColor = .green
-        ratedButton.translatesAutoresizingMaskIntoConstraints = false
-        //   ratedButton.layer.borderColor = (UIColor.red as! CGColor)
-        ratedButton.layer.borderWidth = 5
-        ratedButton.layer.cornerRadius = 22
-        ratedButton.backgroundColor = .green
-        
-        let statckView = UIStackView(arrangedSubviews: [favoriteButton, wishlistButon,ratedButton])
-        statckView.translatesAutoresizingMaskIntoConstraints = false
-        statckView.distribution = .fillEqually
-        statckView.spacing = 10
-        movieOverViewContainer.addSubview(statckView)
-        statckView.anchor(top: movieOverViewContainer.topAnchor, leading: ratingMainView.trailingAnchor, bottom: nil, trailing: movieOverViewContainer.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size : CGSize(width: 170, height: 50))
-        statckView.backgroundColor = .red
-        // Rating UI
     }
-    
+    func userButton(){
+        var colorValus = ["heart","bookmark-white","star"]
+        var xOffest:CGFloat = 80
+        for color in 0..<colorValus.count {
+            let button = UIButton(frame: CGRect(x: xOffest, y: 10, width: 50, height: 50))
+            xOffest += 55
+            button.tag = color
+            button.setImage(UIImage(named: "\(colorValus[color])"), for: .normal)
+            button.layer.cornerRadius = button.frame.width / 2
+            button.layer.borderWidth = 3
+            button.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            
+            button.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
+            self.movieOverViewContainer.addSubview(button)
+        }
+        
+        var titleValue = ["Adventure","Science Fiction","Action"]
+        var xOffestT:CGFloat = 20
+        for title in 0..<titleValue.count {
+            let label = UILabel(frame: CGRect(x: xOffestT, y: 80, width: 300, height: 50))
+            xOffestT += 80
+            label.text = "\(titleValue[title])"
+            //  self.movieOverViewContainer.addSubview(label)
+        }
+    }
+    @objc func handleButton(_ sender: UIButton){
+        print("hi")
+        sender.buttonType.rawValue
+        print(sender.tag)
+        
+    }
+   
 }
 
