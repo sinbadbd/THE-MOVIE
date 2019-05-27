@@ -16,6 +16,7 @@ class APIClient {
         static let BASE_URL = "https://api.themoviedb.org/3/"
         static let POSTER_URL = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
         static let BACKDROP_PATH = "https://image.tmdb.org/t/p/w500_and_h282_face/"
+        static let PROFILE_URL = "https://image.tmdb.org/t/p/w138_and_h175_face/"
         static let apiKeyParam = key 
         static let PAGE = "&page"
         
@@ -24,6 +25,7 @@ class APIClient {
         case getTopRatedMovies
         case getDiscoverMovies
         case getMovieDetailsId(Int)
+        case getMovieCreditsId(Int)
         
         var stringValue : String {
             switch self {
@@ -31,9 +33,8 @@ class APIClient {
                 case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
                 case .getTopRatedMovies: return EndPoints.BASE_URL + "movie/top_rated" + EndPoints.apiKeyParam
                 case .getDiscoverMovies: return EndPoints.BASE_URL + "discover/movie" + EndPoints.apiKeyParam
-                
                 case .getMovieDetailsId(let id) : return EndPoints.BASE_URL + "movie/\(id)" + EndPoints.apiKeyParam
-                
+                case .getMovieCreditsId(let id) : return  EndPoints.BASE_URL + "movie/\(id)/credits" + EndPoints.apiKeyParam
                 
             }
         }
@@ -125,12 +126,8 @@ class APIClient {
     
     //@GET: ID MOVIES DETAILS
     class func getMovieId(id: Int, completion: @escaping(MovieDetails?, Error?)-> Void){
-        
         taskForGETRequest(url: EndPoints.getMovieDetailsId(id).url, response: MovieDetails.self) { (response, error) in
-          print(EndPoints.getMovieDetailsId(id).url)
-            
             if let response = response {
-                print("-----\(response.id)")
                 completion(response, nil)
             } else {
                 completion(nil, error)
@@ -139,4 +136,19 @@ class APIClient {
             }
         }
     }
+    
+    //@GET: ID MOVIES credits
+    class func getMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getMovieCreditsId(id).url, response: MovieCcredits.self) { (response, error) in
+            if let response = response {
+                print("res\(response)")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
 }

@@ -14,6 +14,9 @@ class MovieDetailsVC: UIViewController {
     let MOVIECAST_CELL = "MOVIECAST_CELL"
     
     var result = [Result]()
+    var movieDetails : MovieDetails?
+    var casts = [Cast]()
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
@@ -51,8 +54,6 @@ class MovieDetailsVC: UIViewController {
         }
     }
     
-    var movieDetails : MovieDetails?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -85,6 +86,19 @@ class MovieDetailsVC: UIViewController {
                     self.textlayer.string = "\(String(describing: response.voteAverage))"
                     self.basickAnimation.toValue = response.voteAverage
                     self.overviewTextLabel.text = response.overview
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+        
+        
+        // MOVIE CREDITS API CALL
+        //movieCredit
+        APIClient.getMovieCreditsId(id: id) { (response, error) in
+            if let response = response {
+                self.casts = response[0].cast ?? []
+                print("credit\(response)")
+                DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
             }
@@ -202,7 +216,7 @@ class MovieDetailsVC: UIViewController {
         
         contentView.addSubview(fullCastCrewLabel)
         fullCastCrewLabel.translatesAutoresizingMaskIntoConstraints = false
-        fullCastCrewLabel.text = "Full Cast & Crew"
+        fullCastCrewLabel.text = "Full Cast"
         //fullCastCrewLabel.backgroundColor = .blue
         fullCastCrewLabel.numberOfLines = 0
         fullCastCrewLabel.font = UIFont.boldSystemFont(ofSize: 24)
@@ -286,13 +300,14 @@ class MovieDetailsVC: UIViewController {
 
 extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return casts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
-        
-        cell.backgroundColor = .blue
+        let apiResponse = casts[indexPath.item]
+        let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiResponse.profilePath! )")
+        cell.imageView.sd_setImage(with: img, completed: nil)
         return cell
     }
     

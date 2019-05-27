@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E06799B79CFF3378BA936DC /* Pods_TheMovies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9037ED320F959D2D8318F646 /* Pods_TheMovies.framework */; };
 		A118B34B229AF272006BB697 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118B34A229AF272006BB697 /* MovieDetails.swift */; };
+		A118B34D229C60BC006BB697 /* MovieCcredits.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118B34C229C60BC006BB697 /* MovieCcredits.swift */; };
 		A1699AE02297C72600693C4B /* FooterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699ADF2297C72600693C4B /* FooterLoading.swift */; };
 		A1699AE22297C84A00693C4B /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699AE12297C84A00693C4B /* VerticalStackView.swift */; };
 		A1699AE42299507800693C4B /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699AE32299507700693C4B /* GradientButton.swift */; };
@@ -62,6 +63,7 @@
 		3D3D79FFC258F6A57C6CEC7B /* Pods-TheMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovies.release.xcconfig"; path = "Target Support Files/Pods-TheMovies/Pods-TheMovies.release.xcconfig"; sourceTree = "<group>"; };
 		9037ED320F959D2D8318F646 /* Pods_TheMovies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheMovies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A118B34A229AF272006BB697 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
+		A118B34C229C60BC006BB697 /* MovieCcredits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCcredits.swift; sourceTree = "<group>"; };
 		A1699ADF2297C72600693C4B /* FooterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterLoading.swift; sourceTree = "<group>"; };
 		A1699AE12297C84A00693C4B /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		A1699AE32299507700693C4B /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				A1802FB2229661AE00212DEA /* TopRated.swift */,
 				A1802FC02296651D00212DEA /* Discover.swift */,
 				A118B34A229AF272006BB697 /* MovieDetails.swift */,
+				A118B34C229C60BC006BB697 /* MovieCcredits.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				A16AA6F52293CA6B008B644C /* TMButton.swift in Sources */,
 				A1802FC9229670A600212DEA /* DiscoverPageVC.swift in Sources */,
 				A1802FCB229677E900212DEA /* PopularVC.swift in Sources */,
+				A118B34D229C60BC006BB697 /* MovieCcredits.swift in Sources */,
 				A189D21E22968F1D00C01209 /* TopRatedVC.swift in Sources */,
 				A1802FB9229661AF00212DEA /* Result.swift in Sources */,
 				A16AA6D42293C858008B644C /* UIView+Layout.swift in Sources */,
