@@ -10,6 +10,8 @@ import UIKit
  
 class MovieDetailsVC: UIViewController {
     
+    let MOVIECAST_CELL = "MOVIECAST_CELL"
+    
     var result = [Result]()
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -30,7 +32,16 @@ class MovieDetailsVC: UIViewController {
     let wishlistButon : UIButton = UIButton()
     let ratedButton : UIButton = UIButton()
     
+    let overviewTextLabel: UILabel = UILabel()
+    let fullCastCrewLabel: UILabel = UILabel()
     
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collection
+    }()
     
     var id : Int? {
         didSet {
@@ -47,7 +58,10 @@ class MovieDetailsVC: UIViewController {
         setupScrollView()
         userButton()
         ratingView()
-
+        
+        collectionView.register(MovieCastCell.self, forCellWithReuseIdentifier: MOVIECAST_CELL)
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     func setupVedio(){
@@ -100,6 +114,7 @@ class MovieDetailsVC: UIViewController {
             self.contentView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
             self.contentView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
             self.contentView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
+            self.contentView.heightAnchor.constraint(equalToConstant: 1000)
             ])
         
         //To stop the scroll view horizontal scrolling, we are giving the same width for the content view as well
@@ -149,23 +164,28 @@ class MovieDetailsVC: UIViewController {
         userScoreLabel.textAlignment = .center
         userScoreLabel.anchor(top: ratingMainView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: CGSize(width: 70, height: userScoreLabel.frame.height))
  
-        let overviewTextLabel = UILabel()
+        
         contentView.addSubview(overviewTextLabel)
         overviewTextLabel.translatesAutoresizingMaskIntoConstraints = false
         overviewTextLabel.text = "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store."
        // overviewTextLabel.backgroundColor = .red
         overviewTextLabel.numberOfLines = 0
         overviewTextLabel.font = UIFont.systemFont(ofSize: 20)
-        overviewTextLabel.anchor(top: ratingMainView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 60, left: 10, bottom: 0, right: 15), size: CGSize(width: overviewTextLabel.frame.width, height: overviewTextLabel.frame.height))
+        overviewTextLabel.anchor(top: ratingMainView.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 60, left: 10, bottom: 40, right: 15), size: CGSize(width: overviewTextLabel.frame.width, height: overviewTextLabel.frame.height))
        
-        let fullCastCrewLabel = UILabel()
+        
         contentView.addSubview(fullCastCrewLabel)
         fullCastCrewLabel.translatesAutoresizingMaskIntoConstraints = false
         fullCastCrewLabel.text = "Full Cast & Crew"
-        //fullCastCrewLabel.backgroundColor = .blue
+         fullCastCrewLabel.backgroundColor = .blue
         fullCastCrewLabel.numberOfLines = 0
         fullCastCrewLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        fullCastCrewLabel.anchor(top: overviewTextLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 0, right: 15), size: CGSize(width: fullCastCrewLabel.frame.width, height: fullCastCrewLabel.frame.height))
+        fullCastCrewLabel.anchor(top: overviewTextLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 40, right: 15), size: CGSize(width: fullCastCrewLabel.frame.width, height: fullCastCrewLabel.frame.height))
+        
+        contentView.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .red
+        collectionView.anchor(top: fullCastCrewLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: collectionView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 40, right: 0), size: CGSize(width: collectionView.frame.width, height: 150))
     }
     func ratingView(){
         ratingMainView.layer.addSublayer(trackLayer)
@@ -240,3 +260,18 @@ class MovieDetailsVC: UIViewController {
    
 }
 
+extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
+        cell.backgroundColor = .blue
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 70, height: 105)
+    }
+}
