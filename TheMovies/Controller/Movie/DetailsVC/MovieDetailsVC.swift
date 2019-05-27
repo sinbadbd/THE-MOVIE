@@ -7,7 +7,8 @@
 //
 
 import UIKit
- 
+import SDWebImage
+
 class MovieDetailsVC: UIViewController {
     
     let MOVIECAST_CELL = "MOVIECAST_CELL"
@@ -34,7 +35,8 @@ class MovieDetailsVC: UIViewController {
     
     let overviewTextLabel: UILabel = UILabel()
     let fullCastCrewLabel: UILabel = UILabel()
-    
+    let textlayer = CATextLayer()
+    let basickAnimation = CABasicAnimation(keyPath: "strokeEnd")
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -43,12 +45,13 @@ class MovieDetailsVC: UIViewController {
         return collection
     }()
     
-    var id : Int? {
+    var id : Int! {
         didSet {
             print("id", id)
         }
     }
     
+    var movieDetails : MovieDetails?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +65,31 @@ class MovieDetailsVC: UIViewController {
         collectionView.register(MovieCastCell.self, forCellWithReuseIdentifier: MOVIECAST_CELL)
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        fetchApiResponse()
     }
-    
+    func fetchApiResponse(){
+        APIClient.getMovieId(id: id) { (response, error) in
+            print("id----")
+            if let response = response {
+                self.movieDetails = response
+                print(response)
+                DispatchQueue.main.async {
+                    let imgUrl = URL(string: "\(APIClient.EndPoints.BACKDROP_PATH + response.backdropPath!)")
+                    self.topSliderImage.sd_setImage(with: imgUrl, completed: nil)
+                    self.movieTitleLabel.text = response.originalTitle
+                    
+                    let posterURL = URL(string: "\(APIClient.EndPoints.POSTER_URL + response.posterPath!)")
+                    self.posterThumImage.sd_setImage(with: posterURL, completed: nil)
+                    
+                    self.textlayer.string = "\(String(describing: response.voteAverage))"
+                    self.basickAnimation.toValue = response.voteAverage
+                    self.overviewTextLabel.text = response.overview
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
     func setupVedio(){
         let keyWindow = UIApplication.shared.keyWindow
         let height = (keyWindow?.frame.width)! * 9 / 16
@@ -126,7 +152,7 @@ class MovieDetailsVC: UIViewController {
         topSliderImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(topSliderImage)
         topSliderImage.backgroundColor = .red
-        topSliderImage.contentMode = .scaleAspectFit
+        topSliderImage.contentMode = .scaleAspectFill
         topSliderImage.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(), size: CGSize(width: topSliderImage.frame.width, height: 280))
        //
         topSliderImage.addSubview(movieTitleLabel)
@@ -167,7 +193,7 @@ class MovieDetailsVC: UIViewController {
         
         contentView.addSubview(overviewTextLabel)
         overviewTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        overviewTextLabel.text = "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store."
+        overviewTextLabel.text = "--"
        // overviewTextLabel.backgroundColor = .red
         overviewTextLabel.numberOfLines = 0
         overviewTextLabel.font = UIFont.systemFont(ofSize: 20)
@@ -177,15 +203,15 @@ class MovieDetailsVC: UIViewController {
         contentView.addSubview(fullCastCrewLabel)
         fullCastCrewLabel.translatesAutoresizingMaskIntoConstraints = false
         fullCastCrewLabel.text = "Full Cast & Crew"
-         fullCastCrewLabel.backgroundColor = .blue
+        //fullCastCrewLabel.backgroundColor = .blue
         fullCastCrewLabel.numberOfLines = 0
         fullCastCrewLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        fullCastCrewLabel.anchor(top: overviewTextLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 40, right: 15), size: CGSize(width: fullCastCrewLabel.frame.width, height: fullCastCrewLabel.frame.height))
+        fullCastCrewLabel.anchor(top: overviewTextLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 5, right: 15), size: CGSize(width: fullCastCrewLabel.frame.width, height: fullCastCrewLabel.frame.height))
         
         contentView.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .red
-        collectionView.anchor(top: fullCastCrewLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: collectionView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 20, left: 10, bottom: 40, right: 0), size: CGSize(width: collectionView.frame.width, height: 150))
+        collectionView.backgroundColor = .white
+        collectionView.anchor(top: fullCastCrewLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: collectionView.bottomAnchor, trailing: contentView.trailingAnchor, padding: .init(top: 5, left: 10, bottom: 40, right: 0), size: CGSize(width: collectionView.frame.width, height: 150))
     }
     func ratingView(){
         ratingMainView.layer.addSublayer(trackLayer)
@@ -209,19 +235,17 @@ class MovieDetailsVC: UIViewController {
         shapeLayer.lineCap = .round
         
         
-        let basickAnimation = CABasicAnimation(keyPath: "strokeEnd")
+       
+        //Animation#
         basickAnimation.toValue = 0.7
-        basickAnimation.duration = 5
+        basickAnimation.duration = 3
         basickAnimation.fillMode = .forwards
         basickAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basickAnimation, forKey: "Basic")
         
-        
-        let textlayer = CATextLayer()
         textlayer.frame = CGRect(x: -20, y: -12, width: 40, height: 22)
         textlayer.fontSize = 20
         textlayer.alignmentMode = .center
-        textlayer.string = "9.3"
         textlayer.isWrapped = true
         textlayer.foregroundColor = UIColor.black.cgColor
         shapeLayer.addSublayer(textlayer) // caLayer is and instance of parent CALayer
@@ -267,6 +291,7 @@ extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
+        
         cell.backgroundColor = .blue
         return cell
     }
