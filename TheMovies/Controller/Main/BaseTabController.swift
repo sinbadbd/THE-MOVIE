@@ -17,17 +17,19 @@ class BaseTabController : UITabBarController {
         
         
         viewControllers = [
-            createNavController(viewController: MovieController(), title: "Movie", imageView: "movie")
+            createNavController(viewController: MovieController(), title: "Movie", imageView: "movie"),
+            createNavController(viewController: TVController(), title: "Movie", imageView: "television")
         ]
     } 
 }
 
 func createNavController (viewController : UIViewController, title: String, imageView: String) -> UIViewController {
     
-    viewController.view.backgroundColor = .white
-    viewController.navigationItem.title = title
-    let navController = UINavigationController(rootViewController: viewController)
-    navController.tabBarItem.title = title
-    navController.tabBarItem.image = UIImage(named: imageView)
-    return navController
+   // viewController.view.backgroundColor = .white
+//    viewController.navigationItem.title = title
+    
+   // let navController = UINavigationController(rootViewController: viewController)
+     viewController.tabBarItem.title = title
+   viewController.tabBarItem.image = UIImage(named: imageView)
+    return viewController
 }

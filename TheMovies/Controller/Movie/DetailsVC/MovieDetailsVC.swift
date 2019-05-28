@@ -48,6 +48,7 @@ class MovieDetailsVC: UIViewController {
         return collection
     }()
     
+    let backButton:UIButton = UIButton(type: .system)
     var id : Int! {
         didSet {
             print("id", id)
@@ -58,7 +59,7 @@ class MovieDetailsVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
-        // setNavigationBar()
+         setNavigationBar()
         setupScrollView()
         userButton()
         ratingView()
@@ -68,6 +69,8 @@ class MovieDetailsVC: UIViewController {
         collectionView.delegate = self
         
         fetchApiResponse()
+        
+        
     }
     func fetchApiResponse(){
         APIClient.getMovieId(id: id) { (response, error) in
@@ -113,18 +116,15 @@ class MovieDetailsVC: UIViewController {
     }
     
     func setNavigationBar() {
-        let screenSize: CGRect = UIScreen.main.bounds
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height;
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: statusBarHeight, width: screenSize.width, height: 200))
-        let navItem = UINavigationItem(title: "Details")
-        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: nil, action: #selector(handleBack))
-        navItem.leftBarButtonItem = doneItem
-        navBar.setItems([navItem], animated: false)
-        navBar.delegate = self as? UINavigationBarDelegate
-        self.view.addSubview(navBar)
+         backButton.translatesAutoresizingMaskIntoConstraints = false
+        topSliderImage.addSubview(backButton)
+        backButton.anchor(top: topSliderImage.topAnchor, leading: topSliderImage.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 40, bottom: 0, right: 0), size: CGSize(width: 40, height: 40))
+        backButton.backgroundColor = .blue
+        backButton.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
     }
     
     @objc func handleBack(){
+        print("hi")
         let home = MovieController()
         self.present(home, animated: true, completion: nil)
     }
@@ -242,7 +242,7 @@ class MovieDetailsVC: UIViewController {
         shapeLayer.frame =  CGRect(x: 35, y: 35, width: 0, height: 0)
         // let circularPath = UIBezierPath(arcCenter:  movieOverView.center , radius: 35, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
         shapeLayer.path = circularPath.cgPath
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         shapeLayer.lineWidth = 7
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeEnd = 0
@@ -306,8 +306,13 @@ extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
         let apiResponse = casts[indexPath.item]
-        let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiResponse.profilePath! )")
-        cell.imageView.sd_setImage(with: img, completed: nil)
+        if let img = apiResponse.profilePath {
+            let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiResponse.profilePath!)")
+            cell.imageView.sd_setImage(with: img, completed: nil)
+        } else {
+            
+        }
+       
         return cell
     }
     

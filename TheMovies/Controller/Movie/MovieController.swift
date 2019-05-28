@@ -45,6 +45,8 @@ class MovieController : UIViewController {
         DispatchQueue.main.async {
             self.collectionViewMain.reloadData()
         }
+        
+   
     }
     override func viewWillAppear(_ animated: Bool) {
       //  navigationController?.setNavigationBarHidden(false, animated: true)

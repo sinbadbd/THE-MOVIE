@@ -97,11 +97,13 @@ extension DiscoverVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("now playing")
-        let selectId = res[indexPath.item]
-        let id = selectId.id
+        let selected = res[indexPath.item]
+        let id = selected.id
+        let details = MovieDetailsVC()
+        details.id = id
         
-        
+        self.present(details, animated: true, completion: nil)
+        //    self.navigationController?.pushViewController(details, animated: true)
         print(id)
     }
     

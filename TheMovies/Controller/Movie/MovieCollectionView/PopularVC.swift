@@ -98,7 +98,16 @@ extension PopularVC : UICollectionViewDataSource, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return res.count
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selected = res[indexPath.item]
+        let id = selected.id
+        let details = MovieDetailsVC()
+        details.id = id
+        
+        self.present(details, animated: true, completion: nil)
+        //    self.navigationController?.pushViewController(details, animated: true)
+        print(id)
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colletionView.dequeueReusableCell(withReuseIdentifier: POPULAR_CELL, for: indexPath) as!  PopularMovieCell
         let apiData = res[indexPath.item]
