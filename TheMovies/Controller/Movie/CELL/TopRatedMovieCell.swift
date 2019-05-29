@@ -5,8 +5,7 @@
 //  Created by sinbad on 5/22/19.
 //  Copyright © 2019 sinbad. All rights reserved.
 //
-import UIKit
-import Kingfisher
+import UIKit 
 import SDWebImage
 
 class TopRatedMovieCell : UICollectionViewCell  {

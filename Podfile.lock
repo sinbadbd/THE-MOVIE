@@ -1,22 +1,22 @@
 PODS:
-  - Kingfisher (5.3.1)
-  - SDWebImage (4.4.6):
-    - SDWebImage/Core (= 4.4.6)
-  - SDWebImage/Core (4.4.6)
+  - SDWebImage (5.0.3):
+    - SDWebImage/Core (= 5.0.3)
+  - SDWebImage/Core (5.0.3)
+  - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
-  - Kingfisher (~> 5.0)
   - SDWebImage
+  - YouTubePlayer
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Kingfisher
     - SDWebImage
+    - YouTubePlayer
 
 SPEC CHECKSUMS:
-  Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
-  SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SDWebImage: d4f87d7d36c8a4d9f9459dc282e0caa057fdf935
+  YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: 928ed5e31b8f9718c8f06a10536fea6829617b8c
+PODFILE CHECKSUM: ba315f2a2ffed6938aec5e48f9af2c703db9abaf
 
 COCOAPODS: 1.6.1

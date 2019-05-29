@@ -6,6 +6,7 @@ target 'TheMovies' do
   use_frameworks!
 
   # Pods for TheMovies
-  pod 'Kingfisher', '~> 5.0'
-  pod 'SDWebImage' 
+  #pod 'Kingfisher' 
+  pod 'SDWebImage'
+  pod 'YouTubePlayer'
 end

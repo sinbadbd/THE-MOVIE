@@ -26,6 +26,7 @@ class APIClient {
         case getDiscoverMovies
         case getMovieDetailsId(Int)
         case getMovieCreditsId(Int)
+        case getArtistProfielId(Int)
         
         var stringValue : String {
             switch self {
@@ -35,7 +36,7 @@ class APIClient {
                 case .getDiscoverMovies: return EndPoints.BASE_URL + "discover/movie" + EndPoints.apiKeyParam
                 case .getMovieDetailsId(let id) : return EndPoints.BASE_URL + "movie/\(id)" + EndPoints.apiKeyParam
                 case .getMovieCreditsId(let id) : return  EndPoints.BASE_URL + "movie/\(id)/credits" + EndPoints.apiKeyParam
-                
+                case .getArtistProfielId(let id) : return  EndPoints.BASE_URL + "person/\(id)" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -143,6 +144,19 @@ class APIClient {
             if let response = response {
                 print("res\(response)")
                 completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET: PERSION ID
+    class func getArtistProfileId(id: Int, completion: @escaping(ArtistProfile?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getArtistProfielId(id).url, response: ArtistProfile.self) { (response, error) in
+            if let response = response {
+                completion(response, nil)
             } else {
                 completion(nil, error)
                 print(error.debugDescription)

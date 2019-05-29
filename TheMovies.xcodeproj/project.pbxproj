@@ -58,6 +58,11 @@
 		A19D9177229DAFFB006C766A /* TVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19D9176229DAFFB006C766A /* TVController.swift */; };
 		A1F54BD1229A7128003DF20F /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BD0229A7128003DF20F /* VideoPlayerView.swift */; };
 		A1F54BD5229BDB8B003DF20F /* MovieCastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BD4229BDB8B003DF20F /* MovieCastCell.swift */; };
+		A1F54BE4229E9327003DF20F /* ArtistProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BE3229E9327003DF20F /* ArtistProfileVC.swift */; };
+		A1F54BE8229EAB47003DF20F /* ProfileImageSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BE7229EAB47003DF20F /* ProfileImageSlider.swift */; };
+		A1F54BEA229EABE9003DF20F /* ProfileSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BE9229EABE9003DF20F /* ProfileSliderCell.swift */; };
+		A1F54BED229EB136003DF20F /* ArtistProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BEC229EB136003DF20F /* ArtistProfile.swift */; };
+		A1F54BEF229EB344003DF20F /* PersonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BEE229EB344003DF20F /* PersonImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +120,11 @@
 		A19D9176229DAFFB006C766A /* TVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVController.swift; sourceTree = "<group>"; };
 		A1F54BD0229A7128003DF20F /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A1F54BD4229BDB8B003DF20F /* MovieCastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieCastCell.swift; path = TheMovies/Controller/Player/MovieCastCell.swift; sourceTree = SOURCE_ROOT; };
+		A1F54BE3229E9327003DF20F /* ArtistProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistProfileVC.swift; sourceTree = "<group>"; };
+		A1F54BE7229EAB47003DF20F /* ProfileImageSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageSlider.swift; sourceTree = "<group>"; };
+		A1F54BE9229EABE9003DF20F /* ProfileSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSliderCell.swift; sourceTree = "<group>"; };
+		A1F54BEC229EB136003DF20F /* ArtistProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistProfile.swift; sourceTree = "<group>"; };
+		A1F54BEE229EB344003DF20F /* PersonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonImage.swift; sourceTree = "<group>"; };
 		D90B778D04B2FCA2EF332B67 /* Pods-TheMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovies.debug.xcconfig"; path = "Target Support Files/Pods-TheMovies/Pods-TheMovies.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +219,8 @@
 		A16AA6CF2293C733008B644C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A1F54BE2229E8A5E003DF20F /* UserProfile */,
+				A1F54BE1229E8A39003DF20F /* ArtistProfile */,
 				A19D9175229DAFE5006C766A /* TV */,
 				A1F54BCF229A70E5003DF20F /* Player */,
 				A16AA7002293EDA9008B644C /* Movie */,
@@ -233,6 +245,7 @@
 		A16AA6D12293C79E008B644C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A1F54BEB229EB118003DF20F /* Profile */,
 				A1802FBF229664C500212DEA /* Tv */,
 				A1802FBE229664B500212DEA /* Movie */,
 			);
@@ -383,6 +396,48 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		A1F54BE1229E8A39003DF20F /* ArtistProfile */ = {
+			isa = PBXGroup;
+			children = (
+				A1F54BE6229EAAD9003DF20F /* Cell */,
+				A1F54BE5229EA865003DF20F /* CollectionView */,
+				A1F54BE3229E9327003DF20F /* ArtistProfileVC.swift */,
+			);
+			path = ArtistProfile;
+			sourceTree = "<group>";
+		};
+		A1F54BE2229E8A5E003DF20F /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		A1F54BE5229EA865003DF20F /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				A1F54BE7229EAB47003DF20F /* ProfileImageSlider.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		A1F54BE6229EAAD9003DF20F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A1F54BE9229EABE9003DF20F /* ProfileSliderCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A1F54BEB229EB118003DF20F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A1F54BEC229EB136003DF20F /* ArtistProfile.swift */,
+				A1F54BEE229EB344003DF20F /* PersonImage.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -495,6 +550,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-TheMovies/Pods-TheMovies-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YouTubePlayer/YouTubePlayer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -502,6 +558,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -531,9 +588,11 @@
 				A1802FC62296665800212DEA /* DiscoverVC.swift in Sources */,
 				A1699AE22297C84A00693C4B /* VerticalStackView.swift in Sources */,
 				A1F54BD1229A7128003DF20F /* VideoPlayerView.swift in Sources */,
+				A1F54BE8229EAB47003DF20F /* ProfileImageSlider.swift in Sources */,
 				A16AA6F52293CA6B008B644C /* TMButton.swift in Sources */,
 				A1802FC9229670A600212DEA /* DiscoverPageVC.swift in Sources */,
 				A1802FCB229677E900212DEA /* PopularVC.swift in Sources */,
+				A1F54BEF229EB344003DF20F /* PersonImage.swift in Sources */,
 				A118B34D229C60BC006BB697 /* MovieCcredits.swift in Sources */,
 				A189D21E22968F1D00C01209 /* TopRatedVC.swift in Sources */,
 				A1802FB9229661AF00212DEA /* Result.swift in Sources */,
@@ -541,7 +600,9 @@
 				A16AA6D62293C877008B644C /* Extensions.swift in Sources */,
 				A16AA705229400A2008B644C /* NowPlayingCell.swift in Sources */,
 				A189D2242296983800C01209 /* TopRatedPagesVC.swift in Sources */,
+				A1F54BED229EB136003DF20F /* ArtistProfile.swift in Sources */,
 				A1802FC3229665A100212DEA /* DiscoverMovieCell.swift in Sources */,
+				A1F54BE4229E9327003DF20F /* ArtistProfileVC.swift in Sources */,
 				A19D9177229DAFFB006C766A /* TVController.swift in Sources */,
 				A16AA6FF2293ED72008B644C /* BaseTabController.swift in Sources */,
 				A1699AE42299507800693C4B /* GradientButton.swift in Sources */,
@@ -551,6 +612,7 @@
 				A16AA6FB2293CE60008B644C /* LaunchScreenVC.swift in Sources */,
 				A16AA6F22293CA07008B644C /* APIClient.swift in Sources */,
 				A1802FB8229661AF00212DEA /* UpComingMovie.swift in Sources */,
+				A1F54BEA229EABE9003DF20F /* ProfileSliderCell.swift in Sources */,
 				A16AA6F92293CA9E008B644C /* TMTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

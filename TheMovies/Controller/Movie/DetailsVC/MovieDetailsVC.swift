@@ -79,12 +79,17 @@ class MovieDetailsVC: UIViewController {
                 self.movieDetails = response
                 print(response)
                 DispatchQueue.main.async {
-                    let imgUrl = URL(string: "\(APIClient.EndPoints.BACKDROP_PATH + response.backdropPath!)")
-                    self.topSliderImage.sd_setImage(with: imgUrl, completed: nil)
+                    if  response.backdropPath != nil {
+                        let imgUrl = URL(string: "\(APIClient.EndPoints.BACKDROP_PATH + response.backdropPath!)")
+                        self.topSliderImage.sd_setImage(with: imgUrl, completed: nil)
+                    }
+                    if response.posterPath != nil {
+                        let posterURL = URL(string: "\(APIClient.EndPoints.POSTER_URL + response.posterPath!)")
+                        self.posterThumImage.sd_setImage(with: posterURL, completed: nil)
+                        
+                    }
                     self.movieTitleLabel.text = response.originalTitle
                     
-                    let posterURL = URL(string: "\(APIClient.EndPoints.POSTER_URL + response.posterPath!)")
-                    self.posterThumImage.sd_setImage(with: posterURL, completed: nil)
                     
                     self.textlayer.string = "\(String(describing: response.voteAverage))"
                     self.basickAnimation.toValue = response.voteAverage
@@ -116,14 +121,17 @@ class MovieDetailsVC: UIViewController {
     }
     
     func setNavigationBar() {
-         backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.translatesAutoresizingMaskIntoConstraints = false
         topSliderImage.addSubview(backButton)
         backButton.anchor(top: topSliderImage.topAnchor, leading: topSliderImage.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 40, bottom: 0, right: 0), size: CGSize(width: 40, height: 40))
-        backButton.backgroundColor = .blue
-        backButton.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+        //backButton.backgroundColor = .blue
+        backButton.isUserInteractionEnabled = true
+        backButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        backButton.setImage(UIImage(named: "left-arrow"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleBack(_:)), for: .touchUpInside)
     }
     
-    @objc func handleBack(){
+    @objc func handleBack(_ sender : UIButton){
         print("hi")
         let home = MovieController()
         self.present(home, animated: true, completion: nil)
@@ -166,6 +174,7 @@ class MovieDetailsVC: UIViewController {
         topSliderImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(topSliderImage)
         topSliderImage.backgroundColor = .red
+        topSliderImage.isUserInteractionEnabled = true
         topSliderImage.contentMode = .scaleAspectFill
         topSliderImage.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(), size: CGSize(width: topSliderImage.frame.width, height: 280))
        //
@@ -181,8 +190,14 @@ class MovieDetailsVC: UIViewController {
         topSliderImage.addSubview(posterThumImage)
         posterThumImage.translatesAutoresizingMaskIntoConstraints  = false
         posterThumImage.backgroundColor = .green
+        posterThumImage.layer.cornerRadius = 12
+        posterThumImage.layer.masksToBounds = true
+        posterThumImage.clipsToBounds = true
+        posterThumImage.layer.shadowRadius = 0.5
+        posterThumImage.layer.shadowColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        posterThumImage.layer.shadowOffset = CGSize(width: 3, height: 3)
+        posterThumImage.layer.shadowOpacity = 0.7
         posterThumImage.anchor(top: nil, leading: topSliderImage.leadingAnchor, bottom: topSliderImage.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: -120, right: 0), size: CGSize(width: 120, height: 180))
-        posterThumImage.layer.cornerRadius = 4
       
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -306,9 +321,10 @@ extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
         let apiResponse = casts[indexPath.item]
-        if let img = apiResponse.profilePath {
+        if apiResponse.profilePath != nil {
             let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiResponse.profilePath!)")
             cell.imageView.sd_setImage(with: img, completed: nil)
+            cell.titleNowPlayingMovie.text = apiResponse.name
         } else {
             
         }
@@ -317,6 +333,6 @@ extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 70, height: 105)
+        return CGSize(width: 70, height: 140)
     }
 }

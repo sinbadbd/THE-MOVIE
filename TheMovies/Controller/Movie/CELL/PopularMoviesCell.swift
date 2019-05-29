@@ -6,8 +6,7 @@
 //  Copyright © 2019 sinbad. All rights reserved.
 //
 
-import UIKit
-import Kingfisher
+import UIKit 
 import SDWebImage
 
 class PopularMoviesCell : UICollectionViewCell   {

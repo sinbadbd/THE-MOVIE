@@ -34,7 +34,7 @@ class MovieCastCell : UICollectionViewCell {
         
         addSubview(titleNowPlayingMovie)
         titleNowPlayingMovie.anchor(top: imageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
-        titleNowPlayingMovie.numberOfLines = 3
+        titleNowPlayingMovie.numberOfLines = 2
     }
     
     required init?(coder aDecoder: NSCoder) {

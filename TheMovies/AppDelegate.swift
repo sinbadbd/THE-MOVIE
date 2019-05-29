@@ -18,12 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
        // let launchVC = LaunchScreenVC()
-      let base = BaseTabController()
+        let base = BaseTabController()
         let details = MovieDetailsVC()
+        let pro = ArtistProfileVC()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
          
-        window?.rootViewController = base
+        window?.rootViewController = pro
         
       //  Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
         
