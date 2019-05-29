@@ -153,8 +153,8 @@ class APIClient {
     }
     
     //@GET: PERSION ID
-    class func getArtistProfileId(id: Int, completion: @escaping(ArtistProfile?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getArtistProfielId(id).url, response: ArtistProfile.self) { (response, error) in
+    class func getArtistProfileId(id: Int, completion: @escaping(Artist?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getArtistProfielId(id).url, response: Artist.self) { (response, error) in
             if let response = response {
                 completion(response, nil)
             } else {

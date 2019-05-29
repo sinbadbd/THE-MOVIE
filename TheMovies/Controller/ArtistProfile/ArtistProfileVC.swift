@@ -22,7 +22,7 @@ class ArtistProfileVC : UIViewController {
         return collection
     }()
     
-    var artist : ArtistProfile?
+    var artist : Artist?
     
     override func viewDidLoad() {
         super.viewDidLoad()
