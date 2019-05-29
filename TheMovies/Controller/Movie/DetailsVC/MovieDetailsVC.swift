@@ -318,6 +318,10 @@ extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate,
         return casts.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selected = casts[indexPath.item]
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
         let apiResponse = casts[indexPath.item]

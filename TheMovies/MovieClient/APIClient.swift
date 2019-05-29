@@ -27,7 +27,7 @@ class APIClient {
         case getMovieDetailsId(Int)
         case getMovieCreditsId(Int)
         case getArtistProfielId(Int)
-        
+        case getProfileImages((Int))
         var stringValue : String {
             switch self {
                 case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
@@ -37,6 +37,7 @@ class APIClient {
                 case .getMovieDetailsId(let id) : return EndPoints.BASE_URL + "movie/\(id)" + EndPoints.apiKeyParam
                 case .getMovieCreditsId(let id) : return  EndPoints.BASE_URL + "movie/\(id)/credits" + EndPoints.apiKeyParam
                 case .getArtistProfielId(let id) : return  EndPoints.BASE_URL + "person/\(id)" + EndPoints.apiKeyParam
+                case .getProfileImages (let id): return  EndPoints.BASE_URL + "person/\(id)/images" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
