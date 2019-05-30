@@ -17,6 +17,7 @@ class APIClient {
         static let POSTER_URL = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
         static let BACKDROP_PATH = "https://image.tmdb.org/t/p/w500_and_h282_face/"
         static let PROFILE_URL = "https://image.tmdb.org/t/p/w138_and_h175_face/"
+        static let PROFILE_FULL = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/"
         static let apiKeyParam = key 
         static let PAGE = "&page"
         

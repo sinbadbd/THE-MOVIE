@@ -24,6 +24,15 @@ class ArtistProfileVC : UIViewController {
         return collection
     }()
     
+    
+    
+    let artistView:UIView = UIView()
+    let artistName:UILabel = UILabel()
+    let artistDepartment:UILabel = UILabel()
+    let artistImage:UIImageView = UIImageView()
+    let artistDescription:UILabel = UILabel()
+    
+    
     var artist : Artist?
     var profile = [ProfileElement]()
     
@@ -37,7 +46,7 @@ class ArtistProfileVC : UIViewController {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         setupScrollView()
-        
+        setupView()
         colletionView.register(ProfileSliderCell.self, forCellWithReuseIdentifier: TOPSLIDER)
         colletionView.dataSource = self
         colletionView.delegate = self
@@ -50,7 +59,13 @@ class ArtistProfileVC : UIViewController {
             if let response = response {
                 self.artist = response
                 DispatchQueue.main.async {
-                    self.colletionView.reloadData()
+                    self.artistName.text = response.name
+                    self.artistDepartment.text = response.knownForDepartment
+                    if response.profilePath != nil {
+                        let img = URL(string: "\(APIClient.EndPoints.PROFILE_FULL + response.profilePath!)")
+                        self.artistImage.sd_setImage(with: img, completed: nil)
+                    }
+                   // self.colletionView.reloadData()
                 }
             }
         }
@@ -98,9 +113,47 @@ class ArtistProfileVC : UIViewController {
             ])
         
         contentView.addSubview(colletionView)
-        colletionView.backgroundColor = .white
+       // colletionView.backgroundColor = .white
         colletionView.translatesAutoresizingMaskIntoConstraints = false
         colletionView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size : CGSize(width: colletionView.frame.width, height: 300))
+    }
+    
+    func setupView(){
+        contentView.addSubview(artistView)
+        artistView.translatesAutoresizingMaskIntoConstraints = false
+        artistView.backgroundColor = #colorLiteral(red: 0.2033947077, green: 0.2201191104, blue: 0.2415348346, alpha: 1)
+        artistView.anchor(top: colletionView.bottomAnchor, leading: colletionView.leadingAnchor, bottom: nil, trailing: colletionView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: CGSize(width: artistView.frame.width, height: 300))
+        artistView.addShadow(offset: CGSize(width: artistView.frame.width, height: -15), color: #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), opacity: 0.7, radius: 25)
+        
+        artistView.addSubview(artistName)
+        artistName.translatesAutoresizingMaskIntoConstraints = false
+        artistName.text = "--"
+        artistName.textColor = .white
+        artistName.font = UIFont.systemFont(ofSize: 30)
+        artistName.anchor(top: artistView.topAnchor, leading: artistView.leadingAnchor, bottom: nil, trailing: artistView.trailingAnchor, padding: .init(top: 5, left: 10, bottom: 5, right: 15), size: CGSize(width: artistName.frame.width, height: artistName.frame.height))
+        
+        artistView.addSubview(artistDepartment)
+        artistDepartment.translatesAutoresizingMaskIntoConstraints = false
+        artistDepartment.text = "--"
+        artistDepartment.textColor = #colorLiteral(red: 0.4411551162, green: 0.496842643, blue: 0.501960814, alpha: 1)
+        artistDepartment.font = UIFont.systemFont(ofSize: 16)
+        artistDepartment.anchor(top: artistName.bottomAnchor, leading: artistView.leadingAnchor, bottom: nil, trailing: artistView.trailingAnchor, padding: .init(top: 5, left: 10, bottom: 5, right: 15), size: CGSize(width: artistDepartment.frame.width, height: artistDepartment.frame.height))
+        
+        
+        artistView.addSubview(artistImage)
+        artistImage.translatesAutoresizingMaskIntoConstraints = false
+        artistImage.contentMode = .scaleAspectFit
+        artistImage.backgroundColor = .red
+        artistImage.anchor(top: artistDepartment.bottomAnchor, leading: artistView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15, left: 10, bottom: 0, right: 15), size: CGSize(width: 100, height: 150))
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 }
 
