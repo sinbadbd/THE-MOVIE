@@ -7,7 +7,19 @@
 //
 
 // MARK: - Profile
+// MARK: - Profiles
 struct Profile: Decodable {
+    let profiles: [ProfileElement]?
+    let id: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case profiles = "profiles"
+        case id = "id"
+    }
+}
+
+// MARK: - ProfileElement
+struct ProfileElement: Decodable {
     let iso639_1: String?
     let width: Int?
     let height: Int?

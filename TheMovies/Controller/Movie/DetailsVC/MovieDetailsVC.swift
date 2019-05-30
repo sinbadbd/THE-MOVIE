@@ -320,6 +320,11 @@ extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selected = casts[indexPath.item]
+        let details = ArtistProfileVC()
+        details.id = selected.id
+        
+        self.present(details, animated: true, completion: nil)
+        print(details.id)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

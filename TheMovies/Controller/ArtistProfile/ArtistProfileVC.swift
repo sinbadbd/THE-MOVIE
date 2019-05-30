@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage
+
 class ArtistProfileVC : UIViewController {
     
     let scrollView = UIScrollView()
@@ -23,8 +25,9 @@ class ArtistProfileVC : UIViewController {
     }()
     
     var artist : Artist?
+    var profile = [ProfileElement]()
     
-    var id : Int? {
+    var id : Int! {
         didSet {
             print("id", id)
         }
@@ -38,12 +41,22 @@ class ArtistProfileVC : UIViewController {
         colletionView.register(ProfileSliderCell.self, forCellWithReuseIdentifier: TOPSLIDER)
         colletionView.dataSource = self
         colletionView.delegate = self
+        
+        fetchAPI()
     }
     
     func fetchAPI(){
-        APIClient.getArtistProfileId(id: 6193) { (response, error) in
+        APIClient.getArtistProfileId(id: id) { (response, error) in
             if let response = response {
                 self.artist = response
+                DispatchQueue.main.async {
+                    self.colletionView.reloadData()
+                }
+            }
+        }
+        APIClient.getPersonImageId(id: id) { (response, error) in
+            if let response = response {
+                self.profile = response[0].profiles ?? []
                 DispatchQueue.main.async {
                     self.colletionView.reloadData()
                 }
@@ -87,6 +100,31 @@ class ArtistProfileVC : UIViewController {
         contentView.addSubview(colletionView)
         colletionView.backgroundColor = .white
         colletionView.translatesAutoresizingMaskIntoConstraints = false
-        colletionView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: CGSize(width: colletionView.frame.width, height: 300))
+        colletionView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size : CGSize(width: colletionView.frame.width, height: 300))
     }
+}
+
+extension ArtistProfileVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return profile.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TOPSLIDER, for: indexPath) as! ProfileSliderCell
+       // cell.backgroundColor = .red
+        let apiResponse = profile[indexPath.item]
+       // if apiResponse.profiles[0]. != nil {
+            let img = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiResponse.filePath!)")
+            cell.imageSlider.sd_setImage(with: img, completed: nil)
+      //  }
+       
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 300)
+    }
+    
+    
 }
