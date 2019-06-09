@@ -31,7 +31,7 @@ class ArtistProfileVC : UIViewController {
     let artistDepartment:UILabel = UILabel()
     let artistImage:UIImageView = UIImageView()
     let artistDescription:UILabel = UILabel()
-    
+    let dateOfBirthLabel:UILabel = UILabel()
     
     var artist : Artist?
     var profile = [ProfileElement]()
@@ -54,13 +54,15 @@ class ArtistProfileVC : UIViewController {
         fetchAPI()
     }
     
-    func fetchAPI(){
-        APIClient.getArtistProfileId(id: id) { (response, error) in
+    func fetchAPI(){ //2888: id
+        APIClient.getArtistProfileId(id: 2888) { (response, error) in
             if let response = response {
                 self.artist = response
                 DispatchQueue.main.async {
                     self.artistName.text = response.name
                     self.artistDepartment.text = response.knownForDepartment
+                    self.artistDescription.text = response.biography
+                    self.dateOfBirthLabel.text = "Born: \(response.birthday ?? "" )"
                     if response.profilePath != nil {
                         let img = URL(string: "\(APIClient.EndPoints.PROFILE_FULL + response.profilePath!)")
                         self.artistImage.sd_setImage(with: img, completed: nil)
@@ -68,8 +70,8 @@ class ArtistProfileVC : UIViewController {
                    // self.colletionView.reloadData()
                 }
             }
-        }
-        APIClient.getPersonImageId(id: id) { (response, error) in
+        }//2888 : id
+        APIClient.getPersonImageId(id: 2888) { (response, error) in
             if let response = response {
                 self.profile = response[0].profiles ?? []
                 DispatchQueue.main.async {
@@ -122,7 +124,7 @@ class ArtistProfileVC : UIViewController {
         contentView.addSubview(artistView)
         artistView.translatesAutoresizingMaskIntoConstraints = false
         artistView.backgroundColor = #colorLiteral(red: 0.2033947077, green: 0.2201191104, blue: 0.2415348346, alpha: 1)
-        artistView.anchor(top: colletionView.bottomAnchor, leading: colletionView.leadingAnchor, bottom: nil, trailing: colletionView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: CGSize(width: artistView.frame.width, height: 300))
+        artistView.anchor(top: colletionView.bottomAnchor, leading: colletionView.leadingAnchor, bottom: nil, trailing: colletionView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 20, right: 0), size: CGSize(width: artistView.frame.width, height: 250))
         artistView.addShadow(offset: CGSize(width: artistView.frame.width, height: -15), color: #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1), opacity: 0.7, radius: 25)
         
         artistView.addSubview(artistName)
@@ -143,12 +145,24 @@ class ArtistProfileVC : UIViewController {
         artistView.addSubview(artistImage)
         artistImage.translatesAutoresizingMaskIntoConstraints = false
         artistImage.contentMode = .scaleAspectFit
-        artistImage.backgroundColor = .red
+        artistImage.layer.cornerRadius = 8
+        artistImage.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         artistImage.anchor(top: artistDepartment.bottomAnchor, leading: artistView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15, left: 10, bottom: 0, right: 15), size: CGSize(width: 100, height: 150))
         
         
         
+        artistView.addSubview(artistDescription)
+        artistDescription.translatesAutoresizingMaskIntoConstraints = false
+        artistDescription.numberOfLines = 5
+        artistDescription.textColor = UIColor.white
+        artistDescription.anchor(top: artistDepartment.bottomAnchor, leading: artistImage.trailingAnchor, bottom: nil, trailing: artistView.trailingAnchor, padding: .init(top: 15, left: 15, bottom: 0, right: 15), size: CGSize(width: 250, height: artistDescription.frame.height))
         
+        artistView.addSubview(dateOfBirthLabel)
+        dateOfBirthLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateOfBirthLabel.numberOfLines = 1
+        dateOfBirthLabel.textColor = UIColor.white
+        dateOfBirthLabel.font = UIFont.systemFont(ofSize: 18)
+        dateOfBirthLabel.anchor(top: artistDescription.bottomAnchor, leading: artistImage.trailingAnchor, bottom: nil, trailing: artistView.trailingAnchor, padding: .init(top: 15, left: 15, bottom: 0, right: 15))
         
         
         
