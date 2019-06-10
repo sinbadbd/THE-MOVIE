@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          
         window?.rootViewController = pro
         
-    //   Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
+    //  Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
         
         return true
     }

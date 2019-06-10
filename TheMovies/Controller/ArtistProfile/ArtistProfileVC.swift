@@ -33,6 +33,8 @@ class ArtistProfileVC : UIViewController {
     let artistDescription:UILabel = UILabel()
     let dateOfBirthLabel:UILabel = UILabel()
     
+    let backButton:UIButton = UIButton(type: .system)
+    
     var artist : Artist?
     var profile = [ProfileElement]()
     
@@ -47,6 +49,8 @@ class ArtistProfileVC : UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         setupScrollView()
         setupView()
+        setNavigationBar()
+        
         colletionView.register(ProfileSliderCell.self, forCellWithReuseIdentifier: TOPSLIDER)
         colletionView.dataSource = self
         colletionView.delegate = self
@@ -81,6 +85,23 @@ class ArtistProfileVC : UIViewController {
         }
     }
     
+    func setNavigationBar() {
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        topSliderImage.addSubview(backButton)
+        backButton.anchor(top: topSliderImage.topAnchor, leading: topSliderImage.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 40, bottom: 0, right: 0), size: CGSize(width: 40, height: 40))
+        //backButton.backgroundColor = .blue
+        backButton.isUserInteractionEnabled = true
+        backButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        backButton.setImage(UIImage(named: "left-arrow"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleBack(_:)), for: .touchUpInside)
+    }
+    
+    
+    @objc func handleBack(_ sender : UIButton){
+        print("hi")
+        let home = MovieDetailsVC()
+        self.present(home, animated: true, completion: nil)
+    }
     
     func setupScrollView(){
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -165,9 +186,11 @@ class ArtistProfileVC : UIViewController {
         dateOfBirthLabel.anchor(top: artistDescription.bottomAnchor, leading: artistImage.trailingAnchor, bottom: nil, trailing: artistView.trailingAnchor, padding: .init(top: 15, left: 15, bottom: 0, right: 15))
         
         
-        
-        
-        
+        let keyWindow = UIApplication.shared.keyWindow 
+        let artistmovieList = ArtistMovieList()
+        contentView.addSubview(artistmovieList)
+        artistmovieList.translatesAutoresizingMaskIntoConstraints = false
+        artistmovieList.anchor(top: artistView.bottomAnchor, leading: contentView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 15, left: 15, bottom: 0, right: 0), size: CGSize(width: (keyWindow?.frame.width)!, height: 300))
     }
 }
 

@@ -29,6 +29,7 @@ class APIClient {
         case getMovieCreditsId(Int)
         case getArtistProfielId(Int)
         case getProfileImages(Int)
+        case getArtistMovieCredits(Int)
         var stringValue : String {
             switch self {
                 case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
@@ -39,6 +40,7 @@ class APIClient {
                 case .getMovieCreditsId(let id) : return  EndPoints.BASE_URL + "movie/\(id)/credits" + EndPoints.apiKeyParam
                 case .getArtistProfielId(let id) : return  EndPoints.BASE_URL + "person/\(id)" + EndPoints.apiKeyParam
                 case .getProfileImages (let id): return  EndPoints.BASE_URL + "person/\(id)/images" + EndPoints.apiKeyParam
+                case .getArtistMovieCredits(let id): return EndPoints.BASE_URL + "person/\(id)/movie_credits" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -171,6 +173,20 @@ class APIClient {
     //@GET: ID MOVIES credits
     class func getPersonImageId(id: Int, completion: @escaping([Profile]?, Error?)-> Void){
         taskForGETRequest(url: EndPoints.getProfileImages(id).url, response: Profile.self) { (response, error) in
+            if let response = response {
+               // print("res\(response)")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET: Artist MOVIE LIST CREDITS
+    class func getPersonMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getArtistMovieCredits(id).url, response: MovieCcredits.self) { (response, error) in
             if let response = response {
                 print("res\(response)")
                 completion([response], nil)
