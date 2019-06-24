@@ -59,7 +59,7 @@ class ArtistProfileVC : UIViewController {
     }
     
     func fetchAPI(){ //2888: id
-        APIClient.getArtistProfileId(id: 2888) { (response, error) in
+        APIClient.getArtistProfileId(id: id) { (response, error) in
             if let response = response {
                 self.artist = response
                 DispatchQueue.main.async {
@@ -75,7 +75,7 @@ class ArtistProfileVC : UIViewController {
                 }
             }
         }//2888 : id
-        APIClient.getPersonImageId(id: 2888) { (response, error) in
+        APIClient.getPersonImageId(id: id) { (response, error) in
             if let response = response {
                 self.profile = response[0].profiles ?? []
                 DispatchQueue.main.async {
