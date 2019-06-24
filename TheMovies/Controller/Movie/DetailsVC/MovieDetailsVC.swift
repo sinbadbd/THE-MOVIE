@@ -105,7 +105,7 @@ class MovieDetailsVC: UIViewController {
         APIClient.getMovieCreditsId(id: id) { (response, error) in
             if let response = response {
                 self.casts = response[0].cast ?? []
-                print("credit\(response)")
+               // print("credit\(response)")
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
@@ -266,7 +266,7 @@ class MovieDetailsVC: UIViewController {
         
        
         //Animation#
-        basickAnimation.toValue = 0.7
+        basickAnimation.toValue = 0.5
         basickAnimation.duration = 3
         basickAnimation.fillMode = .forwards
         basickAnimation.isRemovedOnCompletion = false

@@ -56,6 +56,8 @@ class ArtistProfileVC : UIViewController {
         colletionView.delegate = self
         
         fetchAPI()
+        
+        
     }
     
     func fetchAPI(){ //2888: id
@@ -74,7 +76,10 @@ class ArtistProfileVC : UIViewController {
                    // self.colletionView.reloadData()
                 }
             }
-        }//2888 : id
+ 
+        }
+        //2888 : id
+        // TOP SLIDER IMAGE ß
         APIClient.getPersonImageId(id: id) { (response, error) in
             if let response = response {
                 self.profile = response[0].profiles ?? []
@@ -96,12 +101,12 @@ class ArtistProfileVC : UIViewController {
         backButton.addTarget(self, action: #selector(handleBack(_:)), for: .touchUpInside)
     }
     
-    
     @objc func handleBack(_ sender : UIButton){
         print("hi")
         let home = MovieDetailsVC()
         self.present(home, animated: true, completion: nil)
     }
+    
     
     func setupScrollView(){
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,3 +223,5 @@ extension ArtistProfileVC : UICollectionViewDelegate, UICollectionViewDataSource
     
     
 }
+
+

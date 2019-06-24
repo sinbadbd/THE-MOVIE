@@ -2,21 +2,25 @@ PODS:
   - SDWebImage (5.0.3):
     - SDWebImage/Core (= 5.0.3)
   - SDWebImage/Core (5.0.3)
+  - SVProgressHUD (2.2.5)
   - YouTubePlayer (0.4.0)
 
 DEPENDENCIES:
   - SDWebImage
+  - SVProgressHUD
   - YouTubePlayer
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SDWebImage
+    - SVProgressHUD
     - YouTubePlayer
 
 SPEC CHECKSUMS:
   SDWebImage: d4f87d7d36c8a4d9f9459dc282e0caa057fdf935
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   YouTubePlayer: 028451f6772f372d4759866db99824c676ac1473
 
-PODFILE CHECKSUM: ba315f2a2ffed6938aec5e48f9af2c703db9abaf
+PODFILE CHECKSUM: 9ccb36d9e0265ac048ed94a17852813ddcedbb0e
 
 COCOAPODS: 1.6.1

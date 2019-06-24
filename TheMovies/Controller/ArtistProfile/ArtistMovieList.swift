@@ -45,7 +45,7 @@ class ArtistMovieList : UIView {
             if let response = response {
                 self.casts = response[0].cast ?? []
                 
-                print("api----\(response)")
+                 print("api-artist ----\(response[0].id)")
                 DispatchQueue.main.async {
                     self.colletionView.reloadData()
                 }
@@ -61,6 +61,7 @@ class ArtistMovieList : UIView {
 
 extension ArtistMovieList : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(casts.count)
         return casts.count
     }
     
@@ -71,10 +72,11 @@ extension ArtistMovieList : UICollectionViewDelegate, UICollectionViewDataSource
         if apiData.profilePath != nil {
             let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiData.profilePath!)")
             cell.artistMovieImage.sd_setImage(with: img, completed: nil)
-            cell.artistMovieTitle.text = apiData.name
         } else {
             
         }
+        
+        cell.artistMovieTitle.text = apiData.name
         
         cell.backgroundColor = #colorLiteral(red: 0.250479877, green: 0.2711839974, blue: 0.2981133461, alpha: 1)
         return cell
