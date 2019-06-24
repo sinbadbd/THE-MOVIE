@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 class MovieController : UIViewController {
     
     let NOWPLAY_CELL  = "NOWPLAY_CELL"

@@ -56,10 +56,12 @@ class ArtistProfileVC : UIViewController {
         colletionView.delegate = self
         
         fetchAPI()
+        
+        
     }
     
     func fetchAPI(){ //2888: id
-        APIClient.getArtistProfileId(id: 2888) { (response, error) in
+        APIClient.getArtistProfileId(id: id) { (response, error) in
             if let response = response {
                 self.artist = response
                 DispatchQueue.main.async {
@@ -74,8 +76,10 @@ class ArtistProfileVC : UIViewController {
                    // self.colletionView.reloadData()
                 }
             }
-        }//2888 : id
-        APIClient.getPersonImageId(id: 2888) { (response, error) in
+        }
+        //2888 : id
+        // TOP SLIDER IMAGE
+        APIClient.getPersonImageId(id: id) { (response, error) in
             if let response = response {
                 self.profile = response[0].profiles ?? []
                 DispatchQueue.main.async {
@@ -96,12 +100,12 @@ class ArtistProfileVC : UIViewController {
         backButton.addTarget(self, action: #selector(handleBack(_:)), for: .touchUpInside)
     }
     
-    
     @objc func handleBack(_ sender : UIButton){
         print("hi")
         let home = MovieDetailsVC()
         self.present(home, animated: true, completion: nil)
     }
+    
     
     func setupScrollView(){
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -218,3 +222,5 @@ extension ArtistProfileVC : UICollectionViewDelegate, UICollectionViewDataSource
     
     
 }
+
+

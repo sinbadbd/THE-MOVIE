@@ -9,4 +9,5 @@ target 'TheMovies' do
   #pod 'Kingfisher' 
   pod 'SDWebImage'
   pod 'YouTubePlayer'
+  pod 'SVProgressHUD'
 end

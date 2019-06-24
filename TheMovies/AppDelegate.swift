@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
          
-        window?.rootViewController = pro
+        window?.rootViewController = launchVC
         
-    //  Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
+     Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
         
         return true
     }
