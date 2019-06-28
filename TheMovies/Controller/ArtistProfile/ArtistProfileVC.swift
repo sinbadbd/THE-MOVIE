@@ -92,8 +92,8 @@ class ArtistProfileVC : UIViewController {
     
     func setNavigationBar() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        topSliderImage.addSubview(backButton)
-        backButton.anchor(top: topSliderImage.topAnchor, leading: topSliderImage.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 40, bottom: 0, right: 0), size: CGSize(width: 40, height: 40))
+        contentView.addSubview(backButton)
+        backButton.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 40, left: 40, bottom: 0, right: 0), size: CGSize(width: 40, height: 40))
         //backButton.backgroundColor = .blue
         backButton.isUserInteractionEnabled = true
         backButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)

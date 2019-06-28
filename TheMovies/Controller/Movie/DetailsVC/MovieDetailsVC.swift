@@ -73,8 +73,8 @@ class MovieDetailsVC: UIViewController {
         
     }
     func fetchApiResponse(){
-        APIClient.getMovieId(id: id) { (response, error) in
-            print("id----")
+        APIClient.getMovieId(id: id ?? 0) { (response, error) in
+            print("id----Movie id",self.id)
             if let response = response {
                 self.movieDetails = response
                 print(response)
@@ -102,7 +102,8 @@ class MovieDetailsVC: UIViewController {
         
         // MOVIE CREDITS API CALL
         //movieCredit
-        APIClient.getMovieCreditsId(id: id) { (response, error) in
+        APIClient.getMovieCreditsId(id: id ?? 0) { (response, error) in
+            print("id----movie credit id",self.id)
             if let response = response {
                 self.casts = response[0].cast ?? []
                // print("credit\(response)")

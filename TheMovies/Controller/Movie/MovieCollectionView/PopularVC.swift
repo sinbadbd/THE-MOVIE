@@ -111,7 +111,7 @@ extension PopularVC : UICollectionViewDataSource, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colletionView.dequeueReusableCell(withReuseIdentifier: POPULAR_CELL, for: indexPath) as!  PopularMovieCell
         let apiData = res[indexPath.item]
-        let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
+        let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath!)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
         cell.titleNowPlayingMovie.text = apiData.title
         return cell

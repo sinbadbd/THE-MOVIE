@@ -15,7 +15,7 @@ struct Result: Decodable {
     let voteAverage: Double
     let title: String
     let popularity: Double
-    let posterPath: String
+    let posterPath: String?
     let originalLanguage: String
     let originalTitle: String
     let genreids: [Int]

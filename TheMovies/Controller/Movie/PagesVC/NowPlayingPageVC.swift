@@ -136,7 +136,7 @@ extension NowPlayingPageVC : UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = colletionView.dequeueReusableCell(withReuseIdentifier: NOWPLAY_CELL, for: indexPath) as!  NowPlay
         let apiData = res[indexPath.item]
-        let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath)")
+        let imgUrl = URL(string: "\(APIClient.EndPoints.POSTER_URL + apiData.posterPath!)")
         cell.imageView.sd_setImage(with: imgUrl, completed: nil)
         cell.titleNowPlayingMovie.text = apiData.title
         // cell.backgroundColor = .red
