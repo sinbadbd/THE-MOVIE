@@ -17,6 +17,25 @@ class SearchVC: UIViewController , UISearchBarDelegate {
     
     var result = [Result]()
     
+    var timer = Timer()
+    
+    let collectionSearch : UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        return collection
+    }()
+    fileprivate let enterSearchTermLabel: UILabel = {
+        
+        let label = UILabel()
+        label.text = "Please enter search..."
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -26,6 +45,10 @@ class SearchVC: UIViewController , UISearchBarDelegate {
         view.addSubview(collectionSearch)
         collectionSearch.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, size: CGSize(width: collectionSearch.frame.width, height: collectionSearch.frame.height))
         collectionSearch.backgroundColor = .white
+        
+        
+        view.addSubview(enterSearchTermLabel)
+        enterSearchTermLabel.centerInSuperview()
         
         collectionSearch.register(SearchViwCell.self, forCellWithReuseIdentifier: SEARCH)
         collectionSearch.delegate = self
@@ -46,26 +69,32 @@ class SearchVC: UIViewController , UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        APIClient.searchMovie(query: searchText) { (response, error) in
-            if let response = response {
-                self.result = response[0].results
-                DispatchQueue.main.async {
-                    self.collectionSearch.reloadData()
-                } 
-                print(response)
+        Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (_) in
+            APIClient.searchMovie(query: searchText) { (response, error) in
+                if let response = response {
+                    self.result = response[0].results
+                    DispatchQueue.main.async {
+                        self.collectionSearch.reloadData()
+                    }
+                    print(response)
+                }
             }
         }
     }
     
-
-    let collectionSearch : UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
-  
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    
 }
 
 extension SearchVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -84,6 +113,7 @@ extension SearchVC : UICollectionViewDataSource, UICollectionViewDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(result.count)
+        enterSearchTermLabel.isHidden = result.count != 0
         return result.count
     }
     
