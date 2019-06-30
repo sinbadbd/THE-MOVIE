@@ -12,17 +12,13 @@
 
 Discover Movie: [https://developers.themoviedb.org/3/discover/movie-discover](https://developers.themoviedb.org/3/discover/movie-discover)
 
-## Now playing: Movie [https://developers.themoviedb.org/3/movies/get-now-playing](https://developers.themoviedb.org/3/movies/get-now-playing)
-
 Popular Movie: [https://developers.themoviedb.org/3/movies/get-popular-movies](https://developers.themoviedb.org/3/movies/get-popular-movies)
-
-## Top rated Movie: [https://developers.themoviedb.org/3/movies/get-top-rated-movies](https://developers.themoviedb.org/3/movies/get-top-rated-movies)
 
 Upcoming Movie: [https://developers.themoviedb.org/3/movies/get-upcoming](https://developers.themoviedb.org/3/movies/get-upcoming)
 
 ## Cast list:
 
-Acrtor profile: [https://developers.themoviedb.org/3/people/get-person-details](https://developers.themoviedb.org/3/people/get-person-details)
+Actor profile: [https://developers.themoviedb.org/3/people/get-person-details](https://developers.themoviedb.org/3/people/get-person-details)
 
 Search Movie: [https://developers.themoviedb.org/3/search/search-movies](https://developers.themoviedb.org/3/search/search-movies)
 
