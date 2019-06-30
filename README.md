@@ -3,16 +3,16 @@
 
 
 https://developers.themoviedb.org/3/movies/get-movie-details
-### Discover Movie https://developers.themoviedb.org/3/discover/movie-discover
-### Now playing Movie https://developers.themoviedb.org/3/movies/get-now-playing
-### Popular Movie https://developers.themoviedb.org/3/movies/get-popular-movies 
-### Top rated Movie https://developers.themoviedb.org/3/movies/get-top-rated-movies
-### Upcoming Movie https://developers.themoviedb.org/3/movies/get-upcoming
-### Cast list
-### Acrtor profile https://developers.themoviedb.org/3/people/get-person-details
+### Discover Movie: https://developers.themoviedb.org/3/discover/movie-discover
+### Now playing: Movie https://developers.themoviedb.org/3/movies/get-now-playing
+### Popular Movie: https://developers.themoviedb.org/3/movies/get-popular-movies 
+### Top rated Movie: https://developers.themoviedb.org/3/movies/get-top-rated-movies
+### Upcoming Movie: https://developers.themoviedb.org/3/movies/get-upcoming
+### Cast list:
+### Acrtor profile: https://developers.themoviedb.org/3/people/get-person-details
 
 
-### Search Movie https://developers.themoviedb.org/3/search/search-movies
+### Search Movie: https://developers.themoviedb.org/3/search/search-movies
 
 ------------------------------------------------------------------------------------
 <img align="left" src="image/1.png" width="250px"/> 
