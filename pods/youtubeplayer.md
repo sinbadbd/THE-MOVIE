@@ -8,15 +8,16 @@ Embed and control YouTube videos in your iOS applications! Neato, right? Let's s
 
 Add this to your Cartfile:
 
-```
+```text
 github "gilesvangruisen/Swift-YouTube-Player"
 ```
 
 …and then run `carthage update`
 
 Don't forget to:
+
 * add `YouTubePlayer.framework` to the `Link binary with libraries` build phase
-* add `YouTubePlayer.framework` as an input file to the `carthage copy-frameworks` run script phase (only necesasry if you're building for iOS)
+* add `YouTubePlayer.framework` as an input file to the `carthage copy-frameworks` run script phase \(only necesasry if you're building for iOS\)
 
 See [Carthage](http://github.com/carthage/carthage) for more information about using Carthage as a dependency manager.
 
@@ -24,35 +25,38 @@ See [Carthage](http://github.com/carthage/carthage) for more information about u
 
 Ensure you are opting into using frameworks with `use_frameworks!`. Then add the following to your Podfile:
 
-```
+```text
 pod 'YouTubePlayer'
 ```
 
 …and then run `pod install`.
 
-
 ## Example
 
-```Swift
+```swift
 // Import Swift module
 import YouTubePlayer
 ```
 
 Build and lay out the view however you wish, whether in IB w/ an outlet or programmatically.
-```Swift
+
+```swift
 @IBOutlet var videoPlayer: YouTubePlayerView!
 ```
-```Swift
+
+```swift
 // init YouTubePlayerView w/ playerFrame rect (assume playerFrame declared)
 var videoPlayer = YouTubePlayerView(frame: playerFrame)
 ```
 
 Give the player a video to load, whether from ID or URL.
-```Swift
+
+```swift
 // Load video from YouTube ID
 videoPlayer.loadVideoID("nfWlot6h_JM")
 ```
-```Swift
+
+```swift
 // Load video from YouTube URL
 let myVideoURL = NSURL(string: "https://www.youtube.com/watch?v=wQg3bXrVLtg")
 videoPlayer.loadVideoURL(myVideoURL!)
@@ -60,7 +64,7 @@ videoPlayer.loadVideoURL(myVideoURL!)
 
 ## Controlling YouTubePlayerView
 
-Each `YouTubePlayerView` has methods for controlling the player (play, pause, seek, change video, etc.) They are:
+Each `YouTubePlayerView` has methods for controlling the player \(play, pause, seek, change video, etc.\) They are:
 
 * `func loadVideoURL(videoURL: NSURL)`
 * `func loadVideoID(videoID: String)`
@@ -87,4 +91,5 @@ In the meantime, you can also the `YouTubePlayerDelegate` method `playerReady(vi
 * `func playerStateChanged(videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState)`
 * `func playerQualityChanged(videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality)`
 
-*Side note:* All these delegate methods are optional which means that you can implement none, all, or some of them in your delegate class.
+_Side note:_ All these delegate methods are optional which means that you can implement none, all, or some of them in your delegate class.
+
