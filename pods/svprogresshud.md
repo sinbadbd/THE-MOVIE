@@ -1,16 +1,12 @@
 # SVProgressHUD
 
-![Pod Version](https://img.shields.io/cocoapods/v/SVProgressHUD.svg?style=flat)
-![Pod Platform](https://img.shields.io/cocoapods/p/SVProgressHUD.svg?style=flat)
-![Pod License](https://img.shields.io/cocoapods/l/SVProgressHUD.svg?style=flat)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-green.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-green.svg?style=flat)](https://cocoapods.org)
+![Pod Version](https://img.shields.io/cocoapods/v/SVProgressHUD.svg?style=flat) ![Pod Platform](https://img.shields.io/cocoapods/p/SVProgressHUD.svg?style=flat) ![Pod License](https://img.shields.io/cocoapods/l/SVProgressHUD.svg?style=flat) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-green.svg?style=flat)](https://github.com/Carthage/Carthage) [![CocoaPods compatible](https://img.shields.io/badge/CocoaPods-compatible-green.svg?style=flat)](https://cocoapods.org)
 
 `SVProgressHUD` is a clean and easy-to-use HUD meant to display the progress of an ongoing task on iOS and tvOS.
 
 ![SVProgressHUD](http://f.cl.ly/items/2G1F1Z0M0k0h2U3V1p39/SVProgressHUD.gif)
 
-## Demo		
+## Demo
 
 Try `SVProgressHUD` on [Appetize.io](https://appetize.io/app/p8r2cvy8kq74x7q7tjqf5gyatr).
 
@@ -42,7 +38,7 @@ pod install
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate `SVProgressHUD` into your Xcode project using Carthage, specify it in your `Cartfile`:
 
-```ogdl
+```text
 github "SVProgressHUD/SVProgressHUD"
 ```
 
@@ -66,15 +62,15 @@ If you added `SVProgressHUD` manually, just add a [bridging header](https://deve
 
 ## Usage
 
-(see sample Xcode project in `/Demo`)
+\(see sample Xcode project in `/Demo`\)
 
-`SVProgressHUD` is created as a singleton (i.e. it doesn't need to be explicitly allocated and instantiated; you directly call `[SVProgressHUD method]`).
+`SVProgressHUD` is created as a singleton \(i.e. it doesn't need to be explicitly allocated and instantiated; you directly call `[SVProgressHUD method]`\).
 
 **Use `SVProgressHUD` wisely! Only use it if you absolutely need to perform a task before taking the user forward. Bad use case examples: pull to refresh, infinite scrolling, sending message.**
 
-Using `SVProgressHUD` in your app will usually look as simple as this (using Grand Central Dispatch):
+Using `SVProgressHUD` in your app will usually look as simple as this \(using Grand Central Dispatch\):
 
-```objective-c
+```text
 [SVProgressHUD show];
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     // time-consuming task
@@ -88,14 +84,14 @@ dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
 You can show the status of indeterminate tasks using one of the following:
 
-```objective-c
+```text
 + (void)show;
 + (void)showWithStatus:(NSString*)string;
 ```
 
 If you'd like the HUD to reflect the progress of a task, use one of these:
 
-```objective-c
+```text
 + (void)showProgress:(CGFloat)progress;
 + (void)showProgress:(CGFloat)progress status:(NSString*)status;
 ```
@@ -104,14 +100,14 @@ If you'd like the HUD to reflect the progress of a task, use one of these:
 
 The HUD can be dismissed using:
 
-```objective-c
+```text
 + (void)dismiss;
 + (void)dismissWithDelay:(NSTimeInterval)delay;
 ```
 
 If you'd like to stack HUDs, you can balance out every show call using:
 
-```
+```text
 + (void)popActivity;
 ```
 
@@ -119,7 +115,7 @@ The HUD will get dismissed once the popActivity calls will match the number of s
 
 Or show a confirmation glyph before before getting dismissed a little bit later. The display time depends on `minimumDismissTimeInterval` and the length of the given string.
 
-```objective-c
+```text
 + (void)showInfoWithStatus:(NSString*)string;
 + (void)showSuccessWithStatus:(NSString*)string;
 + (void)showErrorWithStatus:(NSString*)string;
@@ -130,7 +126,7 @@ Or show a confirmation glyph before before getting dismissed a little bit later.
 
 `SVProgressHUD` can be customized via the following methods:
 
-```objective-c
+```text
 + (void)setDefaultStyle:(SVProgressHUDStyle)style;                  // default is SVProgressHUDStyleLight
 + (void)setDefaultMaskType:(SVProgressHUDMaskType)maskType;         // default is SVProgressHUDMaskTypeNone
 + (void)setDefaultAnimationType:(SVProgressHUDAnimationType)type;   // default is SVProgressHUDAnimationTypeFlat
@@ -174,11 +170,11 @@ If you want to use custom colors use `setForegroundColor` and `setBackgroundColo
 
 ## Haptic Feedback
 
-For users with newer devices (starting with the iPhone 7), `SVProgressHUD` can automatically trigger haptic feedback depending on which HUD is being displayed. The feedback maps as follows:
+For users with newer devices \(starting with the iPhone 7\), `SVProgressHUD` can automatically trigger haptic feedback depending on which HUD is being displayed. The feedback maps as follows:
 
-* `showSuccessWithStatus:` <-> `UINotificationFeedbackTypeSuccess`
-* `showInfoWithStatus:` <-> `UINotificationFeedbackTypeWarning`
-* `showErrorWithStatus:` <-> `UINotificationFeedbackTypeError`
+* `showSuccessWithStatus:` &lt;-&gt; `UINotificationFeedbackTypeSuccess`
+* `showInfoWithStatus:` &lt;-&gt; `UINotificationFeedbackTypeWarning`
+* `showErrorWithStatus:` &lt;-&gt; `UINotificationFeedbackTypeError`
 
 To enable this functionality, use `setHapticsEnabled:`.
 
@@ -187,12 +183,13 @@ Users with devices prior to iPhone 7 will have no change in functionality.
 ## Notifications
 
 `SVProgressHUD` posts four notifications via `NSNotificationCenter` in response to being shown/dismissed:
+
 * `SVProgressHUDWillAppearNotification` when the show animation starts
 * `SVProgressHUDDidAppearNotification` when the show animation completes
 * `SVProgressHUDWillDisappearNotification` when the dismiss animation starts
 * `SVProgressHUDDidDisappearNotification` when the dismiss animation completes
 
-Each notification passes a `userInfo` dictionary holding the HUD's status string (if any), retrievable via `SVProgressHUDStatusUserInfoKey`.
+Each notification passes a `userInfo` dictionary holding the HUD's status string \(if any\), retrievable via `SVProgressHUDStatusUserInfoKey`.
 
 `SVProgressHUD` also posts `SVProgressHUDDidReceiveTouchEventNotification` when users touch on the overall screen or `SVProgressHUDDidTouchDownInsideNotification` when a user touches on the HUD directly. For this notifications `userInfo` is not passed but the object parameter contains the `UIEvent` that related to the touch.
 
@@ -202,8 +199,7 @@ When using `SVProgressHUD` in an App Extension, `#define SV_APP_EXTENSIONS` to a
 
 ## Contributing to this project
 
-If you have feature requests or bug reports, feel free to help out by sending pull requests or by [creating new issues](https://github.com/SVProgressHUD/SVProgressHUD/issues/new). Please take a moment to
-review the guidelines written by [Nicolas Gallagher](https://github.com/necolas):
+If you have feature requests or bug reports, feel free to help out by sending pull requests or by [creating new issues](https://github.com/SVProgressHUD/SVProgressHUD/issues/new). Please take a moment to review the guidelines written by [Nicolas Gallagher](https://github.com/necolas):
 
 * [Bug reports](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md#bugs)
 * [Feature requests](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md#features)
@@ -216,3 +212,4 @@ review the guidelines written by [Nicolas Gallagher](https://github.com/necolas)
 ## Credits
 
 `SVProgressHUD` is brought to you by [Sam Vermette](http://samvermette.com), [Tobias Tiemerding](http://tiemerding.com) and [contributors to the project](https://github.com/SVProgressHUD/SVProgressHUD/contributors). If you're using `SVProgressHUD` in your project, attribution would be very appreciated.
+
