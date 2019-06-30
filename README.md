@@ -11,8 +11,8 @@ https://developers.themoviedb.org/3/movies/get-movie-details
 ### Cast list
 ### Acrtor profile
 
-https://developers.themoviedb.org/3/search/search-movies
-### Search Movie
+
+### Search Movie https://developers.themoviedb.org/3/search/search-movies
 
 ------------------------------------------------------------------------------------
 <img align="left" src="image/1.png" width="250px"/> 
