@@ -63,15 +63,24 @@ class UserloginVC: UIViewController {
                 DispatchQueue.main.async {
                     let username = self.usernameTextField.text ?? ""
                     let password = self.passwordTextField.text ?? ""
-                    
+                    let defaults = UserDefaults.standard
+
                   //  print(username, password)
                     APIClient.login(username: username, password: password, completion: { (success, error) in
                         if success {
                             print("requestToken: \(APIClient.Auth.requestToken)")
                             APIClient.createSessionId(completion: { (success, error) in
                                 if success {
+                                    let nameX = defaults.set(username, forKey: "name")
+                                    defaults.set(password, forKey: "password")
+
+                                    print(nameX)
+                                    let d = defaults.string(forKey: "name")
+                                    let p = defaults.string(forKey: "password")
+
+                                    print("get:\(d)\(p)")
                                     print("sessionId: \(APIClient.Auth.sessionId)")
-                                    self.goProfileVC()
+                                    //self.goProfileVC()
                                     //Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.goProfileVC), userInfo: nil, repeats: false)
                                 }
                             })
