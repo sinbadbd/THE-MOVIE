@@ -1,9 +1,7 @@
 ---
-description: 'https://developers.themoviedb.org/3'
+THE-MOVIE: 'https://developers.themoviedb.org/3'
 ---
-
-# THE-MOVIE
-
+ 
 ### How to use?
 
 ```text
