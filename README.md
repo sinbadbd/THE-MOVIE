@@ -22,5 +22,12 @@ Actor profile: [https://developers.themoviedb.org/3/people/get-person-details](h
 
 Search Movie: [https://developers.themoviedb.org/3/search/search-movies](https://developers.themoviedb.org/3/search/search-movies)
 
-![](.gitbook/assets/1.png) ![](.gitbook/assets/2.png) ![](.gitbook/assets/3.png) ![](.gitbook/assets/4.png) ![](https://github.com/sinbadbd/THE-MOVIE/tree/d8b7c78c36ab5455a974d3ed73664efee0ed9e8d/image/5.png)
+
+
+========================================================
+<img align="left" src="image/1.png" width="250px"/> 
+<img align="left" src="image/2.png" width="250px"/> 
+<img align="left" src="image/3.png" width="250"/> 
+<img align="left" src="image/4.png" width="250px"/> 
+<img align="left" src="image/5.png" width="250px"/>
 
