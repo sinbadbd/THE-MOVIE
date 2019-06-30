@@ -1,6 +1,10 @@
 # THE-MOVIE 
 <a href="https://developers.themoviedb.org/3" target="_blank">https://developers.themoviedb.org/3</a>
-
+    
+### How to use?
+```
+  https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>
+``` 
 
 https://developers.themoviedb.org/3/movies/get-movie-details
 ### Discover Movie: https://developers.themoviedb.org/3/discover/movie-discover
