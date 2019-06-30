@@ -1,6 +1,8 @@
 # THE-MOVIE 
 <a href="https://developers.themoviedb.org/3" target="_blank">https://developers.themoviedb.org/3</a>
 
+
+https://developers.themoviedb.org/3/movies/get-movie-details
 ### Discover Movie
 ### Now playing Movie
 ### Popular Movie
@@ -9,6 +11,7 @@
 ### Cast list
 ### Acrtor profile
 
+https://developers.themoviedb.org/3/search/search-movies
 ### Search Movie
 
 ------------------------------------------------------------------------------------
