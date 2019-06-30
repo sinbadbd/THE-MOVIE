@@ -42,7 +42,7 @@ class APIClient {
         // Auth
         case getRequestToken
         case login
-        
+        case createSessionId
         var stringValue : String {
             switch self {
                 case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
@@ -59,6 +59,7 @@ class APIClient {
                 // Auth
                 case .getRequestToken : return EndPoints.BASE_URL + "authentication/token/new" + EndPoints.apiKeyParam
                 case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
+                case .createSessionId : return EndPoints.BASE_URL + "authentication/session/new" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -78,8 +79,6 @@ class APIClient {
                 completion(false, error)
                 return
             }
-            
-            
             do {
                 let decoder = JSONDecoder()
                 let requestLogin = try decoder.decode(RequesTokenResponse.self, from: data)
@@ -90,8 +89,34 @@ class APIClient {
             }
         }
         task.resume()
-        
     }
+    class func createSessionId(completion: @escaping(Bool, Error?)-> Void) {
+        var request = URLRequest(url: EndPoints.createSessionId.url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body = PostSession(requestToken: Auth.requestToken)
+        request.httpBody = try! JSONEncoder().encode(body)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                completion(false, error)
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let requestLogin = try decoder.decode(SessionResponse.self, from: data)
+                Auth.sessionId = requestLogin.sessionId
+                completion(true, nil)
+            } catch {
+                completion(false, error)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    
     
     class func getRequestToken (completion: @escaping(Bool, Error?)-> Void) {
         let task = URLSession.shared.dataTask(with: EndPoints.getRequestToken.url) { (data, response, error) in

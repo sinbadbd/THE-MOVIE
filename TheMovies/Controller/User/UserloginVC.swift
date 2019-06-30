@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class UserloginVC: UIViewController {
 
@@ -50,21 +51,39 @@ class UserloginVC: UIViewController {
         loginButton.setTitle("Login", for: .normal)
         loginButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         
+        goProfileVC()
     }
     @objc func handleLoginButton(){
+       // self.goProfileVC()
+        SVProgressHUD.show()
+
         APIClient.getRequestToken { (success, error) in
             if success {
                 //print(APIClient.Auth.requestToken)
-                let username = self.usernameTextField.text ?? ""
-                let password = self.passwordTextField.text ?? ""
-                
-                APIClient.login(username: username, password: password, completion: { (success, error) in
-                    if success {
-                        print(APIClient.Auth.requestToken)
-                        
-                    }
-                })
+                DispatchQueue.main.async {
+                    let username = self.usernameTextField.text ?? ""
+                    let password = self.passwordTextField.text ?? ""
+                    
+                  //  print(username, password)
+                    APIClient.login(username: username, password: password, completion: { (success, error) in
+                        if success {
+                            print("requestToken: \(APIClient.Auth.requestToken)")
+                            APIClient.createSessionId(completion: { (success, error) in
+                                if success {
+                                    print("sessionId: \(APIClient.Auth.sessionId)")
+                                    self.goProfileVC()
+                                    //Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(self.goProfileVC), userInfo: nil, repeats: false)
+                                }
+                            })
+                        }
+                    })
+                }
             }
         }
+    }
+    
+     func goProfileVC(){
+        let profile = UserProfileVC()
+        self.present(profile, animated: true, completion: nil)
     }
 }

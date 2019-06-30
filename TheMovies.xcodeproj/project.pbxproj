@@ -14,6 +14,9 @@
 		A13BCFE822C9127A002C6635 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFE722C9127A002C6635 /* LoginRequest.swift */; };
 		A13BCFEB22C914A3002C6635 /* RequesTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */; };
 		A13BCFEE22C917AF002C6635 /* UserloginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFED22C917AF002C6635 /* UserloginVC.swift */; };
+		A13BCFF022C93065002C6635 /* PostSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFEF22C93065002C6635 /* PostSession.swift */; };
+		A13BCFF222C93097002C6635 /* SessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFF122C93097002C6635 /* SessionResponse.swift */; };
+		A13BCFF422C933F9002C6635 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFF322C933F9002C6635 /* UserProfileVC.swift */; };
 		A1466EE822C0DEE5001D9C00 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1466EE722C0DEE4001D9C00 /* SearchVC.swift */; };
 		A164481A22AE31030052F18D /* ArtistMovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164481922AE31030052F18D /* ArtistMovieList.swift */; };
 		A1699AE02297C72600693C4B /* FooterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699ADF2297C72600693C4B /* FooterLoading.swift */; };
@@ -80,6 +83,9 @@
 		A13BCFE722C9127A002C6635 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequesTokenResponse.swift; sourceTree = "<group>"; };
 		A13BCFED22C917AF002C6635 /* UserloginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserloginVC.swift; sourceTree = "<group>"; };
+		A13BCFEF22C93065002C6635 /* PostSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSession.swift; sourceTree = "<group>"; };
+		A13BCFF122C93097002C6635 /* SessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResponse.swift; sourceTree = "<group>"; };
+		A13BCFF322C933F9002C6635 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		A1466EE722C0DEE4001D9C00 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		A164481922AE31030052F18D /* ArtistMovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMovieList.swift; sourceTree = "<group>"; };
 		A1699ADF2297C72600693C4B /* FooterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterLoading.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				A13BCFE722C9127A002C6635 /* LoginRequest.swift */,
+				A13BCFEF22C93065002C6635 /* PostSession.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -189,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */,
+				A13BCFF122C93097002C6635 /* SessionResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -197,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				A13BCFED22C917AF002C6635 /* UserloginVC.swift */,
+				A13BCFF322C933F9002C6635 /* UserProfileVC.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -640,10 +649,13 @@
 				A1802FCB229677E900212DEA /* PopularVC.swift in Sources */,
 				A1F54BEF229EB344003DF20F /* PersonImage.swift in Sources */,
 				A118B34D229C60BC006BB697 /* MovieCcredits.swift in Sources */,
+				A13BCFF022C93065002C6635 /* PostSession.swift in Sources */,
 				A189D21E22968F1D00C01209 /* TopRatedVC.swift in Sources */,
 				A1802FB9229661AF00212DEA /* Result.swift in Sources */,
 				A16AA6D42293C858008B644C /* UIView+Layout.swift in Sources */,
 				A13BCFEB22C914A3002C6635 /* RequesTokenResponse.swift in Sources */,
+				A13BCFF222C93097002C6635 /* SessionResponse.swift in Sources */,
+				A13BCFF422C933F9002C6635 /* UserProfileVC.swift in Sources */,
 				A16AA6D62293C877008B644C /* Extensions.swift in Sources */,
 				A16AA705229400A2008B644C /* NowPlayingCell.swift in Sources */,
 				A189D2242296983800C01209 /* TopRatedPagesVC.swift in Sources */,
