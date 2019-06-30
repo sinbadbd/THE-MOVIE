@@ -21,13 +21,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let base = BaseTabController()
         let details = MovieDetailsVC()
         let pro = ArtistProfileVC()
+        let login = UserloginVC()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
          
-        window?.rootViewController = launchVC
+        window?.rootViewController = login
         
  
-      Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
+  //    Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
  
       
         

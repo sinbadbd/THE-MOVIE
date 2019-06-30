@@ -11,6 +11,9 @@
 		A10E249722C6975800C0772D /* SearchViwCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E249622C6975800C0772D /* SearchViwCell.swift */; };
 		A118B34B229AF272006BB697 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118B34A229AF272006BB697 /* MovieDetails.swift */; };
 		A118B34D229C60BC006BB697 /* MovieCcredits.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118B34C229C60BC006BB697 /* MovieCcredits.swift */; };
+		A13BCFE822C9127A002C6635 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFE722C9127A002C6635 /* LoginRequest.swift */; };
+		A13BCFEB22C914A3002C6635 /* RequesTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */; };
+		A13BCFEE22C917AF002C6635 /* UserloginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFED22C917AF002C6635 /* UserloginVC.swift */; };
 		A1466EE822C0DEE5001D9C00 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1466EE722C0DEE4001D9C00 /* SearchVC.swift */; };
 		A164481A22AE31030052F18D /* ArtistMovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A164481922AE31030052F18D /* ArtistMovieList.swift */; };
 		A1699AE02297C72600693C4B /* FooterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1699ADF2297C72600693C4B /* FooterLoading.swift */; };
@@ -74,6 +77,9 @@
 		A10E249622C6975800C0772D /* SearchViwCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViwCell.swift; sourceTree = "<group>"; };
 		A118B34A229AF272006BB697 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		A118B34C229C60BC006BB697 /* MovieCcredits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCcredits.swift; sourceTree = "<group>"; };
+		A13BCFE722C9127A002C6635 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequesTokenResponse.swift; sourceTree = "<group>"; };
+		A13BCFED22C917AF002C6635 /* UserloginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserloginVC.swift; sourceTree = "<group>"; };
 		A1466EE722C0DEE4001D9C00 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		A164481922AE31030052F18D /* ArtistMovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistMovieList.swift; sourceTree = "<group>"; };
 		A1699ADF2297C72600693C4B /* FooterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterLoading.swift; sourceTree = "<group>"; };
@@ -171,6 +177,30 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		A13BCFE622C9121A002C6635 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				A13BCFE722C9127A002C6635 /* LoginRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		A13BCFE922C91487002C6635 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		A13BCFEC22C9176E002C6635 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A13BCFED22C917AF002C6635 /* UserloginVC.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		A1699ADE2297C6F600693C4B /* PaginationCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,8 +263,8 @@
 		A16AA6CF2293C733008B644C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A13BCFEC22C9176E002C6635 /* User */,
 				A10E249522C682B700C0772D /* Cells */,
-				A1F54BE2229E8A5E003DF20F /* UserProfile */,
 				A1F54BE1229E8A39003DF20F /* ArtistProfile */,
 				A19D9175229DAFE5006C766A /* TV */,
 				A1F54BCF229A70E5003DF20F /* Player */,
@@ -261,6 +291,8 @@
 		A16AA6D12293C79E008B644C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A13BCFE922C91487002C6635 /* Response */,
+				A13BCFE622C9121A002C6635 /* Request */,
 				A1F54BEB229EB118003DF20F /* Profile */,
 				A1802FBF229664C500212DEA /* Tv */,
 				A1802FBE229664B500212DEA /* Movie */,
@@ -421,13 +453,6 @@
 				A164481922AE31030052F18D /* ArtistMovieList.swift */,
 			);
 			path = ArtistProfile;
-			sourceTree = "<group>";
-		};
-		A1F54BE2229E8A5E003DF20F /* UserProfile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		A1F54BE5229EA865003DF20F /* CollectionView */ = {
@@ -598,6 +623,7 @@
 				A16AA6D82293C88C008B644C /* Colors.swift in Sources */,
 				A16AA7022293EDB6008B644C /* MovieController.swift in Sources */,
 				A189D21C22968F0A00C01209 /* NowPlayingVC.swift in Sources */,
+				A13BCFE822C9127A002C6635 /* LoginRequest.swift in Sources */,
 				A10E249722C6975800C0772D /* SearchViwCell.swift in Sources */,
 				A1699AE02297C72600693C4B /* FooterLoading.swift in Sources */,
 				A189D2202296980800C01209 /* NowPlayingPageVC.swift in Sources */,
@@ -617,6 +643,7 @@
 				A189D21E22968F1D00C01209 /* TopRatedVC.swift in Sources */,
 				A1802FB9229661AF00212DEA /* Result.swift in Sources */,
 				A16AA6D42293C858008B644C /* UIView+Layout.swift in Sources */,
+				A13BCFEB22C914A3002C6635 /* RequesTokenResponse.swift in Sources */,
 				A16AA6D62293C877008B644C /* Extensions.swift in Sources */,
 				A16AA705229400A2008B644C /* NowPlayingCell.swift in Sources */,
 				A189D2242296983800C01209 /* TopRatedPagesVC.swift in Sources */,
@@ -632,6 +659,7 @@
 				A16AA6FB2293CE60008B644C /* LaunchScreenVC.swift in Sources */,
 				A16AA6F22293CA07008B644C /* APIClient.swift in Sources */,
 				A1802FB8229661AF00212DEA /* UpComingMovie.swift in Sources */,
+				A13BCFEE22C917AF002C6635 /* UserloginVC.swift in Sources */,
 				A1F54BEA229EABE9003DF20F /* ProfileSliderCell.swift in Sources */,
 				A16AA6F92293CA9E008B644C /* TMTextField.swift in Sources */,
 			);

@@ -12,6 +12,13 @@
 import Foundation
 class APIClient {
     static let key = "?api_key=de05a59a85ef1e7797de8d4a6d343d0e"
+    
+    struct Auth {
+        static var accountId = 0
+        static var requestToken = ""
+        static var sessionId = ""
+    }
+    
     enum EndPoints {
         static let BASE_URL = "https://api.themoviedb.org/3/"
         static let POSTER_URL = "https://image.tmdb.org/t/p/w185_and_h278_bestv2"
@@ -31,6 +38,11 @@ class APIClient {
         case getProfileImages(Int)
         case getArtistMovieCredits(Int)
         case searchMovieResult(String)
+        
+        // Auth
+        case getRequestToken
+        case login
+        
         var stringValue : String {
             switch self {
                 case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
@@ -42,13 +54,68 @@ class APIClient {
                 case .getArtistProfielId(let id) : return  EndPoints.BASE_URL + "person/\(id)" + EndPoints.apiKeyParam
                 case .getProfileImages (let id): return  EndPoints.BASE_URL + "person/\(id)/images" + EndPoints.apiKeyParam
                 case .getArtistMovieCredits(let id): return EndPoints.BASE_URL + "person/\(id)/movie_credits" + EndPoints.apiKeyParam
-            case .searchMovieResult(let query): return EndPoints.BASE_URL + "search/movie" + EndPoints.apiKeyParam + "&query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))"
+                case .searchMovieResult(let query): return EndPoints.BASE_URL + "search/movie" + EndPoints.apiKeyParam + "&query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))"
+                
+                // Auth
+                case .getRequestToken : return EndPoints.BASE_URL + "authentication/token/new" + EndPoints.apiKeyParam
+                case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
             return URL(string: stringValue)!
         }
     }
+    
+    class func login(username: String, password: String, completion: @escaping(Bool, Error?)-> Void){
+        var request = URLRequest(url: EndPoints.login.url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body = LoginRequest(username: username, password: password, requestToken: Auth.requestToken)
+        request.httpBody = try! JSONEncoder().encode(body)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                completion(false, error)
+                return
+            }
+            
+            
+            do {
+                let decoder = JSONDecoder()
+                let requestLogin = try decoder.decode(RequesTokenResponse.self, from: data)
+                Auth.requestToken = requestLogin.requestToken
+                completion(true, nil)
+            } catch {
+                completion(false, error)
+            }
+        }
+        task.resume()
+        
+    }
+    
+    class func getRequestToken (completion: @escaping(Bool, Error?)-> Void) {
+        let task = URLSession.shared.dataTask(with: EndPoints.getRequestToken.url) { (data, response, error) in
+            guard let data = data else {
+                completion(false, error)
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(RequesTokenResponse.self, from: data)
+                Auth.requestToken = responseObject.requestToken
+                completion(true, nil)
+            } catch {
+                completion(true, nil)
+            }
+            
+        }
+        task.resume()
+    }
+    
+    
+    
+    
     // @GET REQUEST
     class func taskForGETRequest<ResponseType: Decodable>(url : URL, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?)-> Void) {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
