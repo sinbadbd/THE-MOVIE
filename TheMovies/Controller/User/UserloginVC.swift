@@ -72,16 +72,18 @@ class UserloginVC: UIViewController {
         usernameTextField.layer.borderColor = UIColor.gray.cgColor
         usernameTextField.layer.borderWidth = 1
         
-        let leftNameIcon =  UIImage(named: "like")
+        let leftNameIcon =  UIImage(named: "avatar")
 
         usernameTextField.setLeftIcon(leftNameIcon!)
         
+        
+        let passworIcon =  UIImage(named: "lock-2") 
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.anchor(top: usernameTextField.bottomAnchor, leading: loginView.leadingAnchor, bottom: nil, trailing: loginView.trailingAnchor, padding: .init(top: 15, left: 20, bottom: 0, right: 20), size: CGSize(width: 240, height: 44))
         passwordTextField.backgroundColor = .white
         passwordTextField.layer.cornerRadius = 8
         passwordTextField.placeholder = "Password"
-        passwordTextField.setLeftIcon(leftNameIcon!)
+        passwordTextField.setLeftIcon(passworIcon!)
         passwordTextField.isSecureTextEntry = true
         passwordTextField.layer.borderColor = UIColor.gray.cgColor
         passwordTextField.layer.borderWidth = 1
