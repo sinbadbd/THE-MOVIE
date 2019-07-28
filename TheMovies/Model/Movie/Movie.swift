@@ -9,16 +9,16 @@
 import Foundation
 
 struct Movie : Decodable {
-    let page: Int
-    let totalResults: Int
-    let totalPages: Int
-    let results: [Result]
+    let page: Int?
+    let results: [Result]?
+    let totalPages: Int?
+    let totalResults: Int?
     
     enum CodingKeys: String, CodingKey {
         case page = "page"
-        case totalResults = "total_results"
-        case totalPages = "total_pages"
         case results = "results"
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
     }
 }
 

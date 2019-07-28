@@ -11,6 +11,7 @@ import SVProgressHUD
 
 class UserloginVC: UIViewController {
 
+    var defaults = UserDefaults.standard
     
     let loginView:UIView = UIView()
     let usernameTextField : UITextField = UITextField()
@@ -96,7 +97,9 @@ class UserloginVC: UIViewController {
         loginButton.setTitle("Login", for: .normal)
         loginButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         
-        goProfileVC()
+        if defaults.bool(forKey: "isLogin") == true {
+            goProfileVC()
+        }
     }
     
     @objc func handleShowLoginView(){
@@ -120,38 +123,44 @@ class UserloginVC: UIViewController {
                 DispatchQueue.main.async {
                     let username = self.usernameTextField.text ?? ""
                     let password = self.passwordTextField.text ?? ""
-                    let defaults = UserDefaults.standard
-
-                    
+                   
+ 
                     if username == ""  || password == "" {
                         print("hi")
                         SVProgressHUD.dismiss()
-                    }
-                  //  print(username, password)
-                    APIClient.login(username: username, password: password, completion: { (success, error) in
-                        if success {
-                            SVProgressHUD.dismiss()
-
-                            print("requestToken: \(APIClient.Auth.requestToken)")
-                            APIClient.createSessionId(completion: { (success, error) in
-                                if success {
-                                    let nameX = defaults.set(username, forKey: "name")
-                                    defaults.set(password, forKey: "password")
-
-                                   // print(nameX)
-                                    let d = defaults.string(forKey: "name")
-                                    let p = defaults.string(forKey: "password")
-
-                                  //  print("get:\(d)\(p)")
-                                    print("sessionId: \(APIClient.Auth.sessionId)")
-                                    DispatchQueue.main.async{
-                                        self.goProfileVC()
+                        let alert =  UIAlertController(title: "Alert", message: "Email &    Password wrong!", preferredStyle: .alert)
+                        let ok = UIAlertAction(title: "ok", style: .default, handler: nil)
+                        alert.addAction(ok)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        APIClient.login(username: username, password: password, completion: { (success, error) in
+                            if success {
+                                SVProgressHUD.dismiss()
+                                let log = self.defaults.set(true, forKey: "isLogin")
+                        print(username, password)
+                                print("requestToken: \(APIClient.Auth.requestToken)")
+                                APIClient.createSessionId(completion: { (success, error) in
+                                    if success {
+                                        
+                                        let nameX = self.defaults.set(username, forKey: "name")
+                                        self.defaults.set(password, forKey: "password")
+                                        
+                                        // print(nameX)
+                                        //  let d = defaults.string(forKey: "name")
+                                        //   let p = defaults.string(forKey: "password")
+                                        
+                                        //  print("get:\(d)\(p)")
+                                        print("sessionId: \(APIClient.Auth.sessionId)")
+                                        DispatchQueue.main.async{
+                                            print(log)
+                                            self.goProfileVC()
+                                        }
+                                        SVProgressHUD.dismiss()
                                     }
-                                    SVProgressHUD.dismiss()
-                                }
-                            })
-                        }
-                    })
+                                })
+                            }
+                        })
+                    }
                 }
             }
         }

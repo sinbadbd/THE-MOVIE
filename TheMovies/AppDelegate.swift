@@ -26,10 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
          
-        window?.rootViewController = login
+        window?.rootViewController = launchVC
         
  
-  //    Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
+    Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleDismissSplash), userInfo: nil, repeats: false)
  
       
         
@@ -38,7 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
    @objc func handleDismissSplash(){
         let base = BaseTabController()
-        window?.rootViewController = base
+        let login = UserloginVC()
+        window?.rootViewController = login
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

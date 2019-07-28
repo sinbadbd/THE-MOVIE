@@ -38,6 +38,7 @@ class APIClient {
         case getProfileImages(Int)
         case getArtistMovieCredits(Int)
         case searchMovieResult(String)
+        case getFavoriteMovies
         
         // Auth
         case getRequestToken
@@ -60,6 +61,7 @@ class APIClient {
                 case .getRequestToken : return EndPoints.BASE_URL + "authentication/token/new" + EndPoints.apiKeyParam
                 case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
                 case .createSessionId : return EndPoints.BASE_URL + "authentication/session/new" + EndPoints.apiKeyParam
+                case .getFavoriteMovies : return EndPoints.BASE_URL + "account/favorite/movies" + EndPoints.apiKeyParam + "&session_id=\(Auth.sessionId)"
             }
         }
         var url : URL {
@@ -137,7 +139,7 @@ class APIClient {
         //print(EndPoints.getPopularMovies.url)
         taskForGETRequest(url: EndPoints.getPopularMovies.url, response: Movie.self) { (response, error) in
             if let response = response {
-               // print([response.results])
+              //  print(response)
                 completion([response], nil)
             } else {
                 completion(nil, error)
@@ -237,7 +239,7 @@ class APIClient {
     class func getPersonMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
         taskForGETRequest(url: EndPoints.getArtistMovieCredits(id).url, response: MovieCcredits.self) { (response, error) in
             if let response = response {
-              //  print("res: \(response)")
+              // print("res: \(response)")
                 completion([response], nil)
             } else {
                 completion(nil, error)
@@ -262,6 +264,22 @@ class APIClient {
         }
     }
     
+    class func getFavoriteMovie(completion: @escaping([Movie]?, Error?)->Void) {
+        print(EndPoints.getFavoriteMovies.url)
+        taskForGETRequest(url: EndPoints.getFavoriteMovies.url, response: Movie.self) { (response, error) in
+            if let response = response {
+                print([response.results])
+                //print(response.results as Any)
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    
     
     class func login(username: String, password: String, completion: @escaping(Bool, Error?)-> Void){
         
@@ -277,7 +295,7 @@ class APIClient {
     }
     
     
-    class func createSessionId(completion: @escaping(Bool, Error?)-> Void) { 
+    class func createSessionId(completion: @escaping(Bool, Error?)-> Void) {
         let body = PostSession(requestToken: Auth.requestToken)
         taskForPOSTRequest(url: EndPoints.createSessionId.url, responseType: SessionResponse.self, body: body) { (response, error) in
             if let response = response {

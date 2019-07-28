@@ -19,7 +19,9 @@ class BaseTabController : UITabBarController {
         viewControllers = [
             createNavController(viewController: MovieController(), title: "Movie", imageView: "movie"),
             createNavController(viewController: TVController(), title: "Movie", imageView: "television"),
-            createNavController(viewController: SearchVC(), title: "Search", imageView: "star-active")
+            createNavController(viewController: SearchVC(), title: "Search", imageView: "star-active"),
+            createNavController(viewController: FavoriteListVC(), title: "Favorite", imageView: "star-active")
+            
         ]
     } 
 }

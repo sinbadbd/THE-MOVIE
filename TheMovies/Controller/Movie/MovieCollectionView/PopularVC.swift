@@ -46,7 +46,7 @@ class PopularVC : UIViewController {
                 //  print("Movie\(response)")
                 DispatchQueue.main.async {
                     self.nowPlayArray = response
-                    self.res = response[0].results
+                    self.res = response[0].results ?? []
                     self.colletionView.reloadData()
                 }
             }

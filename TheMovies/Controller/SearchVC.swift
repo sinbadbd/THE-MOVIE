@@ -72,7 +72,7 @@ class SearchVC: UIViewController , UISearchBarDelegate {
         Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (_) in
             APIClient.searchMovie(query: searchText) { (response, error) in
                 if let response = response {
-                    self.result = response[0].results
+                    self.result = response[0].results ?? []
                     DispatchQueue.main.async {
                         self.collectionSearch.reloadData()
                     }
