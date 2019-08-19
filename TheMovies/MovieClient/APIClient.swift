@@ -61,7 +61,7 @@ class APIClient {
                 case .getRequestToken : return EndPoints.BASE_URL + "authentication/token/new" + EndPoints.apiKeyParam
                 case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
                 case .createSessionId : return EndPoints.BASE_URL + "authentication/session/new" + EndPoints.apiKeyParam
-                case .getFavoriteMovies : return EndPoints.BASE_URL + "account/favorite/movies" + EndPoints.apiKeyParam + "&session_id=\(Auth.sessionId)"
+                case .getFavoriteMovies : return EndPoints.BASE_URL + "account/\(Auth.accountId)/favorite/movies" + EndPoints.apiKeyParam + "&session_id=\(Auth.sessionId)" + "&sort_by=created_at.desc"
             }
         }
         var url : URL {
@@ -266,17 +266,28 @@ class APIClient {
     
     class func getFavoriteMovie(completion: @escaping([Movie]?, Error?)->Void) {
         print(EndPoints.getFavoriteMovies.url)
+//        taskForGETRequest(url: EndPoints.getFavoriteMovies.url, response: Favorit.self) { (response, error) in
+//            if let response = response {
+//                print([response.results])
+//                //print(response.results as Any)
+//                completion([response], nil)
+//            } else {
+//                completion(nil, error)
+//                print(error.debugDescription)
+//                print(error?.localizedDescription ?? "")
+//            }
+//        }
+        
         taskForGETRequest(url: EndPoints.getFavoriteMovies.url, response: Movie.self) { (response, error) in
-            if let response = response {
-                print([response.results])
-                //print(response.results as Any)
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
+               if let response = response {
+                  print(response)
+                   completion([response], nil)
+               } else {
+                   completion([], error)
+                   print(error.debugDescription)
+                   print(error?.localizedDescription ?? "")
+               }
+           }
     }
     
     
