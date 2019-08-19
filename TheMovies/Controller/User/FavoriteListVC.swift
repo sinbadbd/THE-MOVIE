@@ -39,37 +39,6 @@ class FavoriteListVC: UIViewController {
                 }
             }
         }
-        
-        
-//        APIClient.getFavoriteMovie { (response, error) in
-//            //            if let response = response {
-//            //              //  response[0].results
-//            //                print(response[0].results as Any)
-//            //            }
-//            print("hiiii")
-//            if let response = response {
-//                  print("Movie::::::\(response)")
-//                DispatchQueue.main.async {
-//                    // self.nowPlayArray = response
-//                    self.result = response
-//                    print(self.result = response)
-//                    self.tableView.reloadData()
-//                }
-//            }
-//        }
-        
-        
-        //        APIClient.getFavoriteMovie { (response, error) in
-        //            print("hi===")
-        //            if let response = response {
-        //                self.result = response[0].results ?? []
-        //               // print(response)
-        //               // print(respons)
-        //                DispatchQueue.main.async {
-        //                    self.tableView.reloadData()
-        //                }
-        //            }
-        //        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +50,7 @@ class FavoriteListVC: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: FAVLIST)
+        tableView.register(FavoriteMovieCell.self, forCellReuseIdentifier: FAVLIST)
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
         
@@ -95,10 +64,10 @@ extension FavoriteListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FAVLIST, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: FAVLIST, for: indexPath) as! FavoriteMovieCell
         let apiRes = result[indexPath.item]
-        cell.textLabel?.text = apiRes.originalTitle
-        
+      //  cell.textLabel?.text = apiRes.originalTitle
+        cell.movie = apiRes
         return cell
     }
     
