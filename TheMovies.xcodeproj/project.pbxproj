@@ -74,6 +74,7 @@
 		A1F54BEA229EABE9003DF20F /* ProfileSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BE9229EABE9003DF20F /* ProfileSliderCell.swift */; };
 		A1F54BED229EB136003DF20F /* ArtistProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BEC229EB136003DF20F /* ArtistProfile.swift */; };
 		A1F54BEF229EB344003DF20F /* PersonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F54BEE229EB344003DF20F /* PersonImage.swift */; };
+		E683A6DA230AC17E00A3C451 /* FavoriteMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E683A6D9230AC17E00A3C451 /* FavoriteMovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,6 +149,7 @@
 		A1F54BEC229EB136003DF20F /* ArtistProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistProfile.swift; sourceTree = "<group>"; };
 		A1F54BEE229EB344003DF20F /* PersonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonImage.swift; sourceTree = "<group>"; };
 		D90B778D04B2FCA2EF332B67 /* Pods-TheMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheMovies.debug.xcconfig"; path = "Target Support Files/Pods-TheMovies/Pods-TheMovies.debug.xcconfig"; sourceTree = "<group>"; };
+		E683A6D9230AC17E00A3C451 /* FavoriteMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				A10E249622C6975800C0772D /* SearchViwCell.swift */,
+				E683A6D9230AC17E00A3C451 /* FavoriteMovieCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				A1699AE42299507800693C4B /* GradientButton.swift in Sources */,
 				A1802FB6229661AF00212DEA /* TopRated.swift in Sources */,
 				A189D2272296ACAA00C01209 /* MovieDetailsVC.swift in Sources */,
+				E683A6DA230AC17E00A3C451 /* FavoriteMovieCell.swift in Sources */,
 				A1F54BD5229BDB8B003DF20F /* MovieCastCell.swift in Sources */,
 				A16AA6FB2293CE60008B644C /* LaunchScreenVC.swift in Sources */,
 				A16AA6F22293CA07008B644C /* APIClient.swift in Sources */,
