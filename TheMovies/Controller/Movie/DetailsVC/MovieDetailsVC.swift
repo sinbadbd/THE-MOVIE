@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import YouTubePlayer
 
 class MovieDetailsVC: UIViewController {
     
@@ -22,7 +23,7 @@ class MovieDetailsVC: UIViewController {
     
     let topSliderImage: UIImageView = UIImageView()
     let movieTitleLabel :UILabel = UILabel()
-    let playVedioButton: UIButton = UIButton()
+    let playVedioButton: UIButton = UIButton(type: .system)
     let posterThumImage:UIImageView = UIImageView()
     
     let ratingMainView : UIView = UIView()
@@ -72,8 +73,8 @@ class MovieDetailsVC: UIViewController {
         
         
     }
-    func fetchApiResponse(){
-        APIClient.getMovieId(id: id ?? 0) { (response, error) in
+    func fetchApiResponse(){ //
+        APIClient.getMovieId(id: 420818 ?? 0) { (response, error) in
             print("id----Movie id",self.id)
             if let response = response {
                 self.movieDetails = response
@@ -200,6 +201,16 @@ class MovieDetailsVC: UIViewController {
         posterThumImage.layer.shadowOpacity = 0.7
         posterThumImage.anchor(top: nil, leading: topSliderImage.leadingAnchor, bottom: topSliderImage.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 10, bottom: -120, right: 0), size: CGSize(width: 120, height: 180))
       
+        
+        topSliderImage.addSubview(playVedioButton)
+        playVedioButton.translatesAutoresizingMaskIntoConstraints = false
+        playVedioButton.centerInSuperview()
+        playVedioButton.backgroundColor = .red
+        playVedioButton.setTitle("Play", for: .normal)
+        playVedioButton.addTarget(self, action: #selector(handleVedioPlayer), for: .touchUpInside)
+        playVedioButton.isUserInteractionEnabled = true
+
+        
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
      //   movieOverViewContainer.backgroundColor = .blue
@@ -310,6 +321,10 @@ class MovieDetailsVC: UIViewController {
         sender.buttonType.rawValue
         print(sender.tag)
         
+    }
+    
+    @objc func handleVedioPlayer(_ sender: UIButton){
+        print("hi--")
     }
    
 }
