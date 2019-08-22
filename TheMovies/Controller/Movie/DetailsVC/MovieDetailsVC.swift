@@ -74,7 +74,7 @@ class MovieDetailsVC: UIViewController {
         
     }
     func fetchApiResponse(){ //
-        APIClient.getMovieId(id: 420818 ?? 0) { (response, error) in
+        APIClient.getMovieId(id: 299534 ?? 0) { (response, error) in
             print("id----Movie id",self.id)
             if let response = response {
                 self.movieDetails = response
@@ -324,18 +324,13 @@ class MovieDetailsVC: UIViewController {
     }
     
     @objc func handleVedioPlayer(_ sender: UIButton){
-        print("hi--fsdfsdffdsfs")
+       // print("hi--fsdfsdffdsfs")
         
         let vedioPlayer = MovieVideoVC()
+        let id = vedioPlayer.id = self.movieDetails?.id
+        print(id)
         self.present(vedioPlayer, animated: true, completion: nil)
     }
-        
-//        let alert = UIAlertController(title: "Did you bring your towel?", message: "It's recommended you bring your towel before continuing.", preferredStyle: .alert)
-//
-//        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
-//        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-//
-//        self.present(alert, animated: true)    }
    
 }
 

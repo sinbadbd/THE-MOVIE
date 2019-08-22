@@ -63,7 +63,7 @@ class APIClient {
                 case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
                 case .createSessionId : return EndPoints.BASE_URL + "authentication/session/new" + EndPoints.apiKeyParam
                 case .getFavoriteMovies : return EndPoints.BASE_URL + "account/\(Auth.accountId)/favorite/movies" + EndPoints.apiKeyParam + "&session_id=\(Auth.sessionId)" + "&sort_by=created_at.desc"
-                case .getMovieVideoId(let id) : return EndPoints.BASE_URL + "/movie/\(id)/videos" + EndPoints.apiKeyParam
+                case .getMovieVideoId(let id) : return EndPoints.BASE_URL + "movie/\(id)/videos" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -281,6 +281,7 @@ class APIClient {
     }
     
     class func getMovieVideoId(id: Int, completion: @escaping([Video]?, Error?)->Void) {
+        print(EndPoints.getMovieVideoId(420818).url)
         taskForGETRequest(url: EndPoints.getMovieVideoId(id).url, response: Video.self) { (response, error) in
             if let response = response {
                print(response)
