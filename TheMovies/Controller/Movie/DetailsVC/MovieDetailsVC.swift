@@ -73,8 +73,8 @@ class MovieDetailsVC: UIViewController {
         
         
     }
-    func fetchApiResponse(){ //
-        APIClient.getMovieId(id: 299534 ?? 0) { (response, error) in
+    func fetchApiResponse(){ //299534
+        APIClient.getMovieId(id: id ?? 0) { (response, error) in
             print("id----Movie id",self.id)
             if let response = response {
                 self.movieDetails = response
@@ -205,15 +205,16 @@ class MovieDetailsVC: UIViewController {
         topSliderImage.addSubview(playVedioButton)
         playVedioButton.translatesAutoresizingMaskIntoConstraints = false
         playVedioButton.centerInSuperview()
-        playVedioButton.setGradientButton(colorTop: UIColor(red: 249/255, green: 159/255, blue: 8/255, alpha: 1), colorBottom: UIColor(red: 219/255, green: 48/255, blue: 105/255, alpha: 1))
+        playVedioButton.setGradientBackground(colorTop: UIColor(red: 249/255, green: 159/255, blue: 8/255, alpha: 1), colorBottom: UIColor(red: 219/255, green: 48/255, blue: 105/255, alpha: 1))
         playVedioButton.addTarget(self, action: #selector(handleVedioPlayer), for: .touchUpInside)
         playVedioButton.isUserInteractionEnabled = true
         playVedioButton.layer.cornerRadius = self.playVedioButton.frame.size.width / 2
         playVedioButton.layer.masksToBounds = true
         playVedioButton.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: CGSize(width: 80, height: 80))
         playVedioButton.setImage(#imageLiteral(resourceName: "play-button"), for: .normal)
-        
-        
+        playVedioButton.clipsToBounds = true
+        playVedioButton.layer.borderColor = UIColor.red.cgColor
+        playVedioButton.layer.borderWidth = 1
         
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -335,7 +336,20 @@ class MovieDetailsVC: UIViewController {
         print(id)
         self.present(vedioPlayer, animated: true, completion: nil)
     }
-   
+    func createBlueGreenGradient(from bounds: CGRect) -> CAGradientLayer{
+        let topColor = UIColor(red: 84/255, green: 183/255, blue: 211/255, alpha: 1).cgColor
+        let bottomColor = UIColor(red: 119/255, green: 202/255, blue: 151/255, alpha: 1).cgColor
+        let gradientColors = [topColor, bottomColor]
+        
+        let gradientLocations: [NSNumber] = [0.0, 1.0]
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors
+        gradientLayer.locations = gradientLocations
+        gradientLayer.frame = bounds
+        
+        return gradientLayer
+    }
 }
 
 extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

@@ -23,11 +23,27 @@ class MovieVideoVC : UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
-       
+        
+        let mainView = UIView()
+        view.addSubview(mainView)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        mainView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        mainView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+ 
         let playerView = CGRect(x: 0, y: self.view.center.y, width: self.view.bounds.width, height: 240)
         let videoPlayer = YouTubePlayerView(frame: playerView)
-        view.addSubview(videoPlayer)
+        mainView.addSubview(videoPlayer)
+        
+        //let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector("targetViewDidTapped"))
+         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+
+        mainView.addGestureRecognizer(tap)
+      //  gesture.numberOfTapsRequired = 1
+        mainView.isUserInteractionEnabled = true
+       // mainView.addGestureRecognizer(gesture)
+        
+        
         
         guard let id = id else {return }
         
@@ -40,5 +56,9 @@ class MovieVideoVC : UIViewController {
                 }
             }
         }
+    }
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        print("Hello World")
+        self.dismiss(animated: true, completion: nil)
     }
 }
