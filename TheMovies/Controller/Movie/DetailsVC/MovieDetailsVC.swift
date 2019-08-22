@@ -205,11 +205,15 @@ class MovieDetailsVC: UIViewController {
         topSliderImage.addSubview(playVedioButton)
         playVedioButton.translatesAutoresizingMaskIntoConstraints = false
         playVedioButton.centerInSuperview()
-        playVedioButton.backgroundColor = .red
-        playVedioButton.setTitle("Play", for: .normal)
+        playVedioButton.setGradientButton(colorTop: UIColor(red: 249/255, green: 159/255, blue: 8/255, alpha: 1), colorBottom: UIColor(red: 219/255, green: 48/255, blue: 105/255, alpha: 1))
         playVedioButton.addTarget(self, action: #selector(handleVedioPlayer), for: .touchUpInside)
         playVedioButton.isUserInteractionEnabled = true
-
+        playVedioButton.layer.cornerRadius = self.playVedioButton.frame.size.width / 2
+        playVedioButton.layer.masksToBounds = true
+        playVedioButton.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: CGSize(width: 80, height: 80))
+        playVedioButton.setImage(#imageLiteral(resourceName: "play-button"), for: .normal)
+        
+        
         
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
