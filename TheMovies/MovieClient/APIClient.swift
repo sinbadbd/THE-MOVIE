@@ -40,30 +40,31 @@ class APIClient {
         case searchMovieResult(String)
         case getFavoriteMovies
         case getMovieVideoId(Int)
-        
+        case markMovieFavorite
         // Auth
         case getRequestToken
         case login
         case createSessionId
         var stringValue : String {
             switch self {
-                case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
-                case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
-                case .getTopRatedMovies: return EndPoints.BASE_URL + "movie/top_rated" + EndPoints.apiKeyParam
-                case .getDiscoverMovies: return EndPoints.BASE_URL + "discover/movie" + EndPoints.apiKeyParam
-                case .getMovieDetailsId(let id) : return EndPoints.BASE_URL + "movie/\(id)" + EndPoints.apiKeyParam
-                case .getMovieCreditsId(let id) : return  EndPoints.BASE_URL + "movie/\(id)/credits" + EndPoints.apiKeyParam
-                case .getArtistProfielId(let id) : return  EndPoints.BASE_URL + "person/\(id)" + EndPoints.apiKeyParam
-                case .getProfileImages (let id): return  EndPoints.BASE_URL + "person/\(id)/images" + EndPoints.apiKeyParam
-                case .getArtistMovieCredits(let id): return EndPoints.BASE_URL + "person/\(id)/movie_credits" + EndPoints.apiKeyParam
-                case .searchMovieResult(let query): return EndPoints.BASE_URL + "search/movie" + EndPoints.apiKeyParam + "&query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))"
+            case .getNowPlayingMovie: return EndPoints.BASE_URL + "movie/now_playing" + EndPoints.apiKeyParam
+            case .getPopularMovies : return EndPoints.BASE_URL + "movie/popular" + EndPoints.apiKeyParam
+            case .getTopRatedMovies: return EndPoints.BASE_URL + "movie/top_rated" + EndPoints.apiKeyParam
+            case .getDiscoverMovies: return EndPoints.BASE_URL + "discover/movie" + EndPoints.apiKeyParam
+            case .getMovieDetailsId(let id) : return EndPoints.BASE_URL + "movie/\(id)" + EndPoints.apiKeyParam
+            case .getMovieCreditsId(let id) : return  EndPoints.BASE_URL + "movie/\(id)/credits" + EndPoints.apiKeyParam
+            case .getArtistProfielId(let id) : return  EndPoints.BASE_URL + "person/\(id)" + EndPoints.apiKeyParam
+            case .getProfileImages (let id): return  EndPoints.BASE_URL + "person/\(id)/images" + EndPoints.apiKeyParam
+            case .getArtistMovieCredits(let id): return EndPoints.BASE_URL + "person/\(id)/movie_credits" + EndPoints.apiKeyParam
+            case .searchMovieResult(let query): return EndPoints.BASE_URL + "search/movie" + EndPoints.apiKeyParam + "&query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))"
                 
-                // Auth
-                case .getRequestToken : return EndPoints.BASE_URL + "authentication/token/new" + EndPoints.apiKeyParam
-                case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
-                case .createSessionId : return EndPoints.BASE_URL + "authentication/session/new" + EndPoints.apiKeyParam
-                case .getFavoriteMovies : return EndPoints.BASE_URL + "account/\(Auth.accountId)/favorite/movies" + EndPoints.apiKeyParam + "&session_id=\(Auth.sessionId)" + "&sort_by=created_at.desc"
-                case .getMovieVideoId(let id) : return EndPoints.BASE_URL + "movie/\(id)/videos" + EndPoints.apiKeyParam
+            // Auth
+            case .getRequestToken : return EndPoints.BASE_URL + "authentication/token/new" + EndPoints.apiKeyParam
+            case .login : return EndPoints.BASE_URL + "authentication/token/validate_with_login" + EndPoints.apiKeyParam
+            case .createSessionId : return EndPoints.BASE_URL + "authentication/session/new" + EndPoints.apiKeyParam
+            case .getFavoriteMovies : return EndPoints.BASE_URL + "account/\(Auth.accountId)/favorite/movies" + EndPoints.apiKeyParam + "&session_id=\(Auth.sessionId)" + "&sort_by=created_at.desc"
+            case .getMovieVideoId(let id) : return EndPoints.BASE_URL + "movie/\(id)/videos" + EndPoints.apiKeyParam
+            case .markMovieFavorite: return EndPoints.BASE_URL + "account/\(Auth.accountId)/favorite" + EndPoints.apiKeyParam
             }
         }
         var url : URL {
@@ -99,7 +100,7 @@ class APIClient {
         }
         task.resume()
     }
- 
+    
     // @GET REQUEST
     class func taskForGETRequest<ResponseType: Decodable>(url : URL, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?)-> Void) {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -122,178 +123,6 @@ class APIClient {
         }
         task.resume()
     }
-    
-    //@GET NOW PLAYING MOVIE LIST
-    class func getNowPlayingMovieList(completion: @escaping([NowPlayingMovie]?, Error?)-> Void) {
-       // print(EndPoints.getNowPlayingMovie.url)
-        taskForGETRequest(url: EndPoints.getNowPlayingMovie.url, response: NowPlayingMovie.self) { (response, error) in
-            if let response = response {
-                 completion([response], nil)
-            } else {
-                completion([], error)
-                print(error.debugDescription)
-            }
-        }
-    }
-    
-    //@GET POPULAR MOVIE
-    class func getPopularMovieList(completion: @escaping([Movie]?, Error?)-> Void) {
-        //print(EndPoints.getPopularMovies.url)
-        taskForGETRequest(url: EndPoints.getPopularMovies.url, response: Movie.self) { (response, error) in
-            if let response = response {
-              //  print(response)
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    //@GET TOP RATED MOVIE
-    class func getTopRatedMovieList(completion: @escaping([TopRated]?, Error?)-> Void) {
-        //print(EndPoints.getTopRatedMovies.url)
-        taskForGETRequest(url: EndPoints.getTopRatedMovies.url, response: TopRated.self) { (response, error) in
-            if let response = response {
-              //  print("topMovi\([response.results])")
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    //@GET DISCOVER MOVIE
-    class func getDiscoverMovieList(completion: @escaping([Discover]?, Error?)-> Void) {
-        //print(EndPoints.getTopRatedMovies.url)
-        taskForGETRequest(url: EndPoints.getDiscoverMovies.url, response: Discover.self) { (response, error) in
-            if let response = response {
-              //  print("topMovi\([response.results])")
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    
-    //@GET: ID MOVIES DETAILS
-    class func getMovieId(id: Int, completion: @escaping(MovieDetails?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getMovieDetailsId(id).url, response: MovieDetails.self) { (response, error) in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-                 print(error.debugDescription)
-                 print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    //@GET: ID MOVIES credits
-    class func getMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getMovieCreditsId(id).url, response: MovieCcredits.self) { (response, error) in
-            if let response = response {
-               // print("res\(response)")
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    //@GET: PERSION ID
-    class func getArtistProfileId(id: Int, completion: @escaping(Artist?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getArtistProfielId(id).url, response: Artist.self) { (response, error) in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    
-    //@GET: ID MOVIES credits
-    class func getPersonImageId(id: Int, completion: @escaping([Profile]?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getProfileImages(id).url, response: Profile.self) { (response, error) in
-            if let response = response {
-               // print("res\(response)")
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    //@GET: Artist MOVIE LIST CREDITS
-    class func getPersonMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getArtistMovieCredits(id).url, response: MovieCcredits.self) { (response, error) in
-            if let response = response {
-              // print("res: \(response)")
-                completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    
-    // Search Result
-    class func searchMovie(query: String, completion: @escaping([Movie]?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.searchMovieResult(query).url, response: Movie.self) { (response, error) in
-            if let response = response {
-               // print("search:\(response)")
-               completion([response], nil)
-            } else {
-                completion(nil, error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
-    class func getFavoriteMovie(completion: @escaping([Movie]?, Error?)->Void) {
-        print(EndPoints.getFavoriteMovies.url)
-        taskForGETRequest(url: EndPoints.getFavoriteMovies.url, response: Movie.self) { (response, error) in
-               if let response = response {
-                  print(response)
-                   completion([response], nil)
-               } else {
-                   completion([], error)
-                   print(error.debugDescription)
-                   print(error?.localizedDescription ?? "")
-               }
-           }
-    }
-    
-    class func getMovieVideoId(id: Int, completion: @escaping([Video]?, Error?)->Void) {
-        print(EndPoints.getMovieVideoId(420818).url)
-        taskForGETRequest(url: EndPoints.getMovieVideoId(id).url, response: Video.self) { (response, error) in
-            if let response = response {
-               print(response)
-                completion([response], nil)
-            } else {
-                completion([], error)
-                print(error.debugDescription)
-                print(error?.localizedDescription ?? "")
-            }
-        }
-    }
-    
     class func login(username: String, password: String, completion: @escaping(Bool, Error?)-> Void){
         
         let body = LoginRequest(username: username, password: password, requestToken: Auth.requestToken)
@@ -339,5 +168,190 @@ class APIClient {
         }
         task.resume()
     }
+    //@GET NOW PLAYING MOVIE LIST
+    class func getNowPlayingMovieList(completion: @escaping([NowPlayingMovie]?, Error?)-> Void) {
+        // print(EndPoints.getNowPlayingMovie.url)
+        taskForGETRequest(url: EndPoints.getNowPlayingMovie.url, response: NowPlayingMovie.self) { (response, error) in
+            if let response = response {
+                completion([response], nil)
+            } else {
+                completion([], error)
+                print(error.debugDescription)
+            }
+        }
+    }
+    
+    //@GET POPULAR MOVIE
+    class func getPopularMovieList(completion: @escaping([Movie]?, Error?)-> Void) {
+        //print(EndPoints.getPopularMovies.url)
+        taskForGETRequest(url: EndPoints.getPopularMovies.url, response: Movie.self) { (response, error) in
+            if let response = response {
+                //  print(response)
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET TOP RATED MOVIE
+    class func getTopRatedMovieList(completion: @escaping([TopRated]?, Error?)-> Void) {
+        //print(EndPoints.getTopRatedMovies.url)
+        taskForGETRequest(url: EndPoints.getTopRatedMovies.url, response: TopRated.self) { (response, error) in
+            if let response = response {
+                //  print("topMovi\([response.results])")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET DISCOVER MOVIE
+    class func getDiscoverMovieList(completion: @escaping([Discover]?, Error?)-> Void) {
+        //print(EndPoints.getTopRatedMovies.url)
+        taskForGETRequest(url: EndPoints.getDiscoverMovies.url, response: Discover.self) { (response, error) in
+            if let response = response {
+                //  print("topMovi\([response.results])")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    
+    //@GET: ID MOVIES DETAILS
+    class func getMovieId(id: Int, completion: @escaping(MovieDetails?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getMovieDetailsId(id).url, response: MovieDetails.self) { (response, error) in
+            if let response = response {
+                completion(response, nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET: ID MOVIES credits
+    class func getMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getMovieCreditsId(id).url, response: MovieCcredits.self) { (response, error) in
+            if let response = response {
+                // print("res\(response)")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET: PERSION ID
+    class func getArtistProfileId(id: Int, completion: @escaping(Artist?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getArtistProfielId(id).url, response: Artist.self) { (response, error) in
+            if let response = response {
+                completion(response, nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    
+    //@GET: ID MOVIES credits
+    class func getPersonImageId(id: Int, completion: @escaping([Profile]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getProfileImages(id).url, response: Profile.self) { (response, error) in
+            if let response = response {
+                // print("res\(response)")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    //@GET: Artist MOVIE LIST CREDITS
+    class func getPersonMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getArtistMovieCredits(id).url, response: MovieCcredits.self) { (response, error) in
+            if let response = response {
+                // print("res: \(response)")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    
+    // Search Result
+    class func searchMovie(query: String, completion: @escaping([Movie]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.searchMovieResult(query).url, response: Movie.self) { (response, error) in
+            if let response = response {
+                // print("search:\(response)")
+                completion([response], nil)
+            } else {
+                completion(nil, error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    // @ MARK FAVORITE MOVIE
+    class func getFavoriteMovie(completion: @escaping([Movie]?, Error?)->Void) {
+        print(EndPoints.getFavoriteMovies.url)
+        taskForGETRequest(url: EndPoints.getFavoriteMovies.url, response: Movie.self) { (response, error) in
+            if let response = response {
+                print(response)
+                completion([response], nil)
+            } else {
+                completion([], error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    
+    class func markFavorite(movieId: Int, favorite: Bool, completion: @escaping(Bool, Error?)->Void) {
+        let body = MarkFavorite(mediaType: "movie", mediaId: movieId, favorite: favorite)
+        taskForPOSTRequest(url: EndPoints.markMovieFavorite.url, responseType: MarkFavoriteResponse.self, body: body) { (response, error) in
+            if let response = response {
+                completion(response.statusCode == 1 || response.statusCode == 12 || response.statusCode == 13, nil)
+            } else {
+                completion(false, nil)
+            }
+        }
+    }
+    
+    class func getMovieVideoId(id: Int, completion: @escaping([Video]?, Error?)->Void) {
+        print(EndPoints.getMovieVideoId(420818).url)
+        taskForGETRequest(url: EndPoints.getMovieVideoId(id).url, response: Video.self) { (response, error) in
+            if let response = response {
+                print(response)
+                completion([response], nil)
+            } else {
+                completion([], error)
+                print(error.debugDescription)
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
+    
+    
     
 }

@@ -113,6 +113,8 @@ class MovieDetailsVC: UIViewController {
                 }
             }
         }
+        
+        makteFavorite()
     }
     func setupVedio(){
         let keyWindow = UIApplication.shared.keyWindow
@@ -215,6 +217,8 @@ class MovieDetailsVC: UIViewController {
         playVedioButton.clipsToBounds = true
         playVedioButton.layer.borderColor = UIColor.red.cgColor
         playVedioButton.layer.borderWidth = 1
+        playVedioButton.tintColor = .white
+        
         
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -322,20 +326,25 @@ class MovieDetailsVC: UIViewController {
         }
     }
     @objc func handleButton(_ sender: UIButton){
-        print("hi")
-        sender.buttonType.rawValue
-        print(sender.tag)
+        let selectedItem = sender.tag
         
+        if selectedItem == 0 {
+            print("Favorite: \(selectedItem)")
+            makteFavorite()
+        } else if selectedItem == 1 {
+             print("watch list: \(selectedItem)")
+        } else {
+             print("share: \(selectedItem)")
+        }
     }
     
     @objc func handleVedioPlayer(_ sender: UIButton){
-       // print("hi--fsdfsdffdsfs")
-        
         let vedioPlayer = MovieVideoVC()
-        let id = vedioPlayer.id = self.movieDetails?.id
+        vedioPlayer.id = self.movieDetails?.id
         print(id)
         self.present(vedioPlayer, animated: true, completion: nil)
     }
+    
     func createBlueGreenGradient(from bounds: CGRect) -> CAGradientLayer{
         let topColor = UIColor(red: 84/255, green: 183/255, blue: 211/255, alpha: 1).cgColor
         let bottomColor = UIColor(red: 119/255, green: 202/255, blue: 151/255, alpha: 1).cgColor
@@ -349,6 +358,36 @@ class MovieDetailsVC: UIViewController {
         gradientLayer.frame = bounds
         
         return gradientLayer
+    }
+    
+    var favorite = [Result]()
+    var favRest : Result!
+    func makteFavorite(){
+        guard let id = movieDetails?.id else {return}
+        
+    }
+    
+   // var isFavorite : Bool {
+//         favorite.contains(where: { (favRest) -> Bool in
+//            return
+//        })
+   // }
+//    func handelFavoriteResponse(success: Bool, error: Error?) {
+//        if success {
+//            if isFavorite {
+//               // favorite = favorite.filter() {$0 != favRest}
+//            } else {
+//                favorite.append(favRest)
+//            }
+//        }
+//    }
+    
+    func toggleBarButton(_ button : UIButton, enabled: Bool) {
+        if enabled {
+            button.tintColor = UIColor.red
+        } else {
+            button.tintColor = UIColor.gray
+        }
     }
 }
 

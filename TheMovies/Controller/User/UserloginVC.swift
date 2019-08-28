@@ -21,25 +21,43 @@ class UserloginVC: UIViewController {
     let bottomView:UIView = UIView()
     let btnLogin: UIButton = UIButton(type: .system)
     
-    
+    let closeButton: UIButton = UIButton(type: .system)
+    let signUpButton: UIButton = UIButton(type: .system)
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-    
+        setupView()
+    }
+    @objc func handleClose(){
+        print("hii")
+        self.loginView.alpha = 0
+        self.bottomView.alpha = 1
+        self.closeButton.alpha = 0
+    }
+   
+    func setupView(){
+        
+        
+        view.addSubview(closeButton)
+        closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 20))
+        closeButton.setImage(#imageLiteral(resourceName: "close").withRenderingMode(.alwaysOriginal), for: .normal)
+        closeButton.addTarget(self, action: #selector(handleClose), for: .touchUpInside)
+        closeButton.alpha = 0
+        
+        
         
         view.addSubview(loginView)
         loginView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 200, left: 0, bottom: 0, right: 0), size: CGSize(width: loginView.frame.width, height: loginView.frame.size.height / 3))
         loginView.translatesAutoresizingMaskIntoConstraints = false
         loginView.backgroundColor = .white
-       // loginView.wantsLayer = true
-       // loginView.layer.zPosition = 0
+        // loginView.wantsLayer = true
+        // loginView.layer.zPosition = 0
         loginView.alpha = 0
         
         loginView.addSubview(usernameTextField)
         loginView.addSubview(passwordTextField)
         loginView.addSubview(loginButton)
-        
+        loginView.addSubview(signUpButton)
         
         view.addSubview(bottomView)
         bottomView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(), size: CGSize(width: bottomView.frame.width, height: 200))
@@ -62,7 +80,7 @@ class UserloginVC: UIViewController {
         btnLogin.setTitle("Press to login!", for: .normal)
         btnLogin.addTarget(self, action: #selector(handleShowLoginView), for: .touchUpInside)
         btnLogin.setTitleColor(UIColor.white, for: .normal)
-
+        
         
         
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -74,11 +92,11 @@ class UserloginVC: UIViewController {
         usernameTextField.layer.borderWidth = 1
         
         let leftNameIcon =  UIImage(named: "avatar")
-
+        
         usernameTextField.setLeftIcon(leftNameIcon!)
         
         
-        let passworIcon =  UIImage(named: "lock-2") 
+        let passworIcon =  UIImage(named: "lock-2")
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.anchor(top: usernameTextField.bottomAnchor, leading: loginView.leadingAnchor, bottom: nil, trailing: loginView.trailingAnchor, padding: .init(top: 15, left: 20, bottom: 0, right: 20), size: CGSize(width: 240, height: 44))
         passwordTextField.backgroundColor = .white
@@ -88,7 +106,7 @@ class UserloginVC: UIViewController {
         passwordTextField.isSecureTextEntry = true
         passwordTextField.layer.borderColor = UIColor.gray.cgColor
         passwordTextField.layer.borderWidth = 1
-     
+        
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.anchor(top: passwordTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 15, left: 20, bottom: 0, right: 20), size: CGSize(width: 240, height: 50))
         loginButton.layer.cornerRadius = 8
@@ -97,10 +115,32 @@ class UserloginVC: UIViewController {
         loginButton.setTitle("Login", for: .normal)
         loginButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
         
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        signUpButton.anchor(top: loginButton.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 15, left: 20, bottom: 0, right: 20), size: CGSize(width: 240, height: 50))
+        signUpButton.layer.cornerRadius = 8
+        signUpButton.setTitleColor(UIColor.white, for: .normal)
+        signUpButton.backgroundColor = UIColor(red: 219/255, green: 48/255, blue: 105/255, alpha: 1)
+        signUpButton.setTitle("Signup", for: .normal)
+        signUpButton.addTarget(self, action: #selector(handleSignUpButton), for: .touchUpInside)
+   
+        
         if defaults.bool(forKey: "isLogin") == true {
             goProfileVC()
         }
+        
     }
+    @objc func handleSignUpButton(){
+        let url = "https://www.themoviedb.org/account/signup"
+        //  guard let url  = url else {return}
+        if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     
     @objc func handleShowLoginView(){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
@@ -108,6 +148,7 @@ class UserloginVC: UIViewController {
            // self.loginView.frame.origin.y = -20
             self.loginView.alpha = 1
             self.bottomView.alpha = 0
+            self.closeButton.alpha = 1
         }, completion: nil)
     }
     
@@ -123,8 +164,7 @@ class UserloginVC: UIViewController {
                 DispatchQueue.main.async {
                     let username = self.usernameTextField.text ?? ""
                     let password = self.passwordTextField.text ?? ""
-                   
- 
+                    
                     if username == ""  || password == "" {
                         print("hi")
                         SVProgressHUD.dismiss()
@@ -136,23 +176,11 @@ class UserloginVC: UIViewController {
                         APIClient.login(username: username, password: password, completion: { (success, error) in
                             if success {
                                 SVProgressHUD.dismiss()
-                                let log = self.defaults.set(true, forKey: "isLogin")
-                        print(username, password)
-                                print("requestToken: \(APIClient.Auth.requestToken)")
+                             //   print("requestToken: \(APIClient.Auth.requestToken)")
                                 APIClient.createSessionId(completion: { (success, error) in
                                     if success {
-                                        
-                                        let nameX = self.defaults.set(username, forKey: "name")
-                                        self.defaults.set(password, forKey: "password")
-                                        
-                                        // print(nameX)
-                                        //  let d = defaults.string(forKey: "name")
-                                        //   let p = defaults.string(forKey: "password")
-                                        
-                                        //  print("get:\(d)\(p)")
-                                        print("sessionId: \(APIClient.Auth.sessionId)")
                                         DispatchQueue.main.async{
-                                            print(log)
+                                          //  print(log)
                                             self.goProfileVC()
                                         }
                                         SVProgressHUD.dismiss()

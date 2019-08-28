@@ -30,21 +30,20 @@ class MovieVideoVC : UIViewController {
         mainView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         mainView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         
- 
+        
         let playerView = CGRect(x: 0, y: self.view.center.y, width: self.view.bounds.width, height: 240)
         let videoPlayer = YouTubePlayerView(frame: playerView)
         mainView.addSubview(videoPlayer)
         
         //let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector("targetViewDidTapped"))
-         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        
         mainView.addGestureRecognizer(tap)
-      //  gesture.numberOfTapsRequired = 1
+        //  gesture.numberOfTapsRequired = 1
         mainView.isUserInteractionEnabled = true
-       // mainView.addGestureRecognizer(gesture)
+        // mainView.addGestureRecognizer(gesture)
         
-        
-        
+            
         guard let id = id else {return }
         
         APIClient.getMovieVideoId(id: id) { (response, error) in
@@ -52,7 +51,11 @@ class MovieVideoVC : UIViewController {
                 self.video = response[0].results ?? []
                 // print(response)
                 DispatchQueue.main.async {
-                    videoPlayer.loadVideoID(self.video[0].key ?? "")
+                    if response.count > 0 {
+                        videoPlayer.loadVideoID(self.video[0].key ?? "")
+                    } else {
+                        print("not data forunt!!!")
+                    }
                 }
             }
         }
