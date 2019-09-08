@@ -36,7 +36,7 @@ class MovieVideoVC : UIViewController {
         mainView.addSubview(videoPlayer)
         
         //let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector("targetViewDidTapped"))
-         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+         let tap = UITapGestureRecognizer(target: self, action: #selector (self.handleTap(_:)))
 
         mainView.addGestureRecognizer(tap)
       //  gesture.numberOfTapsRequired = 1
