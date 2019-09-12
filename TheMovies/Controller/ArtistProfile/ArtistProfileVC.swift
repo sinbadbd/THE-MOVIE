@@ -57,7 +57,6 @@ class ArtistProfileVC : UIViewController {
         
         fetchAPI()
         
-        
     }
     
     func fetchAPI(){ //2888: id
@@ -90,6 +89,25 @@ class ArtistProfileVC : UIViewController {
         }
     }
     
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let x = targetContentOffset.pointee.x
+        
+        pageControl.currentPage = Int(x / view.frame.width)
+        
+    }
+    
+    
+    private lazy var pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.currentPage = 0
+        pc.numberOfPages = 5
+        pc.currentPageIndicatorTintColor = .red
+        pc.pageIndicatorTintColor = UIColor(red: 249/255, green: 207/255, blue: 224/255, alpha: 1)
+        return pc
+    }()
+   
     func setNavigationBar() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(backButton)
@@ -142,8 +160,15 @@ class ArtistProfileVC : UIViewController {
         
         contentView.addSubview(colletionView)
        // colletionView.backgroundColor = .white
+        colletionView.backgroundColor = .white
         colletionView.translatesAutoresizingMaskIntoConstraints = false
         colletionView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size : CGSize(width: colletionView.frame.width, height: 300))
+        colletionView.addSubview(pageControl)
+        pageControl.anchor(top: nil, leading: colletionView.leadingAnchor, bottom: colletionView.bottomAnchor, trailing: colletionView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 50, right: 0), size : CGSize(width: pageControl.frame.width, height: 40))
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        //pageControl.backgroundColor = .red
+         pageControl.centerInSuperview()
+        
     }
     
     func setupView(){

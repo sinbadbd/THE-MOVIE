@@ -74,45 +74,54 @@ class MovieDetailsVC: UIViewController {
         
     }
     func fetchApiResponse(){ //299534
-        APIClient.getMovieId(id: id ?? 0) { (response, error) in
-            print("id----Movie id",self.id)
-            if let response = response {
-                self.movieDetails = response
-                print(response)
-                DispatchQueue.main.async {
-                    if  response.backdropPath != nil {
-                        let imgUrl = URL(string: "\(APIClient.EndPoints.BACKDROP_PATH + response.backdropPath!)")
-                        self.topSliderImage.sd_setImage(with: imgUrl, completed: nil)
-                    }
-                    if response.posterPath != nil {
-                        let posterURL = URL(string: "\(APIClient.EndPoints.POSTER_URL + response.posterPath!)")
-                        self.posterThumImage.sd_setImage(with: posterURL, completed: nil)
+      //  guard let idSet = movieDetails?.id else {return}
+        
+        if id != nil {
+            APIClient.getMovieId(id: id ?? id) { (response, error) in
+                print("id----Movie id",self.id)
+                if let response = response {
+                    self.movieDetails = response
+                    print(response)
+                    DispatchQueue.main.async {
+                        if  response.backdropPath != nil {
+                            let imgUrl = URL(string: "\(APIClient.EndPoints.BACKDROP_PATH + response.backdropPath!)")
+                            self.topSliderImage.sd_setImage(with: imgUrl, completed: nil)
+                        }
+                        if response.posterPath != nil {
+                            let posterURL = URL(string: "\(APIClient.EndPoints.POSTER_URL + response.posterPath!)")
+                            self.posterThumImage.sd_setImage(with: posterURL, completed: nil)
+                            
+                        }
+                        self.movieTitleLabel.text = response.originalTitle
                         
+                        
+                        self.textlayer.string = "\(String(describing: response.voteAverage))"
+                        self.basickAnimation.toValue = response.voteAverage
+                        self.overviewTextLabel.text = response.overview
+                        self.collectionView.reloadData()
                     }
-                    self.movieTitleLabel.text = response.originalTitle
-                    
-                    
-                    self.textlayer.string = "\(String(describing: response.voteAverage))"
-                    self.basickAnimation.toValue = response.voteAverage
-                    self.overviewTextLabel.text = response.overview
-                    self.collectionView.reloadData()
                 }
             }
         }
+        
         
         
         // MOVIE CREDITS API CALL
         //movieCredit
-        APIClient.getMovieCreditsId(id: id ?? 0) { (response, error) in
-            print("id----movie credit id",self.id)
-            if let response = response {
-                self.casts = response[0].cast ?? []
-               // print("credit\(response)")
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+        if id != nil {
+            APIClient.getMovieCreditsId(id: id ) { (response, error) in
+                print("id----movie credit id",self.id)
+                if let response = response {
+                    self.casts = response[0].cast ?? []
+                    // print("credit\(response)")
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
                 }
             }
         }
+        
+        makteFavorite()
     }
     func setupVedio(){
         let keyWindow = UIApplication.shared.keyWindow
@@ -215,6 +224,8 @@ class MovieDetailsVC: UIViewController {
         playVedioButton.clipsToBounds = true
         playVedioButton.layer.borderColor = UIColor.red.cgColor
         playVedioButton.layer.borderWidth = 1
+        playVedioButton.tintColor = .white
+        
         
         contentView.addSubview(movieOverViewContainer)
         movieOverViewContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -322,20 +333,26 @@ class MovieDetailsVC: UIViewController {
         }
     }
     @objc func handleButton(_ sender: UIButton){
-        print("hi")
-        sender.buttonType.rawValue
-        print(sender.tag)
+        let selectedItem = sender.tag
         
+        if selectedItem == 0 {
+            print("Favorite: \(selectedItem)")
+            makteFavorite()
+            toggleBarButton(sender, enabled: true)
+        } else if selectedItem == 1 {
+             print("watch list: \(selectedItem)")
+        } else {
+             print("share: \(selectedItem)")
+        }
     }
     
     @objc func handleVedioPlayer(_ sender: UIButton){
-       // print("hi--fsdfsdffdsfs")
-        
         let vedioPlayer = MovieVideoVC()
-        let id = vedioPlayer.id = self.movieDetails?.id
+        vedioPlayer.id = self.movieDetails?.id
         print(id)
         self.present(vedioPlayer, animated: true, completion: nil)
     }
+    
     func createBlueGreenGradient(from bounds: CGRect) -> CAGradientLayer{
         let topColor = UIColor(red: 84/255, green: 183/255, blue: 211/255, alpha: 1).cgColor
         let bottomColor = UIColor(red: 119/255, green: 202/255, blue: 151/255, alpha: 1).cgColor
@@ -349,6 +366,36 @@ class MovieDetailsVC: UIViewController {
         gradientLayer.frame = bounds
         
         return gradientLayer
+    }
+    
+    var favorite = [Result]()
+    var favRest : Result!
+    func makteFavorite(){
+        guard (movieDetails?.id) != nil else {return}
+        
+    }
+    
+    // var isFavorite : Bool {
+    //         favorite.contains(where: { (favRest) -> Bool in
+    //            return
+    //        })
+    // }
+    //    func handelFavoriteResponse(success: Bool, error: Error?) {
+    //        if success {
+    //            if isFavorite {
+    //               // favorite = favorite.filter() {$0 != favRest}
+    //            } else {
+    //                favorite.append(favRest)
+    //            }
+    //        }
+    //    }
+    
+    func toggleBarButton(_ button : UIButton, enabled: Bool) {
+        if enabled {
+            button.tintColor = UIColor.red
+        } else {
+            button.tintColor = UIColor.gray
+        }
     }
 }
 
