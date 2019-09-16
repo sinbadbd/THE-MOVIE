@@ -10,6 +10,8 @@ import UIKit
 class TVController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        
+        navigationItem.title = "TV"
     }
 }

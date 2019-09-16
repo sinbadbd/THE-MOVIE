@@ -28,6 +28,7 @@ class APIClient {
         static let apiKeyParam = key 
         static let PAGE = "&page"
         
+        // MOVIE
         case getNowPlayingMovie
         case getPopularMovies
         case getTopRatedMovies
@@ -39,6 +40,9 @@ class APIClient {
         case getArtistMovieCredits(Int)
         case searchMovieResult(String)
         case getFavoriteMovies
+        
+        
+        // TV
         
         // Auth
         case getRequestToken
