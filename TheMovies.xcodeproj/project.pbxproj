@@ -11,6 +11,7 @@
 		A10E249722C6975800C0772D /* SearchViwCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10E249622C6975800C0772D /* SearchViwCell.swift */; };
 		A118B34B229AF272006BB697 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118B34A229AF272006BB697 /* MovieDetails.swift */; };
 		A118B34D229C60BC006BB697 /* MovieCcredits.swift in Sources */ = {isa = PBXBuildFile; fileRef = A118B34C229C60BC006BB697 /* MovieCcredits.swift */; };
+		A126B9212339249E0019D1B9 /* TopTVView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A126B9202339249D0019D1B9 /* TopTVView.swift */; };
 		A13BCFE822C9127A002C6635 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFE722C9127A002C6635 /* LoginRequest.swift */; };
 		A13BCFEB22C914A3002C6635 /* RequesTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */; };
 		A13BCFEE22C917AF002C6635 /* UserloginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BCFED22C917AF002C6635 /* UserloginVC.swift */; };
@@ -83,6 +84,7 @@
 		A10E249622C6975800C0772D /* SearchViwCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViwCell.swift; sourceTree = "<group>"; };
 		A118B34A229AF272006BB697 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		A118B34C229C60BC006BB697 /* MovieCcredits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCcredits.swift; sourceTree = "<group>"; };
+		A126B9202339249D0019D1B9 /* TopTVView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTVView.swift; sourceTree = "<group>"; };
 		A13BCFE722C9127A002C6635 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		A13BCFEA22C914A3002C6635 /* RequesTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequesTokenResponse.swift; sourceTree = "<group>"; };
 		A13BCFED22C917AF002C6635 /* UserloginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserloginVC.swift; sourceTree = "<group>"; };
@@ -377,6 +379,14 @@
 			path = CELL;
 			sourceTree = "<group>";
 		};
+		A16C5CE4232FF86E003D059C /* TopTv */ = {
+			isa = PBXGroup;
+			children = (
+				A126B9202339249D0019D1B9 /* TopTVView.swift */,
+			);
+			path = TopTv;
+			sourceTree = "<group>";
+		};
 		A1802FBE229664B500212DEA /* Movie */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +443,7 @@
 		A19D9175229DAFE5006C766A /* TV */ = {
 			isa = PBXGroup;
 			children = (
+				A16C5CE4232FF86E003D059C /* TopTv */,
 				A19D9176229DAFFB006C766A /* TVController.swift */,
 			);
 			path = TV;
@@ -681,6 +692,7 @@
 				E683A6DA230AC17E00A3C451 /* FavoriteMovieCell.swift in Sources */,
 				A1F54BD5229BDB8B003DF20F /* MovieCastCell.swift in Sources */,
 				A16AA6FB2293CE60008B644C /* LaunchScreenVC.swift in Sources */,
+				A126B9212339249E0019D1B9 /* TopTVView.swift in Sources */,
 				A16AA6F22293CA07008B644C /* APIClient.swift in Sources */,
 				A1802FB8229661AF00212DEA /* UpComingMovie.swift in Sources */,
 				A13BCFEE22C917AF002C6635 /* UserloginVC.swift in Sources */,
