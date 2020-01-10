@@ -7,6 +7,10 @@ THE-MOVIE: 'https://developers.themoviedb.org/3'
 ```text
   https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>
 ```
+```
+ username: imufun
+ password: 1234asdf
+```
 
 ### [https://developers.themoviedb.org/3/movies/get-movie-details](https://developers.themoviedb.org/3/movies/get-movie-details)
 
