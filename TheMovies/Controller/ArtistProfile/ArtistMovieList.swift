@@ -8,7 +8,7 @@
 
 import UIKit
 import SDWebImage
-class ArtistMovieList : UIView {
+class ArtistMovieList : UIView{
     
     let ARTIST_MOVIE_LIST = "MOVIELIST"
     
@@ -39,7 +39,7 @@ class ArtistMovieList : UIView {
         colletionView.delegate = self
         colletionView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 20, left: 10, bottom: 10, right: 0), size: CGSize(width: colletionView.frame.width, height: 250))
         colletionView.backgroundColor = #colorLiteral(red: 0.2033947077, green: 0.2201191104, blue: 0.2415348346, alpha: 1)
-        
+        colletionView.showsHorizontalScrollIndicator = false
         
         APIClient.getPersonMovieCreditsId(id: 287) { (response, error) in
             if let response = response {
@@ -89,6 +89,15 @@ extension ArtistMovieList : UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selected = casts[indexPath.item]
+        let details = MovieDetailsVC()
+        details.id = selected.id
+        
+        var topVC = UIApplication.shared.keyWindow?.rootViewController
+        while((topVC!.presentedViewController) != nil) {
+            topVC = topVC!.presentedViewController
+        }
+        topVC?.present(details, animated: true, completion: nil)
         print(indexPath)
     }
 
@@ -122,6 +131,7 @@ class artistMovieCell : UICollectionViewCell {
         addSubview(artistMovieTitle)
         artistMovieTitle.anchor(top: artistMovieImage.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         artistMovieTitle.numberOfLines = 3
+        artistMovieTitle.textColor = .white
         
     }
     
