@@ -88,21 +88,11 @@ class ArtistProfileVC : UIViewController {
             }
         }
     }
-    
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        let x = targetContentOffset.pointee.x
-        
-        pageControl.currentPage = Int(x / view.frame.width)
-        
-    }
-    
-    
+ 
     private lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.currentPage = 0
-        pc.numberOfPages = 5
+        pc.numberOfPages = profile.count
         pc.currentPageIndicatorTintColor = .red
         pc.pageIndicatorTintColor = UIColor(red: 249/255, green: 207/255, blue: 224/255, alpha: 1)
         return pc
@@ -162,15 +152,35 @@ class ArtistProfileVC : UIViewController {
        // colletionView.backgroundColor = .white
         colletionView.backgroundColor = .white
         colletionView.translatesAutoresizingMaskIntoConstraints = false
+        colletionView.showsHorizontalScrollIndicator = false
+        colletionView.isPagingEnabled = true
         colletionView.anchor(top: contentView.topAnchor, leading: contentView.leadingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0),size : CGSize(width: colletionView.frame.width, height: 300))
         colletionView.addSubview(pageControl)
         pageControl.anchor(top: nil, leading: colletionView.leadingAnchor, bottom: colletionView.bottomAnchor, trailing: colletionView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 50, right: 0), size : CGSize(width: pageControl.frame.width, height: 40))
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         //pageControl.backgroundColor = .red
          pageControl.centerInSuperview()
-        
+        self.setTimer()
+        self.autoScroll()
     }
-    
+    // add timer for auto scrolling
+       func setTimer() {
+           let _ = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(autoScroll), userInfo: nil,
+     repeats: true)
+       }
+       var x = 1
+       // create auto scroll
+       @objc func autoScroll() {
+           self.pageControl.currentPage = x
+           if self.x < 10 {
+               let indexPath = IndexPath(item: x, section: 0)
+               self.colletionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+               self.x = self.x + 1
+           } else {
+               self.x = 0
+               self.colletionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+           }
+       }
     func setupView(){
         contentView.addSubview(artistView)
         artistView.translatesAutoresizingMaskIntoConstraints = false
@@ -199,8 +209,12 @@ class ArtistProfileVC : UIViewController {
         artistImage.layer.cornerRadius = 8
         artistImage.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         artistImage.anchor(top: artistDepartment.bottomAnchor, leading: artistView.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 15, left: 10, bottom: 0, right: 15), size: CGSize(width: 100, height: 150))
+        artistImage.isUserInteractionEnabled = true
         
-        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+              artistImage.addGestureRecognizer(tapGestureRecognizer)
+      
+          
         
         artistView.addSubview(artistDescription)
         artistDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -222,6 +236,17 @@ class ArtistProfileVC : UIViewController {
         artistmovieList.translatesAutoresizingMaskIntoConstraints = false
         artistmovieList.anchor(top: artistView.bottomAnchor, leading: contentView.trailingAnchor, bottom: nil, trailing: contentView.trailingAnchor, padding: .init(top: 15, left: 15, bottom: 0, right: 0), size: CGSize(width: (keyWindow?.frame.width)!, height: 300))
     }
+
+
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        //let tappedImage = tapGestureRecognizer.view as! UIImageView
+        // And some actions
+        print("tappedIma====")
+        let artistSlider =  ArtistImageSlider() 
+        self.present(artistSlider, animated: true, completion: nil)
+        
+    }
+
 }
 
 extension ArtistProfileVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
