@@ -16,7 +16,7 @@ class MovieDetailsVC: UIViewController {
     
     var result = [Result]()
     var movieDetails : MovieDetails?
-    var casts = [Cast]()
+    var casts = [MovieCast]()
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -401,25 +401,29 @@ class MovieDetailsVC: UIViewController {
 
 extension MovieDetailsVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("\(casts.count)----cast")
         return casts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selected = casts[indexPath.item]
         let details = ArtistProfileVC()
-        details.id = selected.id
+        details.artistId = selected.id
         
         self.present(details, animated: true, completion: nil)
-        print(details.id)
+        print(details.artistId)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MOVIECAST_CELL, for: indexPath) as! MovieCastCell
         let apiResponse = casts[indexPath.item]
+        print(apiResponse, "apiResponse====")
         if apiResponse.profilePath != nil {
             let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiResponse.profilePath!)")
-            cell.imageView.sd_setImage(with: img, completed: nil)
+             cell.imageView.sd_setImage(with: img, completed: nil)
             cell.titleNowPlayingMovie.text = apiResponse.name
+             
+            
         } else {
             
         }

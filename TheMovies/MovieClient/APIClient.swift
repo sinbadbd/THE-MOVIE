@@ -231,6 +231,7 @@ class APIClient {
     class func getMovieId(id: Int, completion: @escaping(MovieDetails?, Error?)-> Void){
         taskForGETRequest(url: EndPoints.getMovieDetailsId(id).url, response: MovieDetails.self) { (response, error) in
             if let response = response {
+//                print("",response)
                 completion(response, nil)
             } else {
                 completion(nil, error)
@@ -242,9 +243,10 @@ class APIClient {
     
     //@GET: ID MOVIES credits
     class func getMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
+        print( EndPoints.getMovieCreditsId(id).url)
         taskForGETRequest(url: EndPoints.getMovieCreditsId(id).url, response: MovieCcredits.self) { (response, error) in
             if let response = response {
-                // print("res\(response)")
+             print("response:\(response)")
                 completion([response], nil)
             } else {
                 completion(nil, error)
@@ -283,8 +285,8 @@ class APIClient {
     }
     
     //@GET: Artist MOVIE LIST CREDITS
-    class func getPersonMovieCreditsId(id: Int, completion: @escaping([MovieCcredits]?, Error?)-> Void){
-        taskForGETRequest(url: EndPoints.getArtistMovieCredits(id).url, response: MovieCcredits.self) { (response, error) in
+    class func getPersonMovieCreditsId(id: Int, completion: @escaping([PersonMovieCredit]?, Error?)-> Void){
+        taskForGETRequest(url: EndPoints.getArtistMovieCredits(id).url, response: PersonMovieCredit.self) { (response, error) in
             if let response = response {
                 // print("res: \(response)")
                 completion([response], nil)

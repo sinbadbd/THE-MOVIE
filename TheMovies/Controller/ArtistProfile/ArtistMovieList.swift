@@ -41,10 +41,9 @@ class ArtistMovieList : UIView {
         colletionView.backgroundColor = #colorLiteral(red: 0.2033947077, green: 0.2201191104, blue: 0.2415348346, alpha: 1)
         
         
-        APIClient.getPersonMovieCreditsId(id: 2888) { (response, error) in
+        APIClient.getPersonMovieCreditsId(id: 287) { (response, error) in
             if let response = response {
-                self.casts = response[0].cast ?? []
-                
+                self.casts = response[0].cast ?? [] 
                  print("api-artist ----\(response[0].id)")
                 DispatchQueue.main.async {
                     self.colletionView.reloadData()
@@ -69,14 +68,14 @@ extension ArtistMovieList : UICollectionViewDelegate, UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ARTIST_MOVIE_LIST, for: indexPath) as! artistMovieCell
         let apiData = casts[indexPath.item]
         print(apiData)
-        if apiData.profilePath != nil {
-            let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiData.profilePath!)")
+        if apiData.backdropPath != nil {
+            let img =  URL(string: "\(APIClient.EndPoints.PROFILE_URL + apiData.backdropPath!)")
             cell.artistMovieImage.sd_setImage(with: img, completed: nil)
         } else {
             
         }
         
-        cell.artistMovieTitle.text = apiData.name
+        cell.artistMovieTitle.text = apiData.originalTitle
         
         cell.backgroundColor = #colorLiteral(red: 0.250479877, green: 0.2711839974, blue: 0.2981133461, alpha: 1)
         return cell
@@ -87,6 +86,10 @@ extension ArtistMovieList : UICollectionViewDelegate, UICollectionViewDataSource
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
     }
 
 }

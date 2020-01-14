@@ -38,9 +38,9 @@ class ArtistProfileVC : UIViewController {
     var artist : Artist?
     var profile = [ProfileElement]()
     
-    var id : Int! {
+    var artistId : Int! {
         didSet {
-            print("id", id)
+            print("id", artistId)
         }
     }
     
@@ -60,7 +60,7 @@ class ArtistProfileVC : UIViewController {
     }
     
     func fetchAPI(){ //2888: id
-        APIClient.getArtistProfileId(id: id) { (response, error) in
+        APIClient.getArtistProfileId(id: artistId) { (response, error) in
             if let response = response {
                 self.artist = response
                 DispatchQueue.main.async {
@@ -79,7 +79,7 @@ class ArtistProfileVC : UIViewController {
         }
         //2888 : id
         // TOP SLIDER IMAGE ß
-        APIClient.getPersonImageId(id: id) { (response, error) in
+        APIClient.getPersonImageId(id: artistId) { (response, error) in
             if let response = response {
                 self.profile = response[0].profiles ?? []
                 DispatchQueue.main.async {
